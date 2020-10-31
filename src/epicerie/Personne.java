@@ -6,13 +6,16 @@ import java.util.Date;
 
 public abstract class Personne {
 	
-	String prenom;
-	String nom;
-	Date ddn; // Date de naissance
+	private String prenom;
+	private String nom;
+	private Date ddn; // Date de naissance
+	private int id;
+	private static int compteur;
 
 	public Personne(String prenom, String nom, String date) {
 		this.prenom = prenom;
 		this.nom = nom;
+		id = compteur++;
 		
 		// http://tutorials.jenkov.com/java-internationalization/simpledateformat.html
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -27,7 +30,7 @@ public abstract class Personne {
 	
 	public String toString() {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d MMMM yyyy");
-		return prenom + " " + nom + " né.e le "
+		return Integer.toString(id) + ", " + prenom + " " + nom + " né.e le "
 			+ simpleDateFormat.format(ddn);
 	}
 

@@ -9,6 +9,6 @@ public class Client extends Personne{
 	}
 
 	public String toString() {
-		return super.toString() + ", Client";
+		return super.toString() + ", client";
 	}
 }

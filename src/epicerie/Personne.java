@@ -9,14 +9,15 @@ public abstract class Personne {
 	
 	private String prenom;
 	private String nom;
+	protected boolean feminin;
 	private Date ddn; // Date de naissance
 	private int id;
 	private static int compteur;
 
-	public Personne(String prenom, String nom, String date) {
+	public Personne(String prenom, String nom, boolean feminin, String date) {
 		this.prenom = prenom;
 		this.nom = nom;
-		id = compteur++;
+		this.feminin = feminin;
 		
 		// http://tutorials.jenkov.com/java-internationalization/simpledateformat.html
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -27,12 +28,15 @@ public abstract class Personne {
 			e.printStackTrace();
 		}
 		
+		id = compteur++;
+		
 	}
 	
 	public String toString() {
 		SimpleDateFormat sdf = new SimpleDateFormat("d MMMM yyyy");
 		DecimalFormat df = new DecimalFormat("000,000");
-		return df.format(id) + ", " + prenom + " " + nom + " né.e le "
+		String f = feminin ? "e" : "";
+		return df.format(id) + ", " + prenom + " " + nom + ", né" + f + " le "
 			+ sdf.format(ddn);
 	}
 

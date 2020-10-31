@@ -4,11 +4,12 @@ import java.text.ParseException;
 
 public class Directeur extends Employe{
 
-	public Directeur(String prenom, String nom, String date) throws ParseException {
-		super(prenom, nom, date);
+	public Directeur(String prenom, String nom, boolean feminin, String date) throws ParseException {
+		super(prenom, nom, feminin, date);
 	}
 
 	public String toString() {
-		return super.toString() + " et directeur.trice";
+		String f = feminin ? "rice" : "eur";
+		return super.toString() + " et direct" + f;
 	}
 }

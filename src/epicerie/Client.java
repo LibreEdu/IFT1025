@@ -4,11 +4,13 @@ import java.text.ParseException;
 
 public class Client extends Personne{
 
-	public Client(String prenom, String nom, String date) throws ParseException {
-		super(prenom, nom, date);
+	public Client(String prenom, String nom, boolean feminin, String date)
+			throws ParseException {
+		super(prenom, nom, feminin, date);
 	}
 
 	public String toString() {
-		return super.toString() + ", client";
+		String f = feminin ? "e" : "";
+		return super.toString() + ", client" + f;
 	}
 }

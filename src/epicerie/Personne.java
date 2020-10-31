@@ -1,5 +1,6 @@
 package epicerie;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,9 +30,10 @@ public abstract class Personne {
 	}
 	
 	public String toString() {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("d MMMM yyyy");
-		return Integer.toString(id) + ", " + prenom + " " + nom + " né.e le "
-			+ simpleDateFormat.format(ddn);
+		SimpleDateFormat sdf = new SimpleDateFormat("d MMMM yyyy");
+		DecimalFormat df = new DecimalFormat("000,000");
+		return df.format(id) + ", " + prenom + " " + nom + " né.e le "
+			+ sdf.format(ddn);
 	}
 
 }

@@ -1,6 +1,7 @@
 package epicerie;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -37,7 +38,14 @@ public class Main {
 		Client client5 = new Client("Françoise", "Ça", "1999-02-31", true);
 		repertoire.add(client5);
 
-		// System.out.println(repertoire.toString());
+		//System.out.println(repertoire.toString());
+		
+		/*
+		ArrayList<Personne> liste = repertoire.search("De ");
+		for(Personne personne : liste) {
+			System.out.println(personne.toString());
+		}
+		*/
 		
 	}
 

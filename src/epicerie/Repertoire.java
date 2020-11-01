@@ -43,36 +43,14 @@ public class Repertoire {
 		return repertoire.remove(personne);
 	}
 	
-	/*private int find(Personne searched) {
-		for (int i = 0; i < repertoire.size(); i ++) {
-			if () {
-				
-			}
-		    // i is the index
-		    // yourArrayList.get(i) is the element
-		}
-		for(Personne personne : repertoire) {
-			if () {
-				return 
-			}			
-		}
-	}*/
-	
-	/* 
-	public ArrayList<Personne> search(String prenom, String nom)
-			throws ParseException {
+	public ArrayList<Personne> search(String searchedString) {
 		ArrayList<Personne> liste = new ArrayList<Personne>();
-		Client searched = new Client(prenom, nom, "1900-01-01", false);
 		for(Personne personne : repertoire) {
-			if (personne.compareTo(searched) == 0) {
+			if (personne.getNom().startsWith(searchedString)) {
 				liste.add(personne);
 			}			
 		}
 		return liste;
 	}
-	
-	public int size() {
-		return repertoire.size();
-	}
-	*/
+
 }

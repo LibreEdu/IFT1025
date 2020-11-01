@@ -35,9 +35,20 @@ public class Repertoire {
 		return compteur;
 	}
 	
-	/*private int find(int id) {
+	public int indexOf(Personne personne) {
+		return repertoire.indexOf(personne);
+	}
+	
+	/*private int find(Personne searched) {
+		for (int i = 0; i < repertoire.size(); i ++) {
+			if () {
+				
+			}
+		    // i is the index
+		    // yourArrayList.get(i) is the element
+		}
 		for(Personne personne : repertoire) {
-			if (personne.getId() == id) {
+			if () {
 				return 
 			}			
 		}

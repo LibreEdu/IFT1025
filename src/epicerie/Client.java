@@ -11,6 +11,6 @@ public class Client extends Personne{
 
 	public String toString() {
 		String f = feminin ? "e" : "";
-		return super.toString() + ", client" + f;
+		return super.toString() + ", est un" + f + " client" + f;
 	}
 }

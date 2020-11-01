@@ -13,6 +13,7 @@ public abstract class Personne implements Comparable<Personne> {
 	private LocalDate ddn; // Date de naissance
 	protected boolean feminin;
 	private String courriel;
+	private String role;
 	private int id;
 	private static int compteur;
 
@@ -42,6 +43,9 @@ public abstract class Personne implements Comparable<Personne> {
 		} else {
 			courriel = prenom + "." + nom + nbCourriels + "@" + Magasin.getTld();
 		}
+		
+		// class epicerie.Client => Client
+		role = this.getClass().toString().replaceAll(".+\\.","");
 		
 		id = compteur++;
 		
@@ -96,7 +100,7 @@ public abstract class Personne implements Comparable<Personne> {
 		DecimalFormat df = new DecimalFormat("000,000");
 		String f = feminin ? "e" : "";
 		return df.format(id) + ", " + prenom + " " + nom + ", né" + f + " le "
-			+ ddn.format(dtf) + ", " + courriel;
+			+ ddn.format(dtf) + ", " + courriel + ", classe " + role;
 	}
 
 	public int compareTo (Personne personne) {

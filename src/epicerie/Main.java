@@ -10,26 +10,26 @@ public class Main {
 		
 		Repertoire rep = new Repertoire();
 		
-		Directeur v = new Directeur("Valériane", "Vukosavljević", "1994-04-29", true);
-		rep.add(v);
+		Directeur d = new Directeur("Valériane", "Vukosavljević", "1994-04-29", true);
+		rep.add(d);
 
 		Employe e = new Employe("Éric-Emmanuel", "De Morgan", "1960-03-28", false);
 		rep.add(e);
 
-		Client e2 = new Client("Eric-Emmanuel", "DeMorgan", "1906-06-27", false);
-		rep.add(e2);
+		Client c = new Client("Eric-Emmanuel", "DeMorgan", "1906-06-27", false);
+		rep.add(c);
 
-		Client e3 = new Client("Éric-Emmanuel", "De Morgane", "1966-09-26", false);
-		rep.add(e3);
+		Client c2 = new Client("Éric-Emmanuel", "De Morgane", "1966-09-26", false);
+		rep.add(c2);
 
-		Client l = new Client("Lénaïc", "Le Breton", "1975-09-08", true);
-		rep.add(l);
+		Client c3 = new Client("Lénaïc", "Le Breton", "0005-09-08", true);
+		rep.add(c3);
 		
-		Client s = new Client("Sofía", "de Borbón y Ortiz", "2007-04-29", true);
-		rep.add(s);
+		Client c4 = new Client("Sofía", "de Borbón y Ortiz", "2007-04-29", true);
+		rep.add(c4);
 
-		Client f = new Client("Françoise", "Ça", "1999-02-31", true);
-		rep.add(f);
+		Client c5 = new Client("Françoise", "Ça", "1999-02-31", true);
+		rep.add(c5);
 
 		System.out.println(rep.toString());
 		

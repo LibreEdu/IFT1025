@@ -47,16 +47,56 @@ public abstract class Personne implements Comparable<Personne> {
 		
 	}
 	
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public LocalDate getDdn() {
+		return ddn;
+	}
+
+	public void setDdn(LocalDate ddn) {
+		this.ddn = ddn;
+	}
+
+	public boolean isFeminin() {
+		return feminin;
+	}
+
+	public void setFeminin(boolean feminin) {
+		this.feminin = feminin;
+	}
+
+	public String getCourriel() {
+		return courriel;
+	}
+
+	public void setCourriel(String courriel) {
+		this.courriel = courriel;
+	}
+
+	public int getId() {
+		return id;
+	}
+
 	public String toString() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d MMMM yyyy");
 		DecimalFormat df = new DecimalFormat("000,000");
 		String f = feminin ? "e" : "";
 		return df.format(id) + ", " + prenom + " " + nom + ", né" + f + " le "
 			+ ddn.format(dtf) + ", " + courriel;
-	}
-	
-	public String getCourriel() {
-		return courriel;
 	}
 
 	public int compareTo (Personne personne) {
@@ -73,6 +113,5 @@ public abstract class Personne implements Comparable<Personne> {
 	    str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");
 	    return str;
 	}
-
 
 }

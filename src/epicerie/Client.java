@@ -4,9 +4,9 @@ import java.text.ParseException;
 
 public class Client extends Personne{
 
-	public Client(String prenom, String nom, boolean feminin, String date)
+	public Client(String prenom, String nom, String date, boolean feminin)
 			throws ParseException {
-		super(prenom, nom, feminin, date);
+		super(prenom, nom, date, feminin);
 	}
 
 	public String toString() {

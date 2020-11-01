@@ -5,19 +5,18 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public abstract class Personne {
+public abstract class Personne implements Comparable<Personne> {
 	
 	private String prenom;
 	private String nom;
-	protected boolean feminin;
 	private Date ddn; // Date de naissance
+	protected boolean feminin;
 	private int id;
 	private static int compteur;
 
-	public Personne(String prenom, String nom, boolean feminin, String date) {
+	public Personne(String prenom, String nom, String date, boolean feminin) {
 		this.prenom = prenom;
 		this.nom = nom;
-		this.feminin = feminin;
 		
 		// http://tutorials.jenkov.com/java-internationalization/simpledateformat.html
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -28,6 +27,7 @@ public abstract class Personne {
 			e.printStackTrace();
 		}
 		
+		this.feminin = feminin;
 		id = compteur++;
 		
 	}
@@ -38,6 +38,12 @@ public abstract class Personne {
 		String f = feminin ? "e" : "";
 		return df.format(id) + ", " + prenom + " " + nom + ", né" + f + " le "
 			+ sdf.format(ddn);
+	}
+	
+	public int compareTo (Personne personne) {
+		// On compare les noms, s’ils sont identiques on compare les prénoms
+		int n = nom.compareTo(personne.nom);
+		return n == 0 ? prenom.compareTo(personne.prenom) : n;
 	}
 
 }

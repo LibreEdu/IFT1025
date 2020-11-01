@@ -4,8 +4,9 @@ import java.text.ParseException;
 
 public class Directeur extends Employe{
 
-	public Directeur(String prenom, String nom, boolean feminin, String date) throws ParseException {
-		super(prenom, nom, feminin, date);
+	public Directeur(String prenom, String nom, String date, boolean feminin)
+			throws ParseException {
+		super(prenom, nom, date, feminin);
 	}
 
 	public String toString() {

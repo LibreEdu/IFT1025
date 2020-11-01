@@ -1,33 +1,38 @@
 package epicerie;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 
 public class Main {
 
 	public static void main(String[] args) throws ParseException {
+		@SuppressWarnings("unused")
+		Magasin magasin = new Magasin("magasin.ca");
+		
 		Repertoire rep = new Repertoire();
 		
-		Client tt = new Client("Dominique", "Tremblay", "2000-01-01", false);
-		rep.add(tt);
+		Directeur v = new Directeur("Valériane", "Vukosavljević", "1994-04-29", true);
+		rep.add(v);
 
-		Client tt2 = new Client("Dominique", "Tremblay", "1983-08-17", true);
-		rep.add(tt2);
+		Employe e = new Employe("Éric-Emmanuel", "De Morgan", "1960-03-28", false);
+		rep.add(e);
 
-		Client am = new Client("Augustyn", "Mirys", "1700-01-01", false);
-		rep.add(am);
+		Client e2 = new Client("Eric-Emmanuel", "DeMorgan", "1906-06-27", false);
+		rep.add(e2);
 
-		Employe ed = new Employe("Emma", "Durand", "1993-12-13", true);
-		rep.add(ed);
+		Client e3 = new Client("Éric-Emmanuel", "De Morgane", "1966-09-26", false);
+		rep.add(e3);
+
+		Client l = new Client("Lénaïc", "Le Breton", "1975-09-08", true);
+		rep.add(l);
 		
-		Directeur wd = new Directeur("Willam", "Dupond", "1995-04-01", false);
-		rep.add(wd);
+		Client s = new Client("Sofía", "de Borbón y Ortiz", "2007-04-29", true);
+		rep.add(s);
+
+		Client f = new Client("Françoise", "Ça", "1999-02-31", true);
+		rep.add(f);
+
+		System.out.println(rep.toString());
 		
-		//System.out.println(rep.toString());
-		
-		ArrayList<Personne> search = rep.Search("Dominique", "Tremblay");
-		
-		System.out.println(search.toString() + "\n");
 	}
 
 }

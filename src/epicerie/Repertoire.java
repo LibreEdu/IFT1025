@@ -39,6 +39,10 @@ public class Repertoire {
 		return repertoire.indexOf(personne);
 	}
 	
+	public boolean remove(Personne personne) {
+		return repertoire.remove(personne);
+	}
+	
 	/*private int find(Personne searched) {
 		for (int i = 0; i < repertoire.size(); i ++) {
 			if () {

@@ -39,9 +39,6 @@ public class Main {
 
 		// System.out.println(repertoire.toString());
 		
-		// System.out.println(repertoire.indexOf(directeur));
-		
-		
 	}
 
 }

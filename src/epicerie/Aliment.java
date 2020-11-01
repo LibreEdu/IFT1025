@@ -4,13 +4,13 @@ public class Aliment extends Produit {
 	
 	private String couleur;
 	private String nom;
-	private float poid;
+	private float poids;
 	
 	public Aliment(Directeur ajoutPar, String couleur, String nom, float poid) {
 		super(ajoutPar);
 		this.couleur=couleur;
 		this.nom=nom;
-		this.poid=poid;
+		this.poids=poids;
 	}
 
 	public String getCouleur() {
@@ -29,17 +29,17 @@ public class Aliment extends Produit {
 		this.nom = nom;
 	}
 
-	public float getPoid() {
-		return poid;
+	public float getPoids() {
+		return poids;
 	}
 
-	public void setPoid(float poid) {
-		this.poid = poid;
+	public void setPoid(float poids) {
+		this.poids = poids;
 	}
 
 	public boolean equals(Aliment alim) {
 		if(this.nom.equals(alim.nom) && this.couleur.equals(alim.couleur) 
-				&& this.poid == alim.poid) {
+				&& this.poids == alim.poids) {
 			return true;
 		} else {
 			return false;
@@ -48,7 +48,7 @@ public class Aliment extends Produit {
 	
 	public String toString() {
 		return super.toString()+ "Aliment: " + nom + " " + couleur 
-				+ "("+ poid + " kg)";
+				+ "("+ poids + " kg)";
 	}
 
 }

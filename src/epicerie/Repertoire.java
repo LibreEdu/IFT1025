@@ -35,6 +35,13 @@ public class Repertoire {
 		return compteur;
 	}
 	
+	/*private int find(int id) {
+		for(Personne personne : repertoire) {
+			if (personne.getId() == id) {
+				return 
+			}			
+		}
+	}*/
 	
 	/* 
 	public ArrayList<Personne> search(String prenom, String nom)

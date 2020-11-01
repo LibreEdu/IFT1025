@@ -31,8 +31,10 @@ public class Main {
 		Client c5 = new Client("Françoise", "Ça", "1999-02-31", true);
 		rep.add(c5);
 
-		System.out.println(rep.toString());
+		//System.out.println(rep.toString());
 		
+		//System.out.println(d.equals(d));
+		//System.out.println(d.equals(e));
 	}
 
 }

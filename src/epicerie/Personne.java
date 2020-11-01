@@ -29,10 +29,13 @@ public abstract class Personne implements Comparable<Personne> {
 		
 		this.feminin = feminin;
 		
+		
 		// On remplace 1 ou plusieurs espaces par rien
 		// https://stackoverflow.com/questions/5455794/removing-whitespace-from-strings-in-java
+		
 		// Puis on supprime les signes diacritiques (accent, tréma et cédille)
 		// https://stackoverflow.com/questions/1453171/remove-diacritical-marks-%c5%84-%c7%b9-%c5%88-%c3%b1-%e1%b9%85-%c5%86-%e1%b9%87-%e1%b9%8b-%e1%b9%89-%cc%88-%c9%b2-%c6%9e-%e1%b6%87-%c9%b3-%c8%b5-from-unicode-chars
+		
 		prenom = stripDiacritics(prenom.replaceAll("\\s+",""));
 		nom = stripDiacritics(nom.replaceAll("\\s+",""));
 
@@ -116,6 +119,14 @@ public abstract class Personne implements Comparable<Personne> {
 	    str = Normalizer.normalize(str, Normalizer.Form.NFD);
 	    str = DIACRITICS_AND_FRIENDS.matcher(str).replaceAll("");
 	    return str;
+	}
+	
+	public boolean equals(Personne personne) {
+		if (id == personne.getId()) {
+			return true ;
+		} else {
+			return false;
+		}
 	}
 
 }

@@ -13,4 +13,8 @@ public class Employe extends Personne{
 		String f = feminin ? "e" : "";
 		return super.toString() + ", est un" + f + " employé" + f;
 	}
+	
+	public void augmenterSolde(Client client, double montant) {
+		client.addSolde((float)montant);
+	}
 }

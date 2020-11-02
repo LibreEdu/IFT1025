@@ -38,7 +38,9 @@ public class Main {
 		Client client5 = new Client("Françoise", "Ça", "1999-02-31", true);
 		repertoire.add(client5);
 
-		//System.out.println(repertoire.toString());
+		employe.augmenterSolde(client, 1000.50);
+		
+		System.out.println(repertoire.toString());
 		
 		/*
 		ArrayList<Personne> liste = repertoire.search("De ");

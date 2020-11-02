@@ -1,5 +1,4 @@
 package epicerie;
-
 import java.text.DecimalFormat;
 import java.text.ParseException;
 
@@ -7,8 +6,7 @@ public class Client extends Personne{
 	
 	private float solde = 0;
 
-	public Client(String prenom, String nom, String date, boolean feminin)
-			throws ParseException {
+	public Client(String prenom, String nom, String date, boolean feminin) {
 		super(prenom, nom, date, feminin);
 	}
 

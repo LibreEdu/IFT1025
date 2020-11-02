@@ -3,9 +3,21 @@ package epicerie;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+/**
+ * Classe à partir de laquelle l’interface principale est lancée
+ * 
+ * @author Jeanne Laflamme
+ * @author Alexandre Pachot
+ * 
+ */
 public class Main {
-
-	public static void main(String[] args) throws ParseException {
+	
+	/**
+	 * Méthode principale
+	 * 
+	 * @param args aucun
+	 */
+	public static void main(String[] args) {
 		@SuppressWarnings("unused")
 		Magasin magasin = new Magasin("magasin.ca");
 		

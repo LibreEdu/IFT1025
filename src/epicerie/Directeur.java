@@ -2,10 +2,9 @@ package epicerie;
 
 import java.text.ParseException;
 
-public class Directeur extends Employe{
+public class Directeur extends Employe {
 
-	public Directeur(String prenom, String nom, String date, boolean feminin)
-			throws ParseException {
+	public Directeur(String prenom, String nom, String date, boolean feminin) {
 		super(prenom, nom, date, feminin);
 	}
 

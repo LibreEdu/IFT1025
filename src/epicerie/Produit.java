@@ -24,4 +24,6 @@ public abstract class Produit {
 		return id+ " [Ajouter par " + ajoutPar + "] ";
 	}
 	
+	abstract public boolean equals(Produit p);
+	
 }

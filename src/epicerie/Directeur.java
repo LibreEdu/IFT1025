@@ -13,4 +13,5 @@ public class Directeur extends Employe{
 		String f = feminin ? "rice" : "eur";
 		return super.toString() + " et direct" + f;
 	}
+	
 }

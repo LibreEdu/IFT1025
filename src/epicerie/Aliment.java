@@ -37,9 +37,11 @@ public class Aliment extends Produit {
 		this.poids = poids;
 	}
 
-	public boolean equals(Aliment alim) {
-		if(this.nom.equals(alim.nom) && this.couleur.equals(alim.couleur) 
-				&& this.poids == alim.poids) {
+	public boolean equals(Produit alim) {
+		if(!(alim instanceof Aliment)) {
+			return false;
+		} else if(this.nom.equals(((Aliment) alim).nom) && this.poids == ((Aliment) alim).poids
+				&& this.couleur.equals(((Aliment) alim).couleur)) {
 			return true;
 		} else {
 			return false;

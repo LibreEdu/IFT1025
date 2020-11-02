@@ -37,9 +37,12 @@ public class Meuble extends Produit {
 		this.prix = prix;
 	}
 	
-	public boolean equals(Meuble meuble) {
-		if(this.type.equals(meuble.type) && this.hauteurMax == meuble.hauteurMax 
-				&& this.prix == meuble.prix) {
+	public boolean equals(Produit meuble) {
+		if(!(meuble instanceof Meuble)) {
+			return false;
+		} else if(this.type.equals(((Meuble) meuble).type)
+				&& this.hauteurMax == ((Meuble) meuble).hauteurMax 
+				&& this.prix == ((Meuble) meuble).prix) {
 			return true;
 		} else {
 			return false;

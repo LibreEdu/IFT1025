@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public abstract class Personne implements Comparable<Personne> {
@@ -16,6 +17,7 @@ public abstract class Personne implements Comparable<Personne> {
 	private String role;
 	private int id;
 	private static int compteur;
+	private ArrayList<Produit> produitsPrefs = new ArrayList<Produit>();
 
 	public Personne(String prenom, String nom, String date, boolean feminin) {
 		int nbCourriels;
@@ -96,6 +98,18 @@ public abstract class Personne implements Comparable<Personne> {
 
 	public int getId() {
 		return id;
+	}
+	
+	public void addProduitPref(Produit p) {
+		produitsPrefs.add(p);
+	}
+	
+	public void delProduitPref(Produit prod) {
+		produitsPrefs.remove(prod);
+	}
+	
+	public ArrayList<Produit> getProduitsPrefs() {
+		return produitsPrefs;
 	}
 
 	public String toString() {

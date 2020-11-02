@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * Classe abstraite qui représente une personne
  * 
  * @author Alexandre Pachot
- *
+ * @author Jeanne Laflamme
  */
 public abstract class Personne implements Comparable<Personne> {
 	
@@ -24,6 +24,7 @@ public abstract class Personne implements Comparable<Personne> {
 	private int id;
 	private static int compteur;
 	private ArrayList<Produit> produitsPrefs = new ArrayList<Produit>();
+	protected float solde = 0;
 
 	public static final Pattern DIACRITICS_AND_FRIENDS
     	= Pattern.compile("[\\p{InCombiningDiacriticalMarks}\\p{IsLm}\\p{IsSk}]+");
@@ -185,6 +186,14 @@ public abstract class Personne implements Comparable<Personne> {
 		return produitsPrefs;
 	}
 
+	public float getSolde() {
+		return solde;
+	}
+
+	public void addSolde(float solde) {
+		this.solde += solde;
+	}
+	
 	/**
 	 * Concatène les informations de la personne
 	 * 
@@ -192,10 +201,12 @@ public abstract class Personne implements Comparable<Personne> {
 	 */
 	public String toString() {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d MMMM yyyy");
-		DecimalFormat df = new DecimalFormat("000,000");
+		DecimalFormat idf = new DecimalFormat("000,000");
+		DecimalFormat sf = new DecimalFormat("#,##0.00");
 		String f = feminin ? "e" : "";
-		return df.format(id) + ", " + prenom + " " + nom + ", né" + f + " le "
-			+ ddn.format(dtf) + ", " + courriel + ", classe " + role;
+		return idf.format(id) + ", " + prenom + " " + nom + ", né" + f + " le "
+			+ ddn.format(dtf) + ", " + courriel + ", classe " + role
+			+ ", solde = " + sf.format(solde);
 	}
 
 	/**
@@ -237,5 +248,4 @@ public abstract class Personne implements Comparable<Personne> {
 			return false;
 		}
 	}
-
 }

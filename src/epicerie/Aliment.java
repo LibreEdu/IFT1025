@@ -6,8 +6,7 @@ public class Aliment extends Produit {
 	private String nom;
 	private float poids;
 	
-	public Aliment(Directeur ajoutPar, String couleur, String nom, float poid) {
-		super(ajoutPar);
+	public Aliment(String couleur, String nom, float poids) {
 		this.couleur=couleur;
 		this.nom=nom;
 		this.poids=poids;

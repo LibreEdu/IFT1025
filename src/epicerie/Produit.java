@@ -2,18 +2,21 @@ package epicerie;
 
 public abstract class Produit {
 	
-	private Directeur ajoutPar;
+	private Directeur directeur;
 	private static int compteur;
 	private int id;
 	
-	public Produit(Directeur ajoutPar){
+	public Produit(){
 		this.id=compteur;
-		this.ajoutPar=ajoutPar;
 		compteur++;
 	}
+	
+	public void setDirecteur(Directeur dir) {
+		this.directeur=dir;
+	}
 
-	public Directeur getAjoutPar() {
-		return ajoutPar;
+	public Directeur getDirecteur() {
+		return directeur;
 	}
 	
 	public int getId() {
@@ -21,7 +24,7 @@ public abstract class Produit {
 	}
 	
 	public String toString() {
-		return id+ " [Ajouter par " + ajoutPar + "] ";
+		return id+ " [Ajouter par " + directeur + "] ";
 	}
 	
 	abstract public boolean equals(Produit p);

@@ -13,4 +13,13 @@ public class Directeur extends Employe {
 		return super.toString() + " et direct" + f;
 	}
 	
+	public void addProduit(Produit p) {
+		p.setDirecteur(this);
+		Repertoire.add(p);
+	}
+	
+	public void delProduit(Produit p) {
+		Repertoire.remove(p);
+	}
+	
 }

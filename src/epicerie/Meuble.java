@@ -6,8 +6,7 @@ public class Meuble extends Produit {
 	private float hauteurMax;
 	private float prix;
 	
-	public Meuble(Directeur ajoutPar, String type, float hauteurMax, float prix) {
-		super(ajoutPar);
+	public Meuble(String type, float hauteurMax, float prix) {
 		this.type=type;
 		this.hauteurMax=hauteurMax;
 		this.prix=prix;

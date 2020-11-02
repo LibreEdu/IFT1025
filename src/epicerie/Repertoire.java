@@ -10,7 +10,7 @@ public class Repertoire {
 		personnes.add(personne);
 	}
 
-	public void add(Produit produit) {
+	public static void add(Produit produit) {
 		produits.add(produit);
 	}
 
@@ -46,7 +46,7 @@ public class Repertoire {
 		return personnes.indexOf(personne);
 	}
 	
-	public int indexOf(Produit produit) {
+	public static int indexOf(Produit produit) {
 		return produits.indexOf(produit);
 	}
 	
@@ -54,7 +54,7 @@ public class Repertoire {
 		return personnes.remove(personne);
 	}
 	
-	public boolean remove(Produit produit) {
+	public static boolean remove(Produit produit) {
 		return produits.remove(produit);
 	}
 	

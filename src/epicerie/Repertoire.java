@@ -6,7 +6,7 @@ public class Repertoire {
 	private static ArrayList<Personne> personnes = new ArrayList<Personne>();
 	private static ArrayList<Produit> produits = new ArrayList<Produit>();
 	
-	public void add(Personne personne) {
+	public static void add(Personne personne) {
 		personnes.add(personne);
 	}
 
@@ -42,7 +42,7 @@ public class Repertoire {
 		return compteur;
 	}
 	
-	public int indexOf(Personne personne) {
+	public static int indexOf(Personne personne) {
 		return personnes.indexOf(personne);
 	}
 	
@@ -50,7 +50,7 @@ public class Repertoire {
 		return produits.indexOf(produit);
 	}
 	
-	public boolean remove(Personne personne) {
+	public static boolean remove(Personne personne) {
 		return personnes.remove(personne);
 	}
 	
@@ -58,7 +58,7 @@ public class Repertoire {
 		return produits.remove(produit);
 	}
 	
-	public ArrayList<Personne> search(String searchedString) {
+	public static ArrayList<Personne> search(String searchedString) {
 		ArrayList<Personne> liste = new ArrayList<Personne>();
 		for(Personne personne : personnes) {
 			if (personne.getNom().startsWith(searchedString)) {

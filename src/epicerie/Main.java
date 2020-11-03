@@ -51,7 +51,7 @@ public class Main {
 
 		employe.augmenterSolde(client, 1000.50);
 		
-		System.out.println(repertoire.toString());
+		//System.out.println(repertoire.toString());
 		
 		/*
 		ArrayList<Personne> liste = repertoire.search("De ");
@@ -59,6 +59,8 @@ public class Main {
 			System.out.println(personne.toString());
 		}
 		*/
+		
+		Fenetre fenetre = new Fenetre();
 		
 	}
 

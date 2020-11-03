@@ -2,7 +2,7 @@ package epicerie;
 
 import java.util.ArrayList;
 
-public class Repertoire {
+public final class Repertoire {
 	private static ArrayList<Personne> personnes = new ArrayList<Personne>();
 	private static ArrayList<Produit> produits = new ArrayList<Produit>();
 	

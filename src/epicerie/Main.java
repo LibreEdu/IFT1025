@@ -1,5 +1,6 @@
 package epicerie;
 
+import java.awt.EventQueue;
 import java.util.ArrayList;
 
 /**
@@ -49,7 +50,7 @@ public class Main {
 		Client client5 = new Client("Françoise", "Ça", "1999-02-31", true);
 		Repertoire.add(client5);
 
-		employe.augmenterSolde(client, 1000.50);
+		//employe.augmenterSolde(client, 1000.50);
 		
 		//System.out.println(repertoire.toString());
 		
@@ -60,7 +61,17 @@ public class Main {
 		}
 		*/
 		
-		Fenetre fenetre = new Fenetre();
+		//Application application = new Application();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Application window = new Application();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		
 	}
 

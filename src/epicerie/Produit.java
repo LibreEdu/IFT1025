@@ -24,7 +24,8 @@ public abstract class Produit {
 	}
 	
 	public String toString() {
-		return id+ " [Ajouter par " + directeur + "] ";
+		return id+ " [Ajouter par " + directeur.getPrenom() + " " 
+				+ directeur.getNom() + "] ";
 	}
 	
 	abstract public boolean equals(Produit p);

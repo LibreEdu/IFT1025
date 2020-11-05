@@ -3,10 +3,10 @@ package epicerie;
 public class Meuble extends Produit {
 	
 	private String type;
-	private float hauteurMax;
-	private float prix;
+	private double hauteurMax;
+	private double prix;
 	
-	public Meuble(String type, float hauteurMax, float prix) {
+	public Meuble(String type, double hauteurMax, double prix) {
 		this.type=type;
 		this.hauteurMax=hauteurMax;
 		this.prix=prix;
@@ -20,19 +20,19 @@ public class Meuble extends Produit {
 		this.type = type;
 	}
 
-	public float getHauteurMax() {
+	public double getHauteurMax() {
 		return hauteurMax;
 	}
 
-	public void setHauteurMax(float hauteurMax) {
+	public void setHauteurMax(double hauteurMax) {
 		this.hauteurMax = hauteurMax;
 	}
 
-	public float getPrix() {
+	public double getPrix() {
 		return prix;
 	}
 
-	public void setPrix(float prix) {
+	public void setPrix(double prix) {
 		this.prix = prix;
 	}
 	
@@ -49,8 +49,8 @@ public class Meuble extends Produit {
 	}
 	
 	public String toString() {
-		return super.toString()+ "Meuble: " + type + " hauteur maximale:" 
-				+ hauteurMax + " cm " + "("+ prix + " $)";
+		return super.toString()+ "Meuble: " + type + " d'une hauteur maximale de: " 
+				+ hauteurMax + " cm ("+ prix + " $)";
 	}
 
 }

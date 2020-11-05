@@ -25,6 +25,14 @@ public final class Repertoire {
 		return result;
 	}
 	
+	public static String produitToString() {
+		String result = "Produits Disponibles:\n";
+		for(Produit produit : produits) {
+			result += produit.toString() + "\n";
+		}
+		return result;
+	}
+	
 	public static int searchEmail(String debutCourriel) {
 		int compteur = 0;
 		

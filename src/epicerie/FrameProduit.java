@@ -15,9 +15,17 @@ public class FrameProduit extends JFrame {
 	private static JRadioButton alimRadio, meubleRadio;
 	private static JTextArea produitsDispos;
 	
+	private static String listeProduits;
+	private static Directeur directeur;
+	
 
 	
 	public FrameProduit() {
+		
+		// Initialisation des variables
+		
+		listeProduits = Repertoire.produitToString();
+		directeur = new Directeur("Helen", "Walton", "2007-04-19", true);
 		
 		JPanel pnl = new JPanel();
 		SpringLayout lyt = new SpringLayout();
@@ -68,10 +76,15 @@ public class FrameProduit extends JFrame {
 		pnl.add(priceLabel);
 		pnl.add(heightLabel);
 		
+		// Regrouper les radios buttons pour qu'on puisse en cocher un seul
+		
+		ButtonGroup bg =new ButtonGroup();    
+		bg.add(alimRadio);bg.add(meubleRadio);  
+		
 		// Boutton ajouter et liste des produits disponibles
 		
-		ajouter = new JButton("Ajouter les produits");
-		produitsDispos = new JTextArea("Produits disponibles: ",10,50);
+		ajouter = new JButton("Ajouter le produit");
+		produitsDispos = new JTextArea(listeProduits,10,50);
 		
 		pnl.add(ajouter);
 		pnl.add(produitsDispos);
@@ -126,26 +139,57 @@ public class FrameProduit extends JFrame {
 		lyt.putConstraint(SpringLayout.NORTH, ajouter, 10, SpringLayout.SOUTH, heightField);
 		
 		lyt.putConstraint(SpringLayout.NORTH, produitsDispos, 10, SpringLayout.SOUTH, ajouter);
-		
-
-		// Ajouter le panel dans le frame
+	
 		add(pnl);
 		
 		// Gestion des listeners
 		
-		/*
-		
 		ajouter.addActionListener(
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-										
+						if(alimRadio.isSelected()) {
+							// Récupérer les informations
+							String name = nameField.getText();
+							String color = colorField.getText();
+							double weight = Double.parseDouble(weightField.getText()); // Gérer exception!!
+							
+							// Ajouter l'aliment
+							Produit aliment = new Aliment(name,color,weight);
+							directeur.addProduit(aliment);
+							
+							// Vider les champs de textes
+							nameField.setText("");
+							colorField.setText("");
+							weightField.setText("");
+							
+						} else if(meubleRadio.isSelected()) {
+							// Récupérer les informations
+							String type = typeField.getText();
+							double height = Double.parseDouble(heightField.getText());
+							double price = Double.parseDouble(priceField.getText()); // Gérer exception!!
+							
+							// Ajouter le meuble
+							Produit meuble = new Meuble(type,height,price);
+							directeur.addProduit(meuble);
+							
+							// Vider les champs de textes
+							typeField.setText("");
+							priceField.setText("");
+							heightField.setText("");
+						}
+						
+						listeProduits = Repertoire.produitToString();
+						produitsDispos.setText(listeProduits);
 					}
-		});*/
+		});
+		
+		
 	}
 	
 	
 	public static void main(String[] args) {
 		FrameProduit frame = new FrameProduit();
+		frame.setTitle("Gestion des produits");
 		frame.setSize(500,500);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

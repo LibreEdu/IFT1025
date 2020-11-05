@@ -4,9 +4,9 @@ public class Aliment extends Produit {
 	
 	private String couleur;
 	private String nom;
-	private float poids;
+	private double poids;
 	
-	public Aliment(String couleur, String nom, float poids) {
+	public Aliment(String nom, String couleur, double poids) {
 		this.couleur=couleur;
 		this.nom=nom;
 		this.poids=poids;
@@ -28,11 +28,11 @@ public class Aliment extends Produit {
 		this.nom = nom;
 	}
 
-	public float getPoids() {
+	public double getPoids() {
 		return poids;
 	}
 
-	public void setPoid(float poids) {
+	public void setPoid(double poids) {
 		this.poids = poids;
 	}
 
@@ -49,7 +49,7 @@ public class Aliment extends Produit {
 	
 	public String toString() {
 		return super.toString()+ "Aliment: " + nom + " " + couleur 
-				+ "("+ poids + " kg)";
+				+ " ("+ poids + " kg)";
 	}
 
 }

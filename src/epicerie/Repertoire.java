@@ -25,6 +25,14 @@ public final class Repertoire {
 		return result;
 	}
 	
+	public static String personneToString() {
+		String result = "Personnes enregistrés:\n";
+		for(Personne personne : personnes) {
+			result += personne.toString() + "\n";
+		}
+		return result;
+	}
+	
 	public static String produitToString() {
 		String result = "Produits Disponibles:\n";
 		for(Produit produit : produits) {

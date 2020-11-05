@@ -29,6 +29,8 @@ public class FrameProduit extends JFrame {
 		
 		JPanel pnl = new JPanel();
 		SpringLayout lyt = new SpringLayout();
+		pnl.setSize(200, 200);
+		pnl.setLayout(lyt);
 		
 		// Composantes du formulaire pour ajouter un aliment
 		
@@ -41,9 +43,6 @@ public class FrameProduit extends JFrame {
 		nameLabel = new JLabel("Nom: ");
 		colorLabel = new JLabel("Couleur: ");
 		weightLabel = new JLabel("Poids: ");
-		
-		pnl.setSize(200, 200);
-		pnl.setLayout(lyt);
 		
 		pnl.add(alimRadio);
 		pnl.add(nameField);
@@ -65,9 +64,6 @@ public class FrameProduit extends JFrame {
 		priceLabel = new JLabel("Prix: ");
 		heightLabel = new JLabel("Hauteur max: ");
 		
-		pnl.setSize(200, 200);
-		pnl.setLayout(lyt);
-		
 		pnl.add(meubleRadio);
 		pnl.add(typeField);
 		pnl.add(priceField);
@@ -78,8 +74,9 @@ public class FrameProduit extends JFrame {
 		
 		// Regrouper les radios buttons pour qu'on puisse en cocher un seul
 		
-		ButtonGroup bg =new ButtonGroup();    
-		bg.add(alimRadio);bg.add(meubleRadio);  
+		ButtonGroup typeProduit =new ButtonGroup();    
+		typeProduit.add(alimRadio);
+		typeProduit.add(meubleRadio);  
 		
 		// Boutton ajouter et liste des produits disponibles
 		
@@ -178,6 +175,7 @@ public class FrameProduit extends JFrame {
 							heightField.setText("");
 						}
 						
+						// Mettre à jour la liste des produits
 						listeProduits = Repertoire.produitToString();
 						produitsDispos.setText(listeProduits);
 					}

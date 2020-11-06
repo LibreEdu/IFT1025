@@ -4,7 +4,14 @@ import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+
+import java.awt.Image;
+
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JSplitPane;
+import java.awt.BorderLayout;
 
 public class Application {
 	private int x = 0;
@@ -36,19 +43,31 @@ public class Application {
 		menuBar.add(menuPersonnes);
 		
 		JMenuItem itemListePersonnes = new JMenuItem("Liste");
-		itemListePersonnes.setIcon(new ImageIcon("/src/epicerie/img/list.png"));
+		itemListePersonnes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("ii");
+			}
+		});
+		// https://www.flaticon.com/free-icon/list_565700
+		Image listIcon = new ImageIcon(this.getClass().getResource("/list.png")).getImage();
+		itemListePersonnes.setIcon(new ImageIcon(listIcon));
 		menuPersonnes.add(itemListePersonnes);
 		
 		JMenuItem itemAjouterPersonnes = new JMenuItem("Ajouter");
+		// https://www.flaticon.com/free-icon/add_992651
+		Image addIcon = new ImageIcon(this.getClass().getResource("/add.png")).getImage();
+		itemAjouterPersonnes.setIcon(new ImageIcon(addIcon));
 		menuPersonnes.add(itemAjouterPersonnes);
 		
 		JMenu menuProduits = new JMenu("Produits");
 		menuBar.add(menuProduits);
 
 		JMenuItem itemListeProduits = new JMenuItem("Liste");
+		itemListeProduits.setIcon(new ImageIcon(listIcon));
 		menuProduits.add(itemListeProduits);
 		
 		JMenuItem itemAjouterProduits = new JMenuItem("Ajouter");
+		itemAjouterProduits.setIcon(new ImageIcon(addIcon));
 		menuProduits.add(itemAjouterProduits);
 	}
 

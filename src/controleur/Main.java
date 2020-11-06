@@ -16,16 +16,8 @@ public class Main {
 	 * Constructeur
 	 */
 	public Main() {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-					frmMain = new FrmMain(this);
-					frmMain.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
+		frmMain = new FrmMain(this);
+		frmMain.frame.setVisible(true);
 	}
 
 }

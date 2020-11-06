@@ -1,11 +1,9 @@
 package modele;
 
-import java.text.ParseException;
-
 public class Directeur extends Employe {
 
-	public Directeur(String prenom, String nom, String date, boolean feminin) {
-		super(prenom, nom, date, feminin);
+	public Directeur(String prenom, String nom, String date) {
+		super(prenom, nom, date);
 	}
 
 	public String toString() {

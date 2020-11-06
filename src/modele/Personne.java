@@ -1,6 +1,5 @@
 package modele;
 
-import java.text.DecimalFormat;
 import java.text.Normalizer;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +18,6 @@ public abstract class Personne implements Comparable<Personne> {
 	private static int compteur;
 	private String prenom;
 	private String nom;
-	protected boolean feminin;
 	private LocalDate ddn; // Date de naissance
 	private String courriel;
 	private String role;
@@ -37,9 +35,8 @@ public abstract class Personne implements Comparable<Personne> {
 	 * @param prenom   prénom
 	 * @param nom      nom
 	 * @param date     date de naissance au format aaaa-mm-jj
-	 * @param feminin  vraie si on utilise le féminin
 	 */
-	public Personne(String prenom, String nom, String date, boolean feminin) {
+	public Personne(String prenom, String nom, String date) {
 		int nbCourriels;
 		
 		this.prenom = prenom;
@@ -48,8 +45,6 @@ public abstract class Personne implements Comparable<Personne> {
 		//https://docs.oracle.com/javase/8/docs/api/java/time/format/DateTimeFormatter.html
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		ddn = LocalDate.parse(date, dtf);
-		
-		this.feminin = feminin;
 		
 		
 		// On remplace 1 ou plusieurs espaces par rien
@@ -129,25 +124,6 @@ public abstract class Personne implements Comparable<Personne> {
 	}
 
 	/**
-	 * Indique si on utilise le féminin pour décrire la personne
-	 * 
-	 * @return vraie si on utilise le féminin pour décrire la personne, faux sinon
-	 */
-	public boolean isFeminin() {
-		return feminin;
-	}
-
-	/**
-	 * Attribue une nouvelle valeur à feminin
-	 * 
-	 * @param feminin 	vraie si on utilise le féminin pour décrire la personne,
-	 * 					faux sinon
-	 */
-	public void setFeminin(boolean feminin) {
-		this.feminin = feminin;
-	}
-
-	/**
 	 * Renvoie le courriel de la personne
 	 * 
 	 * @return le courriel de la personne
@@ -196,24 +172,6 @@ public abstract class Personne implements Comparable<Personne> {
 	
 	public String getRole() {
 		return role;
-	}
-
-	/**
-	 * Concatène les informations de la personne
-	 * 
-	 * @return Une chaine de caractères contenant les informations de la personne
-	 */
-	public String toString() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		//DecimalFormat idf = new DecimalFormat("000,000");
-		//DecimalFormat sf = new DecimalFormat("#,##0.00");
-		//String f = feminin ? "e" : "";
-		//return idf.format(id) + ", " + prenom + " " + nom + ", né" + f + " le "
-		//+ ddn.format(dtf) + ", " + courriel + ", classe " + role
-		//+ ", solde = " + sf.format(solde);
-		return id + ", " + prenom + ", " + nom + ", "
-		+ ddn.format(dtf) + ", " + courriel + ", " + role
-		+ ", " + solde;
 	}
 
 	/**

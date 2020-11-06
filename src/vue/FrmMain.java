@@ -13,6 +13,7 @@ import modele.Repertoire;
 import javax.swing.JRadioButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JButton;
 
 public class FrmMain {
 
@@ -76,6 +77,14 @@ public class FrmMain {
 	}
 
 	/**
+	 * Bouton Détail
+	 */
+	private void btnDetail() {
+		int row = tablePersonne.getSelectedRow();
+		int id = Integer.parseInt((String) tablePersonne.getValueAt(row, 0));
+		System.out.println(id);	
+	}
+	/**
 	 * Initialize the contents of the frame.
 	 * @param controle Le controleur
 	 */
@@ -128,7 +137,16 @@ public class FrmMain {
 	
 		// Par défaut, on sélectionne le radio bouton Client
 		rdbtnClient.setSelected(true);
-		// Eton affiche les données correspondantes
+		
+		JButton btnDetail = new JButton("Détail");
+		btnDetail.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnDetail();
+			}
+		});
+		btnDetail.setBounds(668, 129, 117, 29);
+		panelPersonnes.add(btnDetail);
+		// Et on affiche les données correspondantes
 		rdbtnClient();
 		
 		

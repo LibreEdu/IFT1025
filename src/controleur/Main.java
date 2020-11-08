@@ -13,12 +13,12 @@ public class Main {
 		new Main();
 	}
 	
-	public void demandeFrmMainListePersonnes(String Role) {
+	public static void demandeFrmMainListePersonnes(String Role) {
 		// https://www.youtube.com/watch?v=0DqadsyS5c8
 		// Données de la table
 		String[][] data = Repertoire.personneData(Role);
 		String[] entete = Repertoire.personneEntete();	
-		//frmMain.afficheListe(data, entete);
+		FrmMain.afficheListe(data, entete);
 
 	}
 	
@@ -26,7 +26,8 @@ public class Main {
 	 * Constructeur
 	 */
 	public Main() {
-		frmMain = new FrmMain(this);
+		//frmMain = new FrmMain(this);
+		frmMain = new FrmMain();
 		frmMain.frame.setVisible(true);
 	}
 

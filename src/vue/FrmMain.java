@@ -2,82 +2,77 @@ package vue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.TableColumn;
 import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.TableColumn;
 
 import controleur.Main;
 import modele.Data;
 import modele.Personne;
 import modele.Repertoire;
 
-import javax.swing.JRadioButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class FrmMain {
 
-	private int x = 0;
-	private int y = 0;
-	private int largeur = 1024;
-	private int hauteur = 768;
-	Data data = new Data();
+	private static int x = 0;
+	private static int y = 0;
+	private static int largeur = 1024;
+	private static int hauteur = 768;
 	
-	public JFrame frame;
-	private JTable tablePersonne;
-	private JTable tableProduit;
-	//private Main controle;
-	private JScrollPane scrollPanePersonne;
-	private JScrollPane scrollPaneProduit;
-	private JRadioButton rdbtnClient;
-	private JRadioButton rdbtnEmploye;
-	private JRadioButton rdbtnDirecteur;
+	public static JFrame frame;
+	private static JTable tablePersonne;
+	private static JTable tableProduit;
+	private static JScrollPane scrollPanePersonne;
+	private static JScrollPane scrollPaneProduit;
+	private static JRadioButton rdbtnClient;
+	private static JRadioButton rdbtnEmploye;
+	private static JRadioButton rdbtnDirecteur;
 	JRadioButton rdbtnAlim;
 	JRadioButton rdbtnMeuble;
-	private JButton btnDetail;
-	private JPanel panelDetail;
-	private JTextField textFieldId;
-	private JComboBox comboBoxRole;
-	private JTextField textFieldPrenom;
-	private JTextField textFieldNom;
-	private JTextField textFieldCourriel;
-	private JTextField textFieldDdn;
-	private JTextField textFieldSolde;
-	private JTextField textFieldSoldeAjout;
-	private JButton btnAjouterSolde;
-	private JButton btnEnregistrerFiche;
-	private JTextField textFieldRecherche;
-	private JButton btnRechercher;
-	private JTable table;
-	private JTable table_1;
-	private JTable table_2;
+	private static JButton btnDetail;
+	private static JPanel panelDetail;
+	private static JTextField textFieldId;
+	private static JComboBox comboBoxRole;
+	private static JTextField textFieldPrenom;
+	private static JTextField textFieldNom;
+	private static JTextField textFieldCourriel;
+	private static JTextField textFieldDdn;
+	private static JTextField textFieldSolde;
+	private static JTextField textFieldSoldeAjout;
+	private static JButton btnAjouterSolde;
+	private static JButton btnEnregistrerFiche;
+	private static JTextField textFieldRecherche;
+	private static JButton btnRechercher;
+	private static JTable table;
+	private static JTable table_1;
+	private static JTable table_2;
 	
 
 
 	/**
 	 * Create the application.
 	 */
-	public FrmMain(Main control) {
-		initialize(control);
+	public FrmMain() {
+		new Data();
+		initialize();
 	}
 	
 	/**
 	 * Clic sur le bouton radio Client
 	 */
-	private void rdbtnClient() {
+	private static void rdbtnClient() {
 		demandeListe("Client");
 		
 		// On déselectionne les deux autres boutons radios
@@ -92,7 +87,7 @@ public class FrmMain {
 	/**
 	 * Clic sur le bouton radio Client
 	 */
-	private void rdbtnEmploye() {
+	private static void rdbtnEmploye() {
 		demandeListe("Employe");
 		
 		// On déselectionne les deux autres boutons radios
@@ -107,7 +102,7 @@ public class FrmMain {
 	/**
 	 * Clic sur le bouton radio Client
 	 */
-	private void rdbtnDirecteur() {
+	private static void rdbtnDirecteur() {
 		demandeListe("Directeur");
 		
 		// On déselectionne les deux autres boutons radios
@@ -122,9 +117,9 @@ public class FrmMain {
 	/**
 	 * Demande la liste des personnes
 	 */
-	private void demandeListe(String Role) {
-		//controle.demandeFrmMainListePersonnes(Role);
-		afficheListe(Role);
+	private static void demandeListe(String Role) {
+		Main.demandeFrmMainListePersonnes(Role);
+		//afficheListe(Role);
 	}
 	
 	/**
@@ -132,10 +127,10 @@ public class FrmMain {
 	 * 
 	 * @param Role Nom de la classe à afficher : "Client", "Employe", "Directeur"
 	 */
-	// public void afficheListe(String[][] data, String[] entete) {
-	public void afficheListe(String Role) {
-		String[][] data = Repertoire.personneData(Role);
-		String[] entete = Repertoire.personneEntete();
+	public static void afficheListe(String[][] data, String[] entete) {
+	//public static void afficheListe(String Role) {
+		//String[][] data = Repertoire.personneData(Role);
+		//String[] entete = Repertoire.personneEntete();
 		tablePersonne = new JTable(data, entete);
 		
 		// Lorsque une personne de la liste est sélectionnée,
@@ -167,7 +162,7 @@ public class FrmMain {
 	/**
 	 * Bouton Détail
 	 */
-	private void btnDetail() {
+	private static void btnDetail() {
 		// On récupère le # de la ligne sélectionnée
 		int row = tablePersonne.getSelectedRow();
 		
@@ -218,7 +213,7 @@ public class FrmMain {
 		
 	}
 	
-	public void afficheListeProduits(String sorte) {
+	public static void afficheListeProduits(String sorte) {
 		String[][] data = Repertoire.produitData(sorte);
 		String[] entete = Repertoire.produitEntete(sorte);
 		tableProduit = new JTable(data, entete);
@@ -231,7 +226,7 @@ public class FrmMain {
 	 * Initialize the contents of the frame.
 	 * @param controle Le controleur
 	 */
-	private void initialize(Main controle) {
+	private void initialize() {
 		//this.controle = controle;
 		frame = new JFrame();
 		frame.setBounds(x, y, largeur, hauteur);

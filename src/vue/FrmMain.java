@@ -1,9 +1,11 @@
 package vue;
 
+import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;
@@ -15,14 +17,19 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
 import javax.swing.table.TableColumn;
 
 import controleur.Main;
+import modele.Aliment;
+import modele.Meuble;
+import modele.Produit;
 import modele.Data;
 import modele.Personne;
+import modele.Directeur;
 import modele.Repertoire;
-import com.toedter.calendar.JDateChooser;
 
 
 public class FrmMain {
@@ -46,6 +53,7 @@ public class FrmMain {
 	private static JPanel panelDetail;
 	private static JTextField textFieldId;
 	private static JComboBox comboBoxRole;
+	private static JComboBox comboBoxListeDir;
 	private static JTextField textFieldPrenom;
 	private static JTextField textFieldNom;
 	private static JTextField textFieldCourriel;
@@ -57,7 +65,19 @@ public class FrmMain {
 	private static JButton btnRechercher;
 	private static JTable table;
 	private static JTable table_1;
-	private static JTable table_2;
+	private static Directeur[] listeDir;
+	private static Directeur directeur;
+	private JRadioButton rdbtnAddAlim;
+	private JRadioButton rdbtnAddMeuble;
+	private JLabel lblNewLabel;
+	private JLabel lblCouleur;
+	private JLabel lblPoids;
+	private JTextField txtNom;
+	private JTextField txtPoids;
+	private JTextField txtCouleur;
+	private JTextField txtType;
+	private JTextField txtHauteur;
+	private JTextField txtPrix;
 	
 
 
@@ -219,6 +239,103 @@ public class FrmMain {
 		tableProduit = new JTable(data, entete);
 		
         scrollPaneProduit.setViewportView(tableProduit);
+	}
+	
+	/**
+	 * Clic sur le bouton radio Aliment dans la section ajouter un produit
+	 */
+	private void rdbtnAddAlim() {
+		
+		// On déselectionne l'autre bouton radio
+		rdbtnAddMeuble.setSelected(false);
+		
+		
+		// On rend les champs de textes des attributs d'aliments éditable
+		txtNom.setEditable(true);
+		txtCouleur.setEditable(true);
+		txtPoids.setEditable(true);
+		
+		// On rend les champs de textes des attributs de meubles pas éditable
+		txtType.setEditable(false);
+		txtHauteur.setEditable(false);
+		txtPrix.setEditable(false);
+		
+		txtType.setText("");
+		txtHauteur.setText("");
+		txtPrix.setText("");
+		
+	}
+	
+	/**
+	 * Clic sur le bouton radio Meuble dans la section ajouter un produit
+	 */
+	private void rdbtnAddMeuble() {
+		
+		// On déselectionne l'autre bouton radio
+		rdbtnAddAlim.setSelected(false);
+		
+		
+		// On rend les champs de textes des attributs d'aliments pas éditable
+		txtNom.setEditable(false);
+		txtCouleur.setEditable(false);
+		txtPoids.setEditable(false);
+		
+		txtNom.setText("");
+		txtCouleur.setText("");
+		txtPoids.setText("");
+		
+		// On rend les champs de textes des attributs de meubles éditable
+		txtType.setEditable(true);
+		txtHauteur.setEditable(true);
+		txtPrix.setEditable(true);
+		
+	}
+	
+	/**
+	 * Clic sur le bouton ajouter produit
+	 */
+	private void btnAjouterProd() {
+		
+		// Récupérer le directeur
+		directeur = (Directeur) comboBoxListeDir.getSelectedItem();
+		
+		if(rdbtnAddAlim.isSelected()) {
+			// Récupérer les informations
+			String nom = txtNom.getText();
+			String couleur = txtCouleur.getText();
+			double poids = Double.parseDouble(txtPoids.getText()); // Gérer exception!!
+			
+			// Ajouter l'aliment
+			Produit aliment = new Aliment(nom,couleur,poids);
+			directeur.addProduit(aliment);
+			
+			// Vider les champs de textes
+			txtNom.setText("");
+			txtCouleur.setText("");
+			txtPoids.setText("");
+			
+			// Si on est en train d'afficher les aliments, mettre à jour la liste
+			if(rdbtnAlim.isSelected()) afficheListeProduits("Aliment");
+			
+		} else if(rdbtnAddMeuble.isSelected()) {
+			// Récupérer les informations
+			String type = txtType.getText();
+			double hauteur = Double.parseDouble(txtHauteur.getText());
+			double prix = Double.parseDouble(txtPrix.getText()); // G�rer exception!!
+			
+			// Ajouter le meuble
+			Produit meuble = new Meuble(type,hauteur,prix);
+			directeur.addProduit(meuble);
+			
+			// Vider les champs de textes
+			txtType.setText("");
+			txtPrix.setText("");
+			txtHauteur.setText("");
+			
+			// Si on est en train d'afficher les meubles, mettre à jour la liste
+			if(rdbtnMeuble.isSelected()) afficheListeProduits("Meuble");
+		}
+		
 	}
 	
 	
@@ -422,12 +539,111 @@ public class FrmMain {
 			}
 		});
 		
-		// Tableau qui affiche les produits
-		table_2 = new JTable();
-		table_2.setBounds(25, 22, 399, 630);
-		panelProduits.add(table_2);
+		JLabel lblAjoutProd = new JLabel("Ajouter un produit");
+		lblAjoutProd.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblAjoutProd.setBounds(516, 85, 171, 23);
+		panelProduits.add(lblAjoutProd);
 		
-		// Et on affiche les données correspondantes
+		JLabel lblNomDir = new JLabel("Directeur :");
+		lblNomDir.setBounds(516, 119, 87, 14);
+		panelProduits.add(lblNomDir);
+		
+		listeDir = Repertoire.getListeDir();
+		comboBoxListeDir = new JComboBox(listeDir);
+		comboBoxListeDir.setBounds(613, 115, 121, 22);
+		panelProduits.add(comboBoxListeDir);
+		
+		
+		// Composantes du formulaire pour ajouter un produit
+		rdbtnAddAlim = new JRadioButton("Aliment");
+		rdbtnAddAlim.setBounds(512, 140, 111, 23);
+		panelProduits.add(rdbtnAddAlim);
+		rdbtnAddAlim.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnAddAlim();
+			}
+		});
+		
+		rdbtnAddMeuble = new JRadioButton("Meuble");
+		rdbtnAddMeuble.setBounds(724, 140, 111, 23);
+		panelProduits.add(rdbtnAddMeuble);
+		rdbtnAddMeuble.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnAddMeuble();
+			}
+		});
+		
+		lblNewLabel = new JLabel("Nom :");
+		lblNewLabel.setBounds(516, 170, 49, 14);
+		panelProduits.add(lblNewLabel);
+		
+		lblCouleur = new JLabel("Couleur :");
+		lblCouleur.setBounds(516, 197, 65, 14);
+		panelProduits.add(lblCouleur);
+		
+		lblPoids = new JLabel("Poids :");
+		lblPoids.setBounds(516, 227, 49, 14);
+		panelProduits.add(lblPoids);
+		
+		txtNom = new JTextField();
+		txtNom.setEditable(false);
+		txtNom.setBounds(556, 170, 96, 20);
+		panelProduits.add(txtNom);
+		txtNom.setColumns(10);
+		
+		txtPoids = new JTextField();
+		txtPoids.setEditable(false);
+		txtPoids.setBounds(568, 224, 96, 20);
+		panelProduits.add(txtPoids);
+		txtPoids.setColumns(10);
+		
+		txtCouleur = new JTextField();
+		txtCouleur.setEditable(false);
+		txtCouleur.setBounds(591, 194, 96, 20);
+		panelProduits.add(txtCouleur);
+		txtCouleur.setColumns(10);
+		
+		JLabel lblType = new JLabel("Type :");
+		lblType.setBounds(724, 170, 49, 14);
+		panelProduits.add(lblType);
+		
+		JLabel lblHauteur = new JLabel("Hauteur Maximale :");
+		lblHauteur.setBounds(724, 197, 134, 14);
+		panelProduits.add(lblHauteur);
+		
+		JLabel lblPrix = new JLabel("Prix :");
+		lblPrix.setBounds(724, 227, 49, 14);
+		panelProduits.add(lblPrix);
+		
+		txtType = new JTextField();
+		txtType.setEditable(false);
+		txtType.setBounds(772, 167, 96, 20);
+		panelProduits.add(txtType);
+		txtType.setColumns(10);
+		
+		txtHauteur = new JTextField();
+		txtHauteur.setEditable(false);
+		txtHauteur.setBounds(842, 194, 96, 20);
+		panelProduits.add(txtHauteur);
+		txtHauteur.setColumns(10);
+		
+		txtPrix = new JTextField();
+		txtPrix.setEditable(false);
+		txtPrix.setBounds(762, 224, 96, 20);
+		panelProduits.add(txtPrix);
+		txtPrix.setColumns(10);
+		
+		JButton btnAjouterProd = new JButton("Ajouter le produit");
+		btnAjouterProd.setBounds(643, 272, 157, 23);
+		panelProduits.add(btnAjouterProd);
+		btnAjouterProd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnAjouterProd();
+			}
+		});
+		
+		
+		// Affichage des données 
 		rdbtnAlim.setSelected(true);
 		rdbtnAlim();
 

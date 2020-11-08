@@ -110,28 +110,30 @@ public final class Repertoire {
 		switch(typeOfProduit) {
 			case "Aliment":
 				length = Repertoire.nbAlim;
-				String[][] result1 = new String[length][3];
+				String[][] result1 = new String[length][4];
 				
 				for(Produit produit : produits) {
 					if (produit.getSorte().equals("Aliment")) {
-						String[] row = new String[3];
+						String[] row = new String[4];
 						row[0] = ((Aliment)produit).getNom();
 						row[1] = ((Aliment)produit).getCouleur();
 						row[2] = Double.toString(((Aliment)produit).getPoids());
+						row[3] = produit.getDirecteur().toString();
 						result1[i++] = row;
 					}
 				}
 				return result1;
 			case "Meuble":
 				length = Repertoire.nbMeuble;
-				String[][] result2 = new String[length][3];
+				String[][] result2 = new String[length][4];
 				
 				for(Produit produit : produits) {
 					if (produit.getSorte().equals("Meuble")) {
-						String[] row = new String[3];
+						String[] row = new String[4];
 						row[0] = ((Meuble)produit).getType();
 						row[1] = Double.toString(((Meuble)produit).getHauteurMax());
 						row[2] = Double.toString(((Meuble)produit).getPrix());
+						row[3] = produit.getDirecteur().toString();
 						result2[i++] = row;
 					}
 				}
@@ -150,20 +152,38 @@ public final class Repertoire {
 	 * @return l’entête du tableau de produits
 	 */
 	public static String[] produitEntete(String typeOfProduit) {
-		String[] result = new String[3];
+		String[] result = new String[4];
 		switch(typeOfProduit) {
 		case "Aliment":
 			result[0]="Nom";
 			result[1]="Couleur";
 			result[2]="Poids";
+			result[3]="Ajouté par";
 			break;
 		case "Meuble":
 			result[0]="Type";
 			result[1]="Hauteur Maximale";
 			result[2]="Prix";
+			result[3]="Ajouté par";
 			break;
 	}
 		
+		return result;
+	}
+	
+	/**
+	 * Retourne un tableau contenant tous les directeurs
+	 * 
+	 * @return Tableau de Directeurs
+	 */
+	public static Directeur[] getListeDir() {
+		Directeur[] result = new Directeur[nbDirecteur];
+		int i = 0;
+		for(Personne personne : personnes) {
+			if (personne.getRole().equals("Directeur")) {
+				result[i++] = (Directeur) personne;
+			}
+		}
 		return result;
 	}
 	
@@ -204,7 +224,7 @@ public final class Repertoire {
 	}
 	
 	/**
-	 * L’indexe de l’objet Produit dars la liste de produits
+	 * L’indexe de l’objet Produit dans la liste de produits
 	 * 
 	 * @param produit Le produit dont on cherche l’index
 	 * 

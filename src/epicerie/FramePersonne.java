@@ -28,7 +28,7 @@ public class FramePersonne extends JFrame {
 		pnl.setSize(200, 200);
 		pnl.setLayout(lyt);
 		
-		// Bouttons radios pour choisir le r�le
+		// Bouttons radios pour choisir le rôle
 		
 		clientRadio = new JRadioButton("Client");
 		employeRadio = new JRadioButton("Employé");
@@ -137,10 +137,10 @@ public class FramePersonne extends JFrame {
 						// R�cup�rer les informations
 						String firstName = firstNameField.getText();
 						String lastName = lastNameField.getText();
-						String date = dateField.getText(); // G�rer exception!!
+						String date = dateField.getText(); // Gérer exception!!
 						boolean isFeminin = femmeRadio.isSelected(); // Quoi faire si rien n'est selectionn�?
 						
-						// Ajouter la personne au r�pertoire
+						// Ajouter la personne au répertoire
 						if(clientRadio.isSelected()) {
 							Personne client = new Client(firstName,lastName,date,isFeminin);
 							Repertoire.add(client);
@@ -157,7 +157,7 @@ public class FramePersonne extends JFrame {
 						lastNameField.setText("");
 						dateField.setText("");
 							
-						// Mettre � jour la liste des personnes
+						// Mettre à jour la liste des personnes
 						listePersonne = Repertoire.personneToString();
 						personnesEnr.setText(listePersonne);
 					}

@@ -13,6 +13,7 @@ public final class Data {
 	public Client client4 = new Client("Sofía", "de Borbón y Ortiz", "2007-04-29");
 	public Client client5 = new Client("Françoise", "Ça", "1999-02-31");
 	public Aliment alim1 = new Aliment("Broccoli","vert",2.5);
+	public Meuble meuble1 = new Meuble("Table",100,300);
 	
 
 	public Data() {
@@ -25,6 +26,8 @@ public final class Data {
 		Repertoire.add(client3);
 		Repertoire.add(client4);
 		Repertoire.add(client5);
+		Repertoire.add(alim1);
+		Repertoire.add(meuble1);
 		//repertoire.toString();
 		//System.out.println(repertoire.toString());
 		//System.out.println(Repertoire.nbDirecteur);

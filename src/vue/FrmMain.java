@@ -38,11 +38,15 @@ public class FrmMain {
 	
 	public JFrame frame;
 	private JTable tablePersonne;
+	private JTable tableProduit;
 	//private Main controle;
 	private JScrollPane scrollPanePersonne;
+	private JScrollPane scrollPaneProduit;
 	private JRadioButton rdbtnClient;
 	private JRadioButton rdbtnEmploye;
 	private JRadioButton rdbtnDirecteur;
+	JRadioButton rdbtnAlim;
+	JRadioButton rdbtnMeuble;
 	private JButton btnDetail;
 	private JPanel panelDetail;
 	private JTextField textFieldId;
@@ -180,6 +184,36 @@ public class FrmMain {
 			
 		}
 		panelDetail.setVisible(true);
+	}
+	
+	/**
+	 * Clic sur le bouton radio Aliments
+	 */
+	private void rdbtnAlim() {
+		afficheListeProduits("Aliment");
+		
+		// On déselectionne l'autre bouton radio
+		rdbtnMeuble.setSelected(false);
+		
+	}
+	
+	/**
+	 * Clic sur le bouton radio Meubles
+	 */
+	private void rdbtnMeuble() {
+		afficheListeProduits("Meuble");
+		
+		// On déselectionne l'autre bouton radio
+		rdbtnAlim.setSelected(false);
+		
+	}
+	
+	public void afficheListeProduits(String sorte) {
+		String[][] data = Repertoire.produitData(sorte);
+		String[] entete = Repertoire.produitEntete(sorte);
+		tableProduit = new JTable(data, entete);
+		
+        scrollPaneProduit.setViewportView(tableProduit);
 	}
 	
 	
@@ -362,9 +396,37 @@ public class FrmMain {
 		tabbedPane.addTab("Produits", null, panelProduits, null);
 		panelProduits.setLayout(null);
 		
+		scrollPaneProduit = new JScrollPane();
+		scrollPaneProduit.setBounds(6, 6, 500, 688);
+		panelProduits.add(scrollPaneProduit);
+		
+		
+		rdbtnAlim = new JRadioButton("Aliments");
+		rdbtnAlim.setBounds(512, 9, 111, 23);
+		panelProduits.add(rdbtnAlim);
+		rdbtnAlim.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnAlim();
+			}
+		});
+		
+		rdbtnMeuble = new JRadioButton("Meubles");
+		rdbtnMeuble.setBounds(512, 35, 111, 23);
+		panelProduits.add(rdbtnMeuble);
+		rdbtnMeuble.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				rdbtnMeuble();
+			}
+		});
+		
+		// Tableau qui affiche les produits
 		table_2 = new JTable();
 		table_2.setBounds(25, 22, 399, 630);
 		panelProduits.add(table_2);
+		
+		// Et on affiche les données correspondantes
+		rdbtnAlim.setSelected(true);
+		rdbtnAlim();
 
 	}
 }

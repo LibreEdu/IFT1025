@@ -12,6 +12,8 @@ public final class Data {
 	public Client client3 = new Client("Lénaïc", "Le Breton", "0005-09-08");
 	public Client client4 = new Client("Sofía", "de Borbón y Ortiz", "2007-04-29");
 	public Client client5 = new Client("Françoise", "Ça", "1999-02-31");
+	public Aliment alim1 = new Aliment("Broccoli","vert",2.5);
+	
 
 	public Data() {
 		Repertoire.add(directeur);

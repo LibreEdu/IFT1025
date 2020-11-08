@@ -145,10 +145,10 @@ public class FrameProduit extends JFrame {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if(alimRadio.isSelected()) {
-							// Récupérer les informations
+							// Rï¿½cupï¿½rer les informations
 							String name = nameField.getText();
 							String color = colorField.getText();
-							double weight = Double.parseDouble(weightField.getText()); // Gérer exception!!
+							double weight = Double.parseDouble(weightField.getText()); // Gï¿½rer exception!!
 							
 							// Ajouter l'aliment
 							Produit aliment = new Aliment(name,color,weight);
@@ -160,10 +160,10 @@ public class FrameProduit extends JFrame {
 							weightField.setText("");
 							
 						} else if(meubleRadio.isSelected()) {
-							// Récupérer les informations
+							// Rï¿½cupï¿½rer les informations
 							String type = typeField.getText();
 							double height = Double.parseDouble(heightField.getText());
-							double price = Double.parseDouble(priceField.getText()); // Gérer exception!!
+							double price = Double.parseDouble(priceField.getText()); // Gï¿½rer exception!!
 							
 							// Ajouter le meuble
 							Produit meuble = new Meuble(type,height,price);
@@ -175,7 +175,7 @@ public class FrameProduit extends JFrame {
 							heightField.setText("");
 						}
 						
-						// Mettre à jour la liste des produits
+						// Mettre ï¿½ jour la liste des produits
 						listeProduits = Repertoire.produitToString();
 						produitsDispos.setText(listeProduits);
 					}

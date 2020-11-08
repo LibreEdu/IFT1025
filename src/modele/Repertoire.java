@@ -9,6 +9,8 @@ public final class Repertoire {
 	private static int nbClient;
 	private static int nbEmploye;
 	private static int nbDirecteur;
+	private static int nbAlim;
+	private static int nbMeuble;
 	
 	/**
 	 * Ajoute une personne à la liste des personnes, et met à jour les compteurs
@@ -37,6 +39,11 @@ public final class Repertoire {
 	 */
 	public static void add(Produit produit) {
 		produits.add(produit);
+		if(produit instanceof Aliment) {
+			Repertoire.nbAlim++;
+		} else if(produit instanceof Meuble) {
+			Repertoire.nbMeuble++;
+		}
 	}
 	
 	
@@ -85,6 +92,78 @@ public final class Repertoire {
 	 */
 	public static String[] personneEntete() {
 		String[] result = {"Identifiant", "Prénom", "Nom", "Date de naissance"};
+		return result;
+	}
+	
+	/**
+	 * Renvoie un tableau d'aliments ou de meubles,
+	 * afin de remplir la liste dans la vue
+	 * 
+	 * @param typeOfProduit "Aliment" ou "Meuble"
+	 * @return Liste d'aliments ou de meubles
+	 */
+	public static String[][] produitData(String typeOfProduit) {
+		int length = 0;
+		int i = 0;
+		String[][] result = new String[0][0];
+		
+		switch(typeOfProduit) {
+			case "Aliment":
+				length = Repertoire.nbAlim;
+				String[][] result1 = new String[length][3];
+				
+				for(Produit produit : produits) {
+					if (produit.getSorte().equals("Aliment")) {
+						String[] row = new String[3];
+						row[0] = ((Aliment)produit).getNom();
+						row[1] = ((Aliment)produit).getCouleur();
+						row[2] = Double.toString(((Aliment)produit).getPoids());
+						result1[i++] = row;
+					}
+				}
+				return result1;
+			case "Meuble":
+				length = Repertoire.nbMeuble;
+				String[][] result2 = new String[length][3];
+				
+				for(Produit produit : produits) {
+					if (produit.getSorte().equals("Meuble")) {
+						String[] row = new String[3];
+						row[0] = ((Meuble)produit).getType();
+						row[1] = Double.toString(((Meuble)produit).getHauteurMax());
+						row[2] = Double.toString(((Meuble)produit).getPrix());
+						result2[i++] = row;
+					}
+				}
+				return result2;
+		}
+		
+		return result;
+		
+		
+	}
+	
+	/**
+	 * Renvoie l’entête du tableau de produits
+	 * 
+	 * @param typeOfProduit "Aliment" ou "Meuble"
+	 * @return l’entête du tableau de produits
+	 */
+	public static String[] produitEntete(String typeOfProduit) {
+		String[] result = new String[3];
+		switch(typeOfProduit) {
+		case "Aliment":
+			result[0]="Nom";
+			result[1]="Couleur";
+			result[2]="Poids";
+			break;
+		case "Meuble":
+			result[0]="Type";
+			result[1]="Hauteur Maximale";
+			result[2]="Prix";
+			break;
+	}
+		
 		return result;
 	}
 	

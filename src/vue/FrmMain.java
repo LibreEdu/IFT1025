@@ -22,6 +22,7 @@ import controleur.Main;
 import modele.Data;
 import modele.Personne;
 import modele.Repertoire;
+import com.toedter.calendar.JDateChooser;
 
 
 public class FrmMain {
@@ -48,7 +49,6 @@ public class FrmMain {
 	private static JTextField textFieldPrenom;
 	private static JTextField textFieldNom;
 	private static JTextField textFieldCourriel;
-	private static JTextField textFieldDdn;
 	private static JTextField textFieldSolde;
 	private static JTextField textFieldSoldeAjout;
 	private static JButton btnAjouterSolde;
@@ -356,12 +356,6 @@ public class FrmMain {
 		lblDdn.setBounds(6, 85, 52, 16);
 		panelDetail.add(lblDdn);
 		
-		// https://www.codejava.net/java-se/swing/how-to-use-jdatepicker-to-display-calendar-component
-		textFieldDdn = new JTextField();
-		textFieldDdn.setBounds(77, 80, 88, 26);
-		panelDetail.add(textFieldDdn);
-		textFieldDdn.setColumns(10);
-		
 		JLabel lblSolde = new JLabel("Solde");
 		lblSolde.setBounds(6, 112, 61, 16);
 		panelDetail.add(lblSolde);
@@ -387,6 +381,10 @@ public class FrmMain {
 		table_1 = new JTable();
 		table_1.setBounds(16, 177, 446, 385);
 		panelDetail.add(table_1);
+		
+		JDateChooser dateChooser = new JDateChooser();
+		dateChooser.setBounds(77, 80, 119, 26);
+		panelDetail.add(dateChooser);
 		
 		table = new JTable();
 		table.setBounds(505, 357, 1, 1);

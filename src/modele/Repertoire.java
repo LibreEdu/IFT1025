@@ -10,6 +10,11 @@ public final class Repertoire {
 	private static int nbEmploye;
 	private static int nbDirecteur;
 	
+	/**
+	 * Ajoute une personne à la liste des personnes, et met à jour les compteurs
+	 * 
+	 * @param personne Personne à ajouter au répertoire
+	 */
 	public static void add(Personne personne) {
 		personnes.add(personne);
 		switch(personne.getRole()) {
@@ -25,29 +30,23 @@ public final class Repertoire {
 		}
 	}
 
+	/**
+	 * Ajoute un produit à la liste des produits
+	 * 
+	 * @param produit produit à ajouter
+	 */
 	public static void add(Produit produit) {
 		produits.add(produit);
 	}
-
-	public String toString() {
-		String result = "";
-		for(Personne personne : personnes) {
-			result += personne.toString() + "\n";
-		}
-		//for(Produit produit : produits) {
-		//	result += produit.toString() + "\n";
-		//}
-		return result;
-	}
 	
-	public static String personneToString() {
-		String result = "Personnes enregistrées:\n";
-		for(Personne personne : personnes) {
-			result += personne.toString() + "\n";
-		}
-		return result;
-	}
 	
+	/**
+	 * Renvoie un tableau de clients, d’employés ou de directeurs,
+	 * afin de remplir la liste dans la vue
+	 * 
+	 * @param typeOfPersonne "Client", "Employe" ou "Directeur"
+	 * @return Liste de clients, d’employés ou de directeurs
+	 */
 	public static String[][] personneData(String typeOfPersonne) {
 		int length = 0;
 		switch(typeOfPersonne) {
@@ -68,12 +67,10 @@ public final class Repertoire {
 		
 		for(Personne personne : personnes) {
 			if (personne.getRole().equals(typeOfPersonne)) {
-				//System.out.println("toutou");
 				String[] row = new String[4];
 				row[0] = Integer.toString(personne.getId());
-				//System.out.println(row[0]);
-				row[1] = personne.getNom();
-				row[2] = personne.getPrenom();
+				row[1] = personne.getPrenom();
+				row[2] = personne.getNom();
 				row[3] = personne.getDdn().format(dtf);
 				result[i++] = row;
 			}
@@ -81,19 +78,24 @@ public final class Repertoire {
 		return result;
 	}
 	
+	/**
+	 * Renvoie l’entête du tableau de personnes
+	 * 
+	 * @return l’entête du tableau de personnes
+	 */
 	public static String[] personneEntete() {
-		String[] result = {"Identifiant", "Nom", "Prénom", "Date de naissance"};
+		String[] result = {"Identifiant", "Prénom", "Nom", "Date de naissance"};
 		return result;
 	}
 	
-	public static String produitToString() {
-		String result = "Produits disponibles:\n";
-		for(Produit produit : produits) {
-			result += produit.toString() + "\n";
-		}
-		return result;
-	}
-	
+
+	/**
+	 * Compte le nombre de courriel
+	 * 
+	 * @param debutCourriel <prenom.nom>
+	 * 
+	 * @return le nombre de courriel qui commence par <prenom.nom>
+	 */
 	public static int searchEmail(String debutCourriel) {
 		int compteur = 0;
 		
@@ -111,23 +113,58 @@ public final class Repertoire {
 		return compteur;
 	}
 	
+	/**
+	 * L’indexe de l’objet Personne dars la liste de personnes
+	 * 
+	 * @param personne La personne dont on cherche l’index
+	 * 
+	 * @return L’index de la Personne
+	 */
 	public static int indexOf(Personne personne) {
 		return personnes.indexOf(personne);
 	}
 	
+	/**
+	 * L’indexe de l’objet Produit dars la liste de produits
+	 * 
+	 * @param produit Le produit dont on cherche l’index
+	 * 
+	 * @return L’index du produit
+	 */
 	public static int indexOf(Produit produit) {
 		return produits.indexOf(produit);
 	}
 	
+	/**
+	 * Supprime une personne de la liste de personnes
+	 * 
+	 * @param personne La personne à supprimer
+	 * 
+	 * @return
+	 */
 	public static boolean remove(Personne personne) {
 		return personnes.remove(personne);
 	}
 	
+	/**
+	 * Supprime un produit de la liste de produits
+	 * 
+	 * @param produit produit à supprimer
+	 * 
+	 * @return
+	 */
 	public static boolean remove(Produit produit) {
 		return produits.remove(produit);
 	}
 	
-	public static ArrayList<Personne> search(String searchedString) {
+	/**
+	 * Retourne la liste de personnes dont le nom commence par searchedString
+	 * 
+	 * @param searchedString La chaine de caractères que l’on recherche
+	 * 
+	 * @return Liste de personnes
+	 */
+	public static ArrayList<Personne> searchByNameStartsWith(String searchedString) {
 		ArrayList<Personne> liste = new ArrayList<Personne>();
 		for(Personne personne : personnes) {
 			if (personne.getNom().startsWith(searchedString)) {
@@ -136,5 +173,20 @@ public final class Repertoire {
 		}
 		return liste;
 	}
-	
+
+	/**
+	 * Retourne l’objet Personne dont l’identifiant est id
+	 * 
+	 * @param id identifiant de la personne cherchée
+	 * 
+	 * @return personne dont l’identifiant est id
+	 */
+	public static Personne searchById(int id) {
+		for(Personne personne : personnes) {
+			if (personne.getId() == id) {
+				return personne;
+			}	
+		}
+		return null;		
+	}
 }

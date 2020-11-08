@@ -56,6 +56,7 @@ public abstract class Personne implements Comparable<Personne> {
 
 		
 		nbCourriels = Repertoire.searchEmail(prenom + "." + nom);
+		
 		if (nbCourriels == 0) {
 			courriel = prenom + "." + nom + "@" + Magasin.getTld();
 		} else {
@@ -66,6 +67,8 @@ public abstract class Personne implements Comparable<Personne> {
 		role = this.getClass().toString().replaceAll(".+\\.","");
 		
 		id = compteur++;
+		
+		Repertoire.add(this);
 		
 	}
 	

@@ -123,6 +123,11 @@ public class FrmMain {
 		afficheListe(Role);
 	}
 	
+	/**
+	 * Affiche la liste des personnes selon leur roles
+	 * 
+	 * @param Role Nom de la classe à afficher : "Client", "Employe", "Directeur"
+	 */
 	// public void afficheListe(String[][] data, String[] entete) {
 	public void afficheListe(String Role) {
 		String[][] data = Repertoire.personneData(Role);
@@ -135,6 +140,11 @@ public class FrmMain {
 		tablePersonne.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
 				btnDetail.setEnabled(true);
+				
+				// On rafraichit le Détail de la personne au besoin
+				if (panelDetail.isVisible()) {
+					btnDetail();
+				}
 			}
 			
 		});
@@ -309,44 +319,44 @@ public class FrmMain {
 		panelDetail.add(lblCourriel);
 		
 		textFieldCourriel = new JTextField();
-		textFieldCourriel.setBounds(77, 55, 243, 26);
+		textFieldCourriel.setBounds(77, 55, 396, 26);
 		panelDetail.add(textFieldCourriel);
 		textFieldCourriel.setColumns(10);
 		
 		JLabel lblDdn = new JLabel("Né.e le");
-		lblDdn.setBounds(332, 60, 52, 16);
+		lblDdn.setBounds(6, 85, 52, 16);
 		panelDetail.add(lblDdn);
 		
 		// https://www.codejava.net/java-se/swing/how-to-use-jdatepicker-to-display-calendar-component
 		textFieldDdn = new JTextField();
-		textFieldDdn.setBounds(385, 55, 88, 26);
+		textFieldDdn.setBounds(77, 80, 88, 26);
 		panelDetail.add(textFieldDdn);
 		textFieldDdn.setColumns(10);
 		
 		JLabel lblSolde = new JLabel("Solde");
-		lblSolde.setBounds(6, 88, 61, 16);
+		lblSolde.setBounds(6, 112, 61, 16);
 		panelDetail.add(lblSolde);
 		
 		textFieldSolde = new JTextField();
-		textFieldSolde.setBounds(77, 83, 72, 26);
+		textFieldSolde.setBounds(77, 107, 72, 26);
 		panelDetail.add(textFieldSolde);
 		textFieldSolde.setColumns(10);
 		
 		textFieldSoldeAjout = new JTextField();
-		textFieldSoldeAjout.setBounds(161, 83, 61, 26);
+		textFieldSoldeAjout.setBounds(161, 107, 61, 26);
 		panelDetail.add(textFieldSoldeAjout);
 		textFieldSoldeAjout.setColumns(10);
 		
 		btnAjouterSolde = new JButton("← Ajouter $");
-		btnAjouterSolde.setBounds(223, 83, 109, 29);
+		btnAjouterSolde.setBounds(223, 107, 109, 29);
 		panelDetail.add(btnAjouterSolde);
 		
 		btnEnregistrerFiche = new JButton("Enregistrer fiche");
-		btnEnregistrerFiche.setBounds(332, 83, 141, 29);
+		btnEnregistrerFiche.setBounds(332, 107, 141, 29);
 		panelDetail.add(btnEnregistrerFiche);
 		
 		table_1 = new JTable();
-		table_1.setBounds(16, 148, 446, 414);
+		table_1.setBounds(16, 177, 446, 385);
 		panelDetail.add(table_1);
 		
 		table = new JTable();

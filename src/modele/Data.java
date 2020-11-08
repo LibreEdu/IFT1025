@@ -12,13 +12,13 @@ public final class Data {
 	public Client client3 = new Client("Éric-Emmanuel", "De Morgane", "1966-09-26");
 	public Client client4 = new Client("Sofía", "de Borbón y Ortiz", "2007-04-29");
 	public Client client5 = new Client("Françoise", "Ça", "1999-02-31");
-	public Aliment alim1 = new Aliment("Broccoli","vert",2.5);
-	public Meuble meuble1 = new Meuble("Table",100,300);
+	public Produit alim1 = new Aliment("Broccoli","vert",2.5);
+	public Produit meuble1 = new Meuble("Table",100,300);
 	
 
 	public Data() {
-		Repertoire.add(alim1);
-		Repertoire.add(meuble1);
+		directeur.addProduit(alim1);
+		directeur.addProduit(meuble1);
 	}
 
 }

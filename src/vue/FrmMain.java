@@ -29,6 +29,7 @@ import modele.Directeur;
 import modele.Repertoire;
 import java.awt.Font;
 import javax.swing.JTextPane;
+import java.awt.Panel;
 
 
 public class FrmMain {
@@ -67,17 +68,20 @@ public class FrmMain {
 	private static JTable table_1;
 	private static Directeur[] listeDir;
 	private static Directeur directeur;
-	private JRadioButton rdbtnAddAlim;
-	private JRadioButton rdbtnAddMeuble;
-	private JLabel lblNewLabel;
-	private JLabel lblCouleur;
-	private JLabel lblPoids;
-	private JTextField txtNom;
-	private JTextField txtPoids;
-	private JTextField txtCouleur;
-	private JTextField txtType;
-	private JTextField txtHauteur;
-	private JTextField txtPrix;
+	private static JRadioButton rdbtnAddAlim;
+	private static JRadioButton rdbtnAddMeuble;
+	private static JLabel lblNewLabel;
+	private static JLabel lblCouleur;
+	private static JLabel lblPoids;
+	private static JTextField txtNom;
+	private static JTextField txtPoids;
+	private static JTextField txtCouleur;
+	private static JTextField txtType;
+	private static JTextField txtHauteur;
+	private static JTextField txtPrix;
+	private static JTextArea erreurProduit;
+	private Panel errorPanelProd;
+
 	
 
 
@@ -300,40 +304,80 @@ public class FrmMain {
 		directeur = (Directeur) comboBoxListeDir.getSelectedItem();
 		
 		if(rdbtnAddAlim.isSelected()) {
-			// Récupérer les informations
-			String nom = txtNom.getText();
-			String couleur = txtCouleur.getText();
-			double poids = Double.parseDouble(txtPoids.getText()); // Gérer exception!!
 			
-			// Ajouter l'aliment
-			Produit aliment = new Aliment(nom,couleur,poids);
-			directeur.addProduit(aliment);
-			
-			// Vider les champs de textes
-			txtNom.setText("");
-			txtCouleur.setText("");
-			txtPoids.setText("");
-			
-			// Si on est en train d'afficher les aliments, mettre à jour la liste
-			if(rdbtnAlim.isSelected()) afficheListeProduits("Aliment");
+			// vérifier que toutes les informations ont été entrés
+			if(txtNom.getText().isEmpty() || txtCouleur.getText().isEmpty() 
+					|| txtPoids.getText().isEmpty()) {
+				erreurProduit.setText("Erreur: vous n'avez pas entré tous " +
+					"les champs requis");
+				errorPanelProd.setVisible(true);
+			} else {
+				// Récupérer les informations
+				String nom = txtNom.getText();
+				String couleur = txtCouleur.getText();
+				double poids;
+				try {
+					poids = Double.parseDouble(txtPoids.getText());
+				} catch(NumberFormatException e) {
+					erreurProduit.setText("Erreur: Le poids entré doit être un nombre");
+					errorPanelProd.setVisible(true);
+					return;
+				}
+				
+				//Ajouter l'aliment
+				Produit aliment = new Aliment(nom,couleur,poids);
+				directeur.addProduit(aliment);
+				
+				// Vider les champs de textes
+				txtNom.setText("");
+				txtCouleur.setText("");
+				txtPoids.setText("");
+				
+				// Si on est en train d'afficher les aliments, mettre à jour la liste
+				if(rdbtnAlim.isSelected()) afficheListeProduits("Aliment");
+				errorPanelProd.setVisible(false);
+			}
 			
 		} else if(rdbtnAddMeuble.isSelected()) {
-			// Récupérer les informations
-			String type = txtType.getText();
-			double hauteur = Double.parseDouble(txtHauteur.getText());
-			double prix = Double.parseDouble(txtPrix.getText()); // G�rer exception!!
-			
-			// Ajouter le meuble
-			Produit meuble = new Meuble(type,hauteur,prix);
-			directeur.addProduit(meuble);
-			
-			// Vider les champs de textes
-			txtType.setText("");
-			txtPrix.setText("");
-			txtHauteur.setText("");
-			
-			// Si on est en train d'afficher les meubles, mettre à jour la liste
-			if(rdbtnMeuble.isSelected()) afficheListeProduits("Meuble");
+			// vérifier que toutes les informations ont été entrés
+			if(txtType.getText().isEmpty() || txtHauteur.getText().isEmpty() 
+					|| txtPrix.getText().isEmpty()) {
+				erreurProduit.setText("Erreur: vous n'avez pas entré tous " +
+					"les champs requis");
+				errorPanelProd.setVisible(true);
+			} else {
+				// Récupérer les informations
+				String type = txtType.getText();
+				double hauteur;
+				try {
+					hauteur = Double.parseDouble(txtHauteur.getText());
+				} catch(NumberFormatException e) {
+					erreurProduit.setText("Erreur: La hauteur maximale entré doit être un nombre");
+					errorPanelProd.setVisible(true);
+					return;
+				}
+				double prix;
+				try {
+					prix = Double.parseDouble(txtPrix.getText());
+				} catch(NumberFormatException e) {
+					erreurProduit.setText("Erreur: Le prix entré doit être un nombre");
+					errorPanelProd.setVisible(true);
+					return;
+				}
+				
+				// Ajouter le meuble
+				Produit meuble = new Meuble(type,hauteur,prix);
+				directeur.addProduit(meuble);
+				
+				// Vider les champs de textes
+				txtType.setText("");
+				txtPrix.setText("");
+				txtHauteur.setText("");
+				
+				// Si on est en train d'afficher les meubles, mettre à jour la liste
+				if(rdbtnMeuble.isSelected()) afficheListeProduits("Meuble");
+				errorPanelProd.setVisible(false);
+			}
 		}
 		
 	}
@@ -644,10 +688,26 @@ public class FrmMain {
 			}
 		});
 		
+		// Text Area qui affiche un message d'erreur si les attributs
+		// d'un produit sont mal entré
+		errorPanelProd = new Panel();
+		errorPanelProd.setBounds(574, 314, 294, 71);
+		panelProduits.add(errorPanelProd);
+		errorPanelProd.setVisible(false);
+		
+		erreurProduit = new JTextArea();
+		erreurProduit.setForeground(Color.RED);
+		erreurProduit.setRows(2);
+		erreurProduit.setColumns(20);
+		errorPanelProd.add(erreurProduit);
+		
+		
+	
 		
 		// Affichage des données 
 		rdbtnAlim.setSelected(true);
 		rdbtnAlim();
+		
 
 	}
 }

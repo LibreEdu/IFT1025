@@ -168,13 +168,17 @@ public abstract class Personne implements Comparable<Personne> {
 		produitsPrefs.remove(prod);
 	}
 	
-	public Produit[] getProduitsPrefs() {
+	public Produit[] arrayProduitsPrefs() {
 		Produit[] result = new Produit[produitsPrefs.size()];
 		int i = 0;
 		for(Produit produit: produitsPrefs) {
 			result[i++]=produit;
 		}
 		return result;
+	}
+	
+	public ArrayList<Produit> getProduitsPrefs() {
+		return this.produitsPrefs;
 	}
 
 	public float getSolde() {

@@ -58,6 +58,7 @@ public class FrmMain {
 	private static JButton btnEnregistrerFiche;
 	private static JButton btnRechercher;
 	private static JButton btnRetirerArgent;
+	private static JButton btnRetirerProdPref;
 	private static JComboBox<Object> comboBoxListeDir;
 	private static JComboBox<Object> comboBoxRole;
 	private static JComboBox<Produit> comboBoxAjoutProdPref;
@@ -287,7 +288,7 @@ public class FrmMain {
 				btnRetirerArgent.setVisible(true);
 			}
 			
-			comboBoxProdPref.setModel(new JComboBox<>(personne.getProduitsPrefs()).getModel());
+			comboBoxProdPref.setModel(new JComboBox<>(personne.arrayProduitsPrefs()).getModel());
 			comboBoxAjoutProdPref.setModel(new JComboBox<>(Repertoire.getProduits()).getModel());
 		}
 		// On affiche le panneau du détail de la personne
@@ -547,12 +548,39 @@ public class FrmMain {
 			Personne personne = Repertoire.searchById(id);
 			
 			// On ajoute le produit
-			personne.addProduitPref(produit);
+			if(!(personne.getProduitsPrefs().contains(produit))) {
+				personne.addProduitPref(produit);
+			}
 			
 			// On met à jour la liste
-			comboBoxProdPref.setModel(new JComboBox<>(personne.getProduitsPrefs()).getModel());
+			comboBoxProdPref.setModel(new JComboBox<>(personne.arrayProduitsPrefs()).getModel());
 		}
 	}
+	
+	/**
+	 * Clic sur le bouton retirer (pour retirer un produit préféré)
+	 */
+	private static void btnRetirerProdPref() {
+		//On récupère le produit sélectionné
+		Produit produit = (Produit) comboBoxProdPref.getSelectedItem();
+		
+		// On récupère le # de la ligne sélectionnée dans le tableau de personnes
+		int row = tablePersonne.getSelectedRow();
+		
+		// On récupère le Id de la personne
+		// Si aucune ligne est sélectionnée, row == -1
+		if (row >= 0) {
+			int id = Integer.parseInt((String) tablePersonne.getValueAt(row, 0));
+			Personne personne = Repertoire.searchById(id);
+			
+			// On retire le produit
+			personne.delProduitPref(produit);
+			
+			// On met à jour la liste
+			comboBoxProdPref.setModel(new JComboBox<>(personne.arrayProduitsPrefs()).getModel());
+		}
+	}
+	
 	
 	/**
 	 * Clic sur le bouton ajouter produit
@@ -871,12 +899,22 @@ public class FrmMain {
 		btnAjoutProdPref = new JButton("Ajouter");
 		btnAjoutProdPref.setBounds(313, 212, 89, 23);
 		panelDetail.add(btnAjoutProdPref);
-		
 		btnAjoutProdPref.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnAjoutProdPref();
 			}
 		});
+		
+		btnRetirerProdPref = new JButton("Retirer");
+		btnRetirerProdPref.setBounds(313, 177, 89, 23);
+		panelDetail.add(btnRetirerProdPref);
+		btnRetirerProdPref.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnRetirerProdPref();
+			}
+		});
+		
+		
 		
 		// Et on affiche les données correspondantes
 		rdbtnClient();

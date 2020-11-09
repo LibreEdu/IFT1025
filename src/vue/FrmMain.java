@@ -353,19 +353,24 @@ public class FrmMain {
 					rdbtnDirecteur.setSelected(true);
 					break;
 			}
+			
+			// On veut sélectionner sur la liste de gauche, la personne qu’on
+			// vient de rajouter. Pour cela on récupère compteur qui correspond
+			// à l’ID de la personne qu’on vient de rajouter, puis on chercher
+			// quelle ligne de tablePersonne contient cet id
 			int compteur = Personne.getCompteur();
-			System.out.println("compteur = " + compteur);
 			int row = 0;
+			int id2;
 			for (int i = 0; i < tablePersonne.getRowCount(); i++) {
-				int id2 = Integer.parseInt((String) tablePersonne.getValueAt(row, 0));
-				System.out.println("id2 = " + id2);
+				id2 = Integer.parseInt((String) tablePersonne.getValueAt(row, 0));
 				if (id2 == compteur) {
 					break;
 				} else {
 					row++;
 				}
 			}
-			System.out.println(row);
+			// On selectionne la ligne du tableau
+			tablePersonne.setRowSelectionInterval(row, row);
 			
 		} else {		// C’est une modif
 			Personne personne = Repertoire.getPersonne(Integer.parseInt(id));

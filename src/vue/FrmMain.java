@@ -63,6 +63,7 @@ public class FrmMain {
 	private static JLabel lblNewLabel;
 	private static JLabel lblPoids;
 	private static JLabel lblProdPref;
+	private static JLabel lblSolde;
 	private static JPanel panelDetail;
 	private static JRadioButton rdbtnAddAlim;
 	private static JRadioButton rdbtnAddMeuble;
@@ -204,13 +205,60 @@ public class FrmMain {
 		rdbtnEmploye.setSelected(false);
 		rdbtnDirecteur.setSelected(false);
 	}
+	
+	private static void buttonNouvellePersonne() {
+		
+		// On affiche le panneau du détail de la personne
+		panelDetail.setVisible(true);
+		
+		// On désactive la liste de personne
+		tablePersonne.setEnabled(false);
+		
+		// On désactive la ligne sélectionnée
+		tablePersonne.setRowSelectionAllowed(false);
+		
+		// On affiche la liste déroulante : Client, Employe, Directeur
+		comboBoxRole.setVisible(true);
+		
+		// On cache le solde
+		lblSolde.setVisible(false);
+		textFieldSolde.setVisible(false);
+		textFieldSoldeAjout.setVisible(false);
+		btnAjouterArgent.setVisible(false);
+		
+		// et la liste des produits
+		lblProdPref.setVisible(false);
+		comboBoxProdPref.setVisible(false);
+		lblAjoutProdPref.setVisible(false);
+		comboBoxAjoutProdPref.setVisible(false);
+		btnAjoutProdPref.setVisible(false);
+		
+		// Synchronisation entre le choix par défaut de la liste déroulante
+		// et le bouton radio actif
+		if (rdbtnClient.isSelected()) {
+			comboBoxRole.setSelectedIndex(0);
+		} else if (rdbtnEmploye.isSelected()) {
+			comboBoxRole.setSelectedIndex(1);
+		} else {
+			comboBoxRole.setSelectedIndex(2);
+		}
+		
+		// On vide le texte. Il est rempli si l’on vient de Détail
+		textFieldId.setText("");
+		textFieldPrenom.setText("");
+		textFieldNom.setText("");
+		textFieldCourriel.setText("");
+		textFieldDdn.setText("");
+	}
 
 	/**
 	 * Affiche le détail de la personne
 	 */
 	private static void btnDetail() {
+		
 		// On récupère le # de la ligne sélectionnée
 		int row = tablePersonne.getSelectedRow();
+		
 		
 		// On récupère le Id de la personne
 		// Si aucune ligne est sélectionnée, row == -1
@@ -218,17 +266,7 @@ public class FrmMain {
 			int id = Integer.parseInt((String) tablePersonne.getValueAt(row, 0));
 			Personne personne = Repertoire.searchById(id);
 			textFieldId.setText("" + personne.getId());
-//			switch(personne.getRole()) {
-//				case "Client" :
-//					comboBoxRole.setSelectedIndex(0);
-//					break;
-//				case "Employe" :
-//					comboBoxRole.setSelectedIndex(1);
-//					break;
-//				case "Directeur" :
-//					comboBoxRole.setSelectedIndex(2);
-//					break;
-//			}
+
 			textFieldPrenom.setText(personne.getPrenom());
 			textFieldNom.setText(personne.getNom());
 			textFieldCourriel.setText(personne.getCourriel());
@@ -248,7 +286,30 @@ public class FrmMain {
 			comboBoxProdPref.setModel(new JComboBox<>(personne.getProduitsPrefs()).getModel());
 			comboBoxAjoutProdPref.setModel(new JComboBox<>(Repertoire.getProduits()).getModel());
 		}
+		// On affiche le panneau du détail de la personne
 		panelDetail.setVisible(true);
+		
+		// On active la liste de personne
+		tablePersonne.setEnabled(true);
+		
+		// On active la ligne sélectionnée
+		tablePersonne.setRowSelectionAllowed(true);
+		
+		// On cache la liste déroulante : Client, Employe, Directeur
+		comboBoxRole.setVisible(false);
+		
+		// On affiche le solde
+		lblSolde.setVisible(true);
+		textFieldSolde.setVisible(true);
+		textFieldSoldeAjout.setVisible(true);
+		btnAjouterArgent.setVisible(true);
+		
+		// et la liste des produits
+		lblProdPref.setVisible(true);
+		comboBoxProdPref.setVisible(true);
+		lblAjoutProdPref.setVisible(true);
+		comboBoxAjoutProdPref.setVisible(true);
+		btnAjoutProdPref.setVisible(true);
 	}
 	
 	/**
@@ -573,6 +634,7 @@ public class FrmMain {
 		JButton buttonNouvellePersonne = new JButton("Nouvelle personne");
 		buttonNouvellePersonne.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				buttonNouvellePersonne();
 			}
 		});
 		buttonNouvellePersonne.setBounds(804, 55, 164, 29);
@@ -658,7 +720,7 @@ public class FrmMain {
 		textFieldDdn.setBounds(77, 80, 98, 26);
 		panelDetail.add(textFieldDdn);
 		
-		JLabel lblSolde = new JLabel("Solde");
+		lblSolde = new JLabel("Solde");
 		lblSolde.setBounds(6, 112, 44, 16);
 		panelDetail.add(lblSolde);
 		

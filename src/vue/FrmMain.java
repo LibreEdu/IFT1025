@@ -1,12 +1,12 @@
 package vue;
 
-import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -34,7 +34,7 @@ import modele.Personne;
 import modele.Directeur;
 import modele.Repertoire;
 
-import java.awt.Font;
+//import java.awt.Font;
 import javax.swing.JTextPane;
 import java.awt.Panel;
 
@@ -65,7 +65,7 @@ public class FrmMain {
 	private static JTextField textFieldPrenom;
 	private static JTextField textFieldNom;
 	private static JTextField textFieldCourriel;
-	private static JDateChooser dateChooserDdn;
+	private static JTextField textFieldDdn;
 	private static JTextField textFieldSolde;
 	private static JTextField textFieldSoldeAjout;
 	private static JButton btnAjouterSolde;
@@ -219,10 +219,9 @@ public class FrmMain {
 			textFieldNom.setText(personne.getNom());
 			textFieldCourriel.setText(personne.getCourriel());
 			
-			LocalDate Ddn = personne.getDdn();
-			// https://stackoverflow.com/questions/22929237/convert-java-time-localdate-into-java-util-date-type
-			Date date = Date.from(Ddn.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			dateChooserDdn.setDate(date);
+			LocalDate ddn = personne.getDdn();
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			textFieldDdn.setText(ddn.format(dtf));
 			
 			DecimalFormat sf = new DecimalFormat("#,##0.00");
 			textFieldSolde.setText(sf.format(personne.getSolde()));
@@ -538,6 +537,10 @@ public class FrmMain {
 		lblDdn.setBounds(6, 85, 52, 16);
 		panelDetail.add(lblDdn);
 		
+		textFieldDdn = new JTextField();
+		textFieldDdn.setBounds(77, 80, 98, 26);
+		panelDetail.add(textFieldDdn);
+		
 		JLabel lblSolde = new JLabel("Solde");
 		lblSolde.setBounds(6, 112, 44, 16);
 		panelDetail.add(lblSolde);
@@ -571,10 +574,6 @@ public class FrmMain {
 		table_1 = new JTable();
 		table_1.setBounds(16, 177, 446, 385);
 		panelDetail.add(table_1);
-		
-		dateChooserDdn = new JDateChooser();
-		dateChooserDdn.setBounds(77, 80, 119, 26);
-		panelDetail.add(dateChooserDdn);
 		
 		table = new JTable();
 		table.setBounds(505, 357, 1, 1);

@@ -296,7 +296,7 @@ public class FrmMain {
 	}
 	
 	/**
-	 * Ajoute un montant au solde
+	 * Retire un montant au solde
 	 */
 	private static void btnRetirerArgent() {
 		Employe employe = (Employe) Repertoire.getPersonne(Integer.parseInt(textFieldId.getText()));

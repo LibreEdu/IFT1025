@@ -73,7 +73,6 @@ public class FrmMain {
 	private static JRadioButton rdbtnMeuble;
 	private static JScrollPane scrollPanePersonne;
 	private static JScrollPane scrollPaneProduit;
-	private static JTable table;
 	private static JTable tablePersonne;
 	private static JTable tableProduit;
 	private static JTextArea erreurProduit;
@@ -726,10 +725,6 @@ public class FrmMain {
 				btnAjoutProdPref();
 			}
 		});
-		
-		table = new JTable();
-		table.setBounds(505, 357, 1, 1);
-		panelPersonnes.add(table);
 		
 		// Et on affiche les données correspondantes
 		rdbtnClient();

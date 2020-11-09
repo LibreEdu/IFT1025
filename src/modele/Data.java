@@ -14,12 +14,16 @@ public final class Data {
 	public Client client5 = new Client("Françoise", "Ça", "1999-02-31");
 	public Produit alim1 = new Aliment("Broccoli","vert",2.5);
 	public Produit meuble1 = new Meuble("Table",100,300);
+	public Produit meuble2 = new Meuble("Chaise",150,75.99);
 	
 
 	public Data() {
 		client4.addMoney(1000);
+		client4.addProduitPref(alim1);
+		client4.addProduitPref(meuble1);
 		directeur.addProduit(alim1);
 		directeur.addProduit(meuble1);
+		directeur2.addProduit(meuble2);
 	}
 
 }

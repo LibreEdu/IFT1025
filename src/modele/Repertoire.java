@@ -46,6 +46,20 @@ public final class Repertoire {
 		}
 	}
 	
+	/**
+	 * Retourne un tableau contenant tous les produits
+	 * 	 
+	 * @return tableau de produits
+	 */
+	public static Produit[] getProduits() {
+		Produit[] result = new Produit[produits.size()];
+		int i = 0;
+		for(Produit produit: produits) {
+			result[i++]=produit;
+		}
+		return result;
+	}
+	
 	
 	/**
 	 * Renvoie un tableau de clients, d’employés ou de directeurs,

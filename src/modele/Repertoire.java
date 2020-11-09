@@ -169,10 +169,7 @@ public final class Repertoire {
 				}
 				return result2;
 		}
-		
 		return result;
-		
-		
 	}
 	
 	/**
@@ -325,7 +322,6 @@ public final class Repertoire {
 			row[3] = personne.getDdn().format(dtf);
 			result[i++] = row;
 		}
-	
 		return result;
 	}
 	

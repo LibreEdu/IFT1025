@@ -6,6 +6,7 @@ import modele.Meuble;
 import modele.Produit;
 import modele.Data;
 import modele.Personne;
+import modele.Employe;
 import modele.Directeur;
 import modele.Repertoire;
 
@@ -59,6 +60,7 @@ public class FrmMain {
 	private static JTextField textFieldId;
 	private static JComboBox<Object> comboBoxRole;
 	private static JComboBox<Object> comboBoxListeDir;
+	private static JTextField textFieldRecherche;
 	private static JTextField textFieldPrenom;
 	private static JTextField textFieldNom;
 	private static JTextField textFieldCourriel;
@@ -68,7 +70,6 @@ public class FrmMain {
 	private static JButton btnAjouterArgent;
 	private static JButton btnRetirerArgent;
 	private static JButton btnEnregistrerFiche;
-	private static JTextField textFieldRecherche;
 	private static JButton btnRechercher;
 	private static JTable table;
 	private static Directeur[] listeDir;
@@ -218,17 +219,17 @@ public class FrmMain {
 			int id = Integer.parseInt((String) tablePersonne.getValueAt(row, 0));
 			Personne personne = Repertoire.searchById(id);
 			textFieldId.setText("" + personne.getId());
-			switch(personne.getRole()) {
-				case "Client" :
-					comboBoxRole.setSelectedIndex(0);
-					break;
-				case "Employe" :
-					comboBoxRole.setSelectedIndex(1);
-					break;
-				case "Directeur" :
-					comboBoxRole.setSelectedIndex(2);
-					break;
-			}
+//			switch(personne.getRole()) {
+//				case "Client" :
+//					comboBoxRole.setSelectedIndex(0);
+//					break;
+//				case "Employe" :
+//					comboBoxRole.setSelectedIndex(1);
+//					break;
+//				case "Directeur" :
+//					comboBoxRole.setSelectedIndex(2);
+//					break;
+//			}
 			textFieldPrenom.setText(personne.getPrenom());
 			textFieldNom.setText(personne.getNom());
 			textFieldCourriel.setText(personne.getCourriel());
@@ -239,6 +240,11 @@ public class FrmMain {
 			
 			DecimalFormat sf = new DecimalFormat("#,##0.00");
 			textFieldSolde.setText(sf.format(personne.getSolde()));
+			
+			// Si ce n’est pas un client, on affiche le bouton Retirer $
+			if (rdbtnClient.isSelected() == false) {
+				btnRetirerArgent.setVisible(true);
+			}
 			
 			comboBoxProdPref.setModel(new JComboBox<>(personne.getProduitsPrefs()).getModel());
 			comboBoxAjoutProdPref.setModel(new JComboBox<>(Repertoire.getProduits()).getModel());
@@ -287,6 +293,17 @@ public class FrmMain {
 		personne.addMoney(Float.parseFloat(textFieldSoldeAjout.getText()));
 		DecimalFormat sf = new DecimalFormat("#,##0.00");
 		textFieldSolde.setText(sf.format(personne.getSolde()));
+		textFieldSoldeAjout.setText("");
+	}
+	
+	/**
+	 * Ajoute un montant au solde
+	 */
+	private static void btnRetirerArgent() {
+		Employe employe = (Employe) Repertoire.getPersonne(Integer.parseInt(textFieldId.getText()));
+		employe.substractMoney(Float.parseFloat(textFieldSoldeAjout.getText()));
+		DecimalFormat sf = new DecimalFormat("#,##0.00");
+		textFieldSolde.setText(sf.format(employe.getSolde()));
 		textFieldSoldeAjout.setText("");
 	}
 	
@@ -661,9 +678,15 @@ public class FrmMain {
 		btnAjouterArgent.setBounds(205, 107, 109, 29);
 		panelDetail.add(btnAjouterArgent);
 		
-		btnRetirerArgent = new JButton("← Ajouter $");
+		btnRetirerArgent = new JButton("← Retirer $");
+		btnRetirerArgent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnRetirerArgent();
+			}
+		});
 		btnRetirerArgent.setBounds(313, 107, 109, 29);
 		panelDetail.add(btnRetirerArgent);
+		btnRetirerArgent.setVisible(false);
 		
 		btnEnregistrerFiche = new JButton("Enregistrer fiche");
 		btnEnregistrerFiche.addActionListener(new ActionListener() {

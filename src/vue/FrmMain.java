@@ -44,7 +44,7 @@ public class FrmMain {
 	private static int largeur = 1024;
 	private static int hauteur = 768;
 	
-	public static JFrame frame;
+	public JFrame frame;
 	private static JTable tablePersonne;
 	private static JTable tableProduit;
 	private static JScrollPane scrollPanePersonne;
@@ -490,7 +490,7 @@ public class FrmMain {
 	 * Initialize the contents of the frame.
 	 * @param controle Le controleur
 	 */
-	private static void initialize() {
+	private void initialize() {
 		//this.controle = controle;
 		frame = new JFrame();
 		frame.setBounds(x, y, largeur, hauteur);

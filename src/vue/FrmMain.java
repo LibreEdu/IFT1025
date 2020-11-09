@@ -5,10 +5,10 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
+//import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
+//import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.event.ListSelectionEvent;
@@ -36,7 +36,7 @@ import modele.Directeur;
 import modele.Repertoire;
 
 //import java.awt.Font;
-import javax.swing.JTextPane;
+//import javax.swing.JTextPane;
 import java.awt.Panel;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -63,7 +63,7 @@ public class FrmMain {
 	private static JButton btnDetail;
 	private static JPanel panelDetail;
 	private static JTextField textFieldId;
-	private static JComboBox comboBoxRole;
+	private static JComboBox<String> comboBoxRole;
 	private static JComboBox comboBoxListeDir;
 	private static JTextField textFieldPrenom;
 	private static JTextField textFieldNom;
@@ -260,6 +260,7 @@ public class FrmMain {
 	 */
 	private static void btnEnregistrerFiche() {
 		Personne personne = Repertoire.getPersonne(Integer.parseInt(textFieldId.getText()));
+
 		personne.setNom(textFieldNom.getText());
 		personne.setPrenom(textFieldPrenom.getText());
 		personne.setCourriel(Personne.genererCourriel(textFieldPrenom.getText(), textFieldNom.getText()));
@@ -592,6 +593,7 @@ public class FrmMain {
 		comboBoxRole = new JComboBox(Roles);
 		comboBoxRole.setBounds(364, 2, 109, 27);
 		panelDetail.add(comboBoxRole);
+		comboBoxRole.setVisible(false);
 		
 		JLabel lblPrenom = new JLabel("Prénom");
 		lblPrenom.setBounds(6, 34, 61, 16);

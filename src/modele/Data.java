@@ -15,7 +15,6 @@ public final class Data {
 	public Produit alim1 = new Aliment("Broccoli","vert",2.5);
 	public Produit meuble1 = new Meuble("Table",100,300);
 	public Produit meuble2 = new Meuble("Chaise",150,75.99);
-	
 
 	public Data() {
 		client4.addMoney(1000);

@@ -7,8 +7,6 @@ public class Employe extends Personne{
 	}
 
 	public String toString() {
-		//String f = feminin ? "e" : "";
-		//return super.toString() + ", est un" + f + " employé" + f;
 		return super.toString();
 	}
 	

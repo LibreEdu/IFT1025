@@ -7,8 +7,6 @@ public class Directeur extends Employe {
 	}
 
 	public String toString() {
-		//String f = feminin ? "rice" : "eur";
-		//return super.toString() + " et direct" + f;
 		return this.getPrenom() + " " + this.getNom();
 	}
 	

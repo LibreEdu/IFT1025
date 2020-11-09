@@ -1,14 +1,26 @@
 package vue;
 
+import controleur.Main;
+import modele.Aliment;
+import modele.Meuble;
+import modele.Produit;
+import modele.Data;
+import modele.Personne;
+import modele.Directeur;
+import modele.Repertoire;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.Font;
+import java.awt.Panel;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;
@@ -23,20 +35,6 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumn;
-
-import controleur.Main;
-import modele.Aliment;
-import modele.Meuble;
-import modele.Produit;
-import modele.Data;
-import modele.Personne;
-import modele.Directeur;
-import modele.Repertoire;
-
-import java.awt.Panel;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-
 
 
 public class FrmMain {
@@ -68,6 +66,7 @@ public class FrmMain {
 	private static JTextField textFieldSolde;
 	private static JTextField textFieldSoldeAjout;
 	private static JButton btnAjouterArgent;
+	private static JButton btnRetirerArgent;
 	private static JButton btnEnregistrerFiche;
 	private static JTextField textFieldRecherche;
 	private static JButton btnRechercher;
@@ -97,7 +96,7 @@ public class FrmMain {
 
 
 	/**
-	 * Create the application.
+	 * Initialisation des données et de la frame principale
 	 */
 	public FrmMain() {
 		new Data();
@@ -120,7 +119,7 @@ public class FrmMain {
 	}
 	
 	/**
-	 * Clic sur le bouton radio Client
+	 * Clic sur le bouton radio Employe
 	 */
 	private static void rdbtnEmploye() {
 		demandeListe("Employe");
@@ -135,7 +134,7 @@ public class FrmMain {
 	}
 	
 	/**
-	 * Clic sur le bouton radio Client
+	 * Clic sur le bouton radio Directeur
 	 */
 	private static void rdbtnDirecteur() {
 		demandeListe("Directeur");
@@ -667,6 +666,10 @@ public class FrmMain {
 		btnAjouterArgent.setBounds(205, 107, 109, 29);
 		panelDetail.add(btnAjouterArgent);
 		
+		btnRetirerArgent = new JButton("← Ajouter $");
+		btnRetirerArgent.setBounds(313, 107, 109, 29);
+		panelDetail.add(btnRetirerArgent);
+		
 		btnEnregistrerFiche = new JButton("Enregistrer fiche");
 		btnEnregistrerFiche.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -696,9 +699,6 @@ public class FrmMain {
 		btnAjoutProdPref.setBounds(313, 212, 89, 23);
 		panelDetail.add(btnAjoutProdPref);
 		
-		JButton btnAjouterSolde_1 = new JButton("← Ajouter $");
-		btnAjouterSolde_1.setBounds(313, 107, 109, 29);
-		panelDetail.add(btnAjouterSolde_1);
 		btnAjoutProdPref.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnAjoutProdPref();

@@ -334,6 +334,12 @@ public class FrmMain {
 	 * Enregistre les données de la personne, pas l’ajout de solde
 	 */
 	private static void btnEnregistrerFiche() {
+		if (textFieldPrenom.getText().equals("")
+				|| textFieldNom.getText().equals("")
+				|| textFieldDdn.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Les trois champs sont obligatoires");
+			return;
+		}
 		String id = textFieldId.getText();
 
 		if (id.isEmpty()) {	// C’est un ajout
@@ -954,19 +960,19 @@ public class FrmMain {
 		txtNom.setEditable(false);
 		txtNom.setBounds(556, 170, 96, 20);
 		panelProduits.add(txtNom);
-		txtNom.setColumns(10);
+		//txtNom.setColumns(10);
 		
 		txtPoids = new JTextField();
 		txtPoids.setEditable(false);
 		txtPoids.setBounds(568, 224, 96, 20);
 		panelProduits.add(txtPoids);
-		txtPoids.setColumns(10);
+		//txtPoids.setColumns(10);
 		
 		txtCouleur = new JTextField();
 		txtCouleur.setEditable(false);
 		txtCouleur.setBounds(591, 194, 96, 20);
 		panelProduits.add(txtCouleur);
-		txtCouleur.setColumns(10);
+		//txtCouleur.setColumns(10);
 		
 		JLabel lblType = new JLabel("Type :");
 		lblType.setBounds(724, 170, 49, 14);
@@ -1019,14 +1025,9 @@ public class FrmMain {
 		erreurProduit.setRows(2);
 		erreurProduit.setColumns(20);
 		errorPanelProd.add(erreurProduit);
-		
-		
-	
-		
+			
 		// Affichage des données 
 		rdbtnAlim.setSelected(true);
 		rdbtnAlim();
-		
-
 	}
 }

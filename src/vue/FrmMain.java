@@ -4,6 +4,10 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.event.ListSelectionEvent;
@@ -17,9 +21,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
 import javax.swing.table.TableColumn;
 
 import controleur.Main;
@@ -57,6 +59,7 @@ public class FrmMain {
 	private static JTextField textFieldPrenom;
 	private static JTextField textFieldNom;
 	private static JTextField textFieldCourriel;
+	private static JDateChooser dateChooserDdn;
 	private static JTextField textFieldSolde;
 	private static JTextField textFieldSoldeAjout;
 	private static JButton btnAjouterSolde;
@@ -180,7 +183,7 @@ public class FrmMain {
 	
 
 	/**
-	 * Bouton Détail
+	 * Affiche le détail de la personne
 	 */
 	private static void btnDetail() {
 		// On récupère le # de la ligne sélectionnée
@@ -203,12 +206,26 @@ public class FrmMain {
 					comboBoxRole.setSelectedIndex(2);
 					break;
 			}
-			textFieldPrenom.setText("" + personne.getPrenom());
-			textFieldNom.setText("" + personne.getNom());
-			textFieldCourriel.setText("" + personne.getCourriel());
+			textFieldPrenom.setText(personne.getPrenom());
+			textFieldNom.setText(personne.getNom());
+			textFieldCourriel.setText(personne.getCourriel());
 			
+			LocalDate Ddn = personne.getDdn();
+			// https://stackoverflow.com/questions/22929237/convert-java-time-localdate-into-java-util-date-type
+			Date date = Date.from(Ddn.atStartOfDay(ZoneId.systemDefault()).toInstant());
+			dateChooserDdn.setDate(date);
+			
+			DecimalFormat sf = new DecimalFormat("#,##0.00");
+			textFieldSolde.setText(sf.format(personne.getSolde()));
 		}
 		panelDetail.setVisible(true);
+	}
+	
+	/**
+	 * Enregistre les données de la personne, pas l’ajout de solde
+	 */
+	private static void btnEnregistrerFiche() {
+		
 	}
 	
 	/**
@@ -321,7 +338,7 @@ public class FrmMain {
 			// Récupérer les informations
 			String type = txtType.getText();
 			double hauteur = Double.parseDouble(txtHauteur.getText());
-			double prix = Double.parseDouble(txtPrix.getText()); // G�rer exception!!
+			double prix = Double.parseDouble(txtPrix.getText()); // Gérer exception!!
 			
 			// Ajouter le meuble
 			Produit meuble = new Meuble(type,hauteur,prix);
@@ -395,8 +412,9 @@ public class FrmMain {
 		
 		textFieldRecherche = new JTextField();
 		textFieldRecherche.setBounds(739, 2, 65, 26);
-		panelPersonnes.add(textFieldRecherche);
 		textFieldRecherche.setColumns(10);
+		panelPersonnes.add(textFieldRecherche);
+		
 		
 		btnRechercher = new JButton("Rechercher");
 		btnRechercher.setBounds(804, 2, 117, 29);
@@ -418,9 +436,9 @@ public class FrmMain {
 		
 		panelDetail = new JPanel();
 		panelDetail.setBounds(518, 96, 479, 598);
-		panelPersonnes.add(panelDetail);
 		panelDetail.setVisible(false);
 		panelDetail.setLayout(null);
+		panelPersonnes.add(panelDetail);
 		
 		JLabel lblId = new JLabel("Identifiant");
 		lblId.setBounds(6, 6, 72, 16);
@@ -429,7 +447,6 @@ public class FrmMain {
 		// Champs identifiant
 		textFieldId = new JTextField();
 		textFieldId.setBounds(77, 1, 44, 26);
-		textFieldId.setColumns(10);
 		textFieldId.setHorizontalAlignment(JTextField.RIGHT);
 		textFieldId.setEditable(false);
 		textFieldId.setBackground(Color.LIGHT_GRAY);
@@ -449,7 +466,6 @@ public class FrmMain {
 		textFieldPrenom = new JTextField();
 		textFieldPrenom.setBounds(77, 29, 156, 26);
 		panelDetail.add(textFieldPrenom);
-		textFieldPrenom.setColumns(10);
 		
 		JLabel lblNom = new JLabel("Nom");
 		lblNom.setBounds(247, 34, 37, 16);
@@ -458,7 +474,6 @@ public class FrmMain {
 		textFieldNom = new JTextField();
 		textFieldNom.setBounds(282, 29, 191, 26);
 		panelDetail.add(textFieldNom);
-		textFieldNom.setColumns(10);
 		
 		JLabel lblCourriel = new JLabel("Courriel");
 		lblCourriel.setBounds(6, 60, 61, 16);
@@ -466,42 +481,51 @@ public class FrmMain {
 		
 		textFieldCourriel = new JTextField();
 		textFieldCourriel.setBounds(77, 55, 396, 26);
+		textFieldCourriel.setEditable(false);
+		textFieldCourriel.setBackground(Color.LIGHT_GRAY);
 		panelDetail.add(textFieldCourriel);
-		textFieldCourriel.setColumns(10);
 		
 		JLabel lblDdn = new JLabel("Né.e le");
 		lblDdn.setBounds(6, 85, 52, 16);
 		panelDetail.add(lblDdn);
 		
 		JLabel lblSolde = new JLabel("Solde");
-		lblSolde.setBounds(6, 112, 61, 16);
+		lblSolde.setBounds(6, 112, 44, 16);
 		panelDetail.add(lblSolde);
 		
 		textFieldSolde = new JTextField();
 		textFieldSolde.setBounds(77, 107, 72, 26);
+		textFieldSolde.setHorizontalAlignment(JTextField.RIGHT);
+		textFieldSolde.setEditable(false);
+		textFieldSolde.setBackground(Color.LIGHT_GRAY);
 		panelDetail.add(textFieldSolde);
-		textFieldSolde.setColumns(10);
 		
 		textFieldSoldeAjout = new JTextField();
-		textFieldSoldeAjout.setBounds(161, 107, 61, 26);
+		textFieldSoldeAjout.setBounds(155, 107, 52, 26);
+		textFieldSoldeAjout.setHorizontalAlignment(JTextField.RIGHT);
 		panelDetail.add(textFieldSoldeAjout);
-		textFieldSoldeAjout.setColumns(10);
+		
 		
 		btnAjouterSolde = new JButton("← Ajouter $");
-		btnAjouterSolde.setBounds(223, 107, 109, 29);
+		btnAjouterSolde.setBounds(205, 107, 109, 29);
 		panelDetail.add(btnAjouterSolde);
 		
 		btnEnregistrerFiche = new JButton("Enregistrer fiche");
-		btnEnregistrerFiche.setBounds(332, 107, 141, 29);
+		btnEnregistrerFiche.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnEnregistrerFiche();
+			}
+		});
+		btnEnregistrerFiche.setBounds(205, 80, 141, 29);
 		panelDetail.add(btnEnregistrerFiche);
 		
 		table_1 = new JTable();
 		table_1.setBounds(16, 177, 446, 385);
 		panelDetail.add(table_1);
 		
-		JDateChooser dateChooser = new JDateChooser();
-		dateChooser.setBounds(77, 80, 119, 26);
-		panelDetail.add(dateChooser);
+		dateChooserDdn = new JDateChooser();
+		dateChooserDdn.setBounds(77, 80, 119, 26);
+		panelDetail.add(dateChooserDdn);
 		
 		table = new JTable();
 		table.setBounds(505, 357, 1, 1);

@@ -17,6 +17,7 @@ public final class Data {
 	
 
 	public Data() {
+		client4.addMoney(1000);
 		directeur.addProduit(alim1);
 		directeur.addProduit(meuble1);
 	}

@@ -1,7 +1,6 @@
 package controleur;
 
 import modele.Repertoire;
-//import java.awt.EventQueue;
 import vue.FrmMain;
 
 public class Main {
@@ -26,7 +25,6 @@ public class Main {
 	 * Constructeur
 	 */
 	public Main() {
-		//frmMain = new FrmMain(this);
 		frmMain = new FrmMain();
 		frmMain.frame.setVisible(true);
 	}

@@ -64,7 +64,7 @@ public class FrmMain {
 	private static JPanel panelDetail;
 	private static JTextField textFieldId;
 	private static JComboBox<String> comboBoxRole;
-	private static JComboBox comboBoxListeDir;
+	private static JComboBox<Object> comboBoxListeDir;
 	private static JTextField textFieldPrenom;
 	private static JTextField textFieldNom;
 	private static JTextField textFieldCourriel;
@@ -93,8 +93,8 @@ public class FrmMain {
 	private static Panel errorPanelProd;
 	private static JLabel lblProdPref;
 	private static JLabel lblAjoutProdPref;
-	private static JComboBox comboBoxProdPref;
-	private static JComboBox comboBoxAjoutProdPref;
+	private static JComboBox<Produit> comboBoxProdPref;
+	private static JComboBox<Produit> comboBoxAjoutProdPref;
 	private JButton btnAjoutProdPref;
 
 	
@@ -600,7 +600,7 @@ public class FrmMain {
 		// https://baptiste-wicht.developpez.com/tutoriels/java/swing/debutant/?page=listes
 		// https://www.codejava.net/java-se/swing/jcombobox-basic-tutorial-and-examples
 		String[] Roles = new String[] {"Client", "Employe", "Directeur"};
-		comboBoxRole = new JComboBox(Roles);
+		comboBoxRole = new JComboBox<String>(Roles);
 		comboBoxRole.setBounds(364, 2, 109, 27);
 		panelDetail.add(comboBoxRole);
 		comboBoxRole.setVisible(false);
@@ -688,11 +688,11 @@ public class FrmMain {
 		lblAjoutProdPref.setBounds(6, 216, 143, 14);
 		panelDetail.add(lblAjoutProdPref);
 		
-		comboBoxProdPref = new JComboBox();
+		comboBoxProdPref = new JComboBox<Produit>();
 		comboBoxProdPref.setBounds(172, 177, 112, 22);
 		panelDetail.add(comboBoxProdPref);
 		
-		comboBoxAjoutProdPref = new JComboBox();
+		comboBoxAjoutProdPref = new JComboBox<Produit>();
 		comboBoxAjoutProdPref.setBounds(171, 212, 113, 22);
 		panelDetail.add(comboBoxAjoutProdPref);
 		
@@ -755,7 +755,7 @@ public class FrmMain {
 		panelProduits.add(lblNomDir);
 		
 		listeDir = Repertoire.getListeDir();
-		comboBoxListeDir = new JComboBox(listeDir);
+		comboBoxListeDir = new JComboBox<Object>(listeDir);
 		comboBoxListeDir.setBounds(613, 115, 121, 22);
 		panelProduits.add(comboBoxListeDir);
 		

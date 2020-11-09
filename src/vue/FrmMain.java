@@ -92,9 +92,6 @@ public class FrmMain {
 	private static JComboBox<Produit> comboBoxAjoutProdPref;
 	private static JButton btnAjoutProdPref;
 
-	
-
-
 	/**
 	 * Initialisation des données et de la frame principale
 	 */
@@ -246,7 +243,6 @@ public class FrmMain {
 			comboBoxProdPref.setModel(new JComboBox<>(personne.getProduitsPrefs()).getModel());
 			comboBoxAjoutProdPref.setModel(new JComboBox<>(Repertoire.getProduits()).getModel());
 		}
-		
 		panelDetail.setVisible(true);
 	}
 	
@@ -302,7 +298,6 @@ public class FrmMain {
 		
 		// On déselectionne l'autre bouton radio
 		rdbtnMeuble.setSelected(false);
-		
 	}
 	
 	/**
@@ -313,9 +308,13 @@ public class FrmMain {
 		
 		// On déselectionne l'autre bouton radio
 		rdbtnAlim.setSelected(false);
-		
 	}
 	
+	/**
+	 * Affiche la liste de produits selon leur catégorie
+	 * 
+	 * @param sorte
+	 */
 	public static void afficheListeProduits(String sorte) {
 		String[][] data = Repertoire.produitData(sorte);
 		String[] entete = Repertoire.produitEntete(sorte);
@@ -346,7 +345,6 @@ public class FrmMain {
 		txtType.setText("");
 		txtHauteur.setText("");
 		txtPrix.setText("");
-		
 	}
 	
 	/**
@@ -370,8 +368,7 @@ public class FrmMain {
 		// On rend les champs de textes des attributs de meubles éditable
 		txtType.setEditable(true);
 		txtHauteur.setEditable(true);
-		txtPrix.setEditable(true);
-		
+		txtPrix.setEditable(true);	
 	}
 	
 	/**
@@ -396,7 +393,6 @@ public class FrmMain {
 			// On met à jour la liste
 			comboBoxProdPref.setModel(new JComboBox<>(personne.getProduitsPrefs()).getModel());
 		}
-		
 	}
 	
 	/**
@@ -487,7 +483,6 @@ public class FrmMain {
 				errorPanelProd.setVisible(false);
 			}
 		}
-		
 	}
 	
 	

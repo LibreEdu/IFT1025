@@ -1,6 +1,6 @@
 package vue;
 
-import com.toedter.calendar.JDateChooser;
+//import com.toedter.calendar.JDateChooser;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -65,7 +65,7 @@ public class FrmMain {
 	private static JTextField textFieldPrenom;
 	private static JTextField textFieldNom;
 	private static JTextField textFieldCourriel;
-	private static JDateChooser dateChooserDdn;
+	//private static JDateChooser dateChooserDdn;
 	private static JTextField textFieldSolde;
 	private static JTextField textFieldSoldeAjout;
 	private static JButton btnAjouterSolde;
@@ -222,7 +222,7 @@ public class FrmMain {
 			LocalDate Ddn = personne.getDdn();
 			// https://stackoverflow.com/questions/22929237/convert-java-time-localdate-into-java-util-date-type
 			Date date = Date.from(Ddn.atStartOfDay(ZoneId.systemDefault()).toInstant());
-			dateChooserDdn.setDate(date);
+			//dateChooserDdn.setDate(date);
 			
 			DecimalFormat sf = new DecimalFormat("#,##0.00");
 			textFieldSolde.setText(sf.format(personne.getSolde()));
@@ -572,9 +572,9 @@ public class FrmMain {
 		table_1.setBounds(16, 177, 446, 385);
 		panelDetail.add(table_1);
 		
-		dateChooserDdn = new JDateChooser();
-		dateChooserDdn.setBounds(77, 80, 119, 26);
-		panelDetail.add(dateChooserDdn);
+		//dateChooserDdn = new JDateChooser();
+		//dateChooserDdn.setBounds(77, 80, 119, 26);
+		//panelDetail.add(dateChooserDdn);
 		
 		table = new JTable();
 		table.setBounds(505, 357, 1, 1);

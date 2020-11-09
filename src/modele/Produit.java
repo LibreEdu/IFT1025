@@ -30,10 +30,6 @@ public abstract class Produit {
 		return sorte;
 	}
 	
-	public String toString() {
-		return id+ " [Ajouter par " + directeur.getPrenom() + " " 
-				+ directeur.getNom() + "] ";
-	}
 	
 	abstract public boolean equals(Produit p);
 	

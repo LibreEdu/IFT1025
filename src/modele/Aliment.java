@@ -47,8 +47,7 @@ public class Aliment extends Produit {
 	}
 	
 	public String toString() {
-		return super.toString()+ "Aliment: " + nom + " " + couleur 
-				+ " ("+ poids + " kg)";
+		return nom + " " + couleur;
 	}
 
 }

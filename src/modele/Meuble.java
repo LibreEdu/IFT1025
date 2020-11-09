@@ -49,8 +49,7 @@ public class Meuble extends Produit {
 	}
 	
 	public String toString() {
-		return super.toString()+ "Meuble: " + type + " d'une hauteur maximale de: " 
-				+ hauteurMax + " cm ("+ prix + " $)";
+		return type;
 	}
 
 

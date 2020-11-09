@@ -23,12 +23,15 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -311,6 +314,20 @@ public class FrmMain {
 		lblAjoutProdPref.setVisible(true);
 		comboBoxAjoutProdPref.setVisible(true);
 		btnAjoutProdPref.setVisible(true);
+	}
+	
+	/**
+	 * Vérification du champs date
+	 */
+	private static void textFieldDdnfocusLost() {
+		// http://tutorials.jenkov.com/java-regex/pattern.html
+		// https://www.regextester.com/96683
+		String ddn = textFieldDdn.getText();
+		String ddnPattern = "([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))";
+		boolean matches = Pattern.matches(ddnPattern, ddn);
+		if (matches == false) {
+			JOptionPane.showMessageDialog(null, "La date doit être au format aaaa-mm-jj");
+		}
 	}
 	
 	/**
@@ -776,6 +793,11 @@ public class FrmMain {
 		panelDetail.add(lblDdn);
 		
 		textFieldDdn = new JTextField();
+		textFieldDdn.addFocusListener(new FocusAdapter() {
+			public void focusLost(FocusEvent e) {
+				textFieldDdnfocusLost();
+			}
+		});
 		textFieldDdn.setBounds(77, 80, 98, 26);
 		panelDetail.add(textFieldDdn);
 		

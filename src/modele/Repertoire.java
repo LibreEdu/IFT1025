@@ -46,6 +46,20 @@ public final class Repertoire {
 		}
 	}
 	
+	/**
+	 * Retourne un tableau contenant tous les produits
+	 * 	 
+	 * @return tableau de produits
+	 */
+	public static Produit[] getProduits() {
+		Produit[] result = new Produit[produits.size()];
+		int i = 0;
+		for(Produit produit: produits) {
+			result[i++]=produit;
+		}
+		return result;
+	}
+	
 	
 	/**
 	 * Renvoie un tableau de clients, d’employés ou de directeurs,
@@ -229,7 +243,7 @@ public final class Repertoire {
 	}
 	
 	/**
-	 * L’indexe de l’objet Personne dars la liste de personnes
+	 * L’indexe de l’objet Personne dans la liste de personnes
 	 * 
 	 * @param personne La personne dont on cherche l’index
 	 * 
@@ -273,7 +287,7 @@ public final class Repertoire {
 	}
 	
 	/**
-	 * Retourne la liste de personnes dont le nom commence par searchedString
+	 * Retourne la liste de personnes dont le nom ou le prenom commence par searchedString
 	 * 
 	 * @param searchedString La chaine de caractères que l’on recherche
 	 * 
@@ -282,12 +296,39 @@ public final class Repertoire {
 	public static ArrayList<Personne> searchByNameStartsWith(String searchedString) {
 		ArrayList<Personne> liste = new ArrayList<Personne>();
 		for(Personne personne : personnes) {
-			if (personne.getNom().startsWith(searchedString)) {
+			if (personne.getNom().startsWith(searchedString)
+					|| personne.getPrenom().startsWith(searchedString)) {
 				liste.add(personne);
 			}			
 		}
 		return liste;
 	}
+	
+	/**
+	 * Renvoie un tableau de clients, d’employés et de directeurs,
+	 * qui provient d'une liste
+	 * 
+	 * @param ArrayListe de Personnes
+	 * @return Tableau d'informations des personnes
+	 */
+	public static String[][] personneData(ArrayList<Personne> liste) {
+		
+		String[][] result = new String[liste.size()][4];
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		int i = 0;
+		
+		for(Personne personne : liste) {
+			String[] row = new String[4];
+			row[0] = Integer.toString(personne.getId());
+			row[1] = personne.getPrenom();
+			row[2] = personne.getNom();
+			row[3] = personne.getDdn().format(dtf);
+			result[i++] = row;
+		}
+	
+		return result;
+	}
+	
 
 	/**
 	 * Retourne l’objet Personne dont l’identifiant est id

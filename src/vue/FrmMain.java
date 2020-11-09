@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -75,7 +76,6 @@ public class FrmMain {
 	private static JTextField textFieldRecherche;
 	private static JButton btnRechercher;
 	private static JTable table;
-	private static JTable table_1;
 	private static Directeur[] listeDir;
 	private static Directeur directeur;
 	private static JRadioButton rdbtnAddAlim;
@@ -90,7 +90,12 @@ public class FrmMain {
 	private static JTextField txtHauteur;
 	private static JTextField txtPrix;
 	private static JTextArea erreurProduit;
-	private Panel errorPanelProd;
+	private static Panel errorPanelProd;
+	private static JLabel lblProdPref;
+	private static JLabel lblAjoutProdPref;
+	private static JComboBox comboBoxProdPref;
+	private static JComboBox comboBoxAjoutProdPref;
+	private JButton btnAjoutProdPref;
 
 	
 
@@ -189,6 +194,24 @@ public class FrmMain {
         scrollPanePersonne.setViewportView(tablePersonne);
 	}
 	
+	/**
+	 * Affiche les personnes dont le nom ou le prenom commence par la chaine entré
+	 */
+	
+	private static void btnRechercher() {
+		String query = textFieldRecherche.getText();
+		ArrayList<Personne> liste = Repertoire.searchByNameStartsWith(query);
+		
+		String[][] data = Repertoire.personneData(liste);
+		String[] entete = Repertoire.personneEntete();
+		
+		afficheListe(data,entete);
+		
+		// Déselectionner les boutons
+		rdbtnClient.setSelected(false);
+		rdbtnEmploye.setSelected(false);
+		rdbtnDirecteur.setSelected(false);
+	}
 
 	/**
 	 * Affiche le détail de la personne
@@ -224,7 +247,11 @@ public class FrmMain {
 			
 			DecimalFormat sf = new DecimalFormat("#,##0.00");
 			textFieldSolde.setText(sf.format(personne.getSolde()));
+			
+			comboBoxProdPref.setModel(new JComboBox<>(personne.getProduitsPrefs()).getModel());
+			comboBoxAjoutProdPref.setModel(new JComboBox<>(Repertoire.getProduits()).getModel());
 		}
+		
 		panelDetail.setVisible(true);
 	}
 	
@@ -341,6 +368,31 @@ public class FrmMain {
 	}
 	
 	/**
+	 * Clic sur le bouton ajouter (pour ajouter un produit préféré)
+	 */
+	private void btnAjoutProdPref() {
+		//On récupère le produit sélectionné
+		Produit produit = (Produit) comboBoxAjoutProdPref.getSelectedItem();
+		
+		// On récupère le # de la ligne sélectionnée dans le tableau de personnes
+		int row = tablePersonne.getSelectedRow();
+		
+		// On récupère le Id de la personne
+		// Si aucune ligne est sélectionnée, row == -1
+		if (row >= 0) {
+			int id = Integer.parseInt((String) tablePersonne.getValueAt(row, 0));
+			Personne personne = Repertoire.searchById(id);
+			
+			// On ajoute le produit
+			personne.addProduitPref(produit);
+			
+			// On met à jour la liste
+			comboBoxProdPref.setModel(new JComboBox<>(personne.getProduitsPrefs()).getModel());
+		}
+		
+	}
+	
+	/**
 	 * Clic sur le bouton ajouter produit
 	 */
 	private void btnAjouterProd() {
@@ -380,6 +432,10 @@ public class FrmMain {
 				
 				// Si on est en train d'afficher les aliments, mettre à jour la liste
 				if(rdbtnAlim.isSelected()) afficheListeProduits("Aliment");
+				
+				// Mettre à jour la liste des produits qui peuvent être ajouter par les clients
+				comboBoxAjoutProdPref.setModel(new JComboBox<>(Repertoire.getProduits()).getModel());
+				
 				errorPanelProd.setVisible(false);
 			}
 			
@@ -483,6 +539,7 @@ public class FrmMain {
 		rdbtnClient.setSelected(true);
 		
 		textFieldRecherche = new JTextField();
+		textFieldRecherche.setToolTipText("Entrez le début d'un nom");
 		textFieldRecherche.setBounds(739, 2, 65, 26);
 		textFieldRecherche.setColumns(10);
 		panelPersonnes.add(textFieldRecherche);
@@ -491,6 +548,11 @@ public class FrmMain {
 		btnRechercher = new JButton("Rechercher");
 		btnRechercher.setBounds(804, 2, 117, 29);
 		panelPersonnes.add(btnRechercher);
+		btnRechercher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnRechercher();
+			}
+		});
 		
 		btnDetail = new JButton("Détail");
 		btnDetail.setEnabled(false);
@@ -503,7 +565,7 @@ public class FrmMain {
 		panelPersonnes.add(btnDetail);
 		
 		JButton button = new JButton("Nouvelle personne");
-		button.setBounds(804, 55, 141, 29);
+		button.setBounds(804, 55, 164, 29);
 		panelPersonnes.add(button);
 		
 		panelDetail = new JPanel();
@@ -601,9 +663,30 @@ public class FrmMain {
 		btnEnregistrerFiche.setBounds(205, 80, 141, 29);
 		panelDetail.add(btnEnregistrerFiche);
 		
-		table_1 = new JTable();
-		table_1.setBounds(16, 177, 446, 385);
-		panelDetail.add(table_1);
+		lblProdPref = new JLabel("Produits Préférés :");
+		lblProdPref.setBounds(6, 181, 143, 14);
+		panelDetail.add(lblProdPref);
+		
+		lblAjoutProdPref = new JLabel("Ajouter un produit :");
+		lblAjoutProdPref.setBounds(6, 216, 143, 14);
+		panelDetail.add(lblAjoutProdPref);
+		
+		comboBoxProdPref = new JComboBox();
+		comboBoxProdPref.setBounds(172, 177, 112, 22);
+		panelDetail.add(comboBoxProdPref);
+		
+		comboBoxAjoutProdPref = new JComboBox();
+		comboBoxAjoutProdPref.setBounds(171, 212, 113, 22);
+		panelDetail.add(comboBoxAjoutProdPref);
+		
+		btnAjoutProdPref = new JButton("Ajouter");
+		btnAjoutProdPref.setBounds(313, 212, 89, 23);
+		panelDetail.add(btnAjoutProdPref);
+		btnAjoutProdPref.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnAjoutProdPref();
+			}
+		});
 		
 		table = new JTable();
 		table.setBounds(505, 357, 1, 1);

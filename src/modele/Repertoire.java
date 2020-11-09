@@ -140,30 +140,32 @@ public final class Repertoire {
 		switch(typeOfProduit) {
 			case "Aliment":
 				length = Repertoire.nbAlim;
-				String[][] result1 = new String[length][4];
+				String[][] result1 = new String[length][5];
 				
 				for(Produit produit : produits) {
 					if (produit.getSorte().equals("Aliment")) {
-						String[] row = new String[4];
-						row[0] = ((Aliment)produit).getNom();
-						row[1] = ((Aliment)produit).getCouleur();
-						row[2] = Double.toString(((Aliment)produit).getPoids());
-						row[3] = produit.getDirecteur().toString();
+						String[] row = new String[5];
+						row[0] = ""+produit.getId();
+						row[1] = ((Aliment)produit).getNom();
+						row[2] = ((Aliment)produit).getCouleur();
+						row[3] = Double.toString(((Aliment)produit).getPoids());
+						row[4] = produit.getDirecteur().toString();
 						result1[i++] = row;
 					}
 				}
 				return result1;
 			case "Meuble":
 				length = Repertoire.nbMeuble;
-				String[][] result2 = new String[length][4];
+				String[][] result2 = new String[length][5];
 				
 				for(Produit produit : produits) {
 					if (produit.getSorte().equals("Meuble")) {
-						String[] row = new String[4];
-						row[0] = ((Meuble)produit).getType();
-						row[1] = Double.toString(((Meuble)produit).getHauteurMax());
-						row[2] = Double.toString(((Meuble)produit).getPrix());
-						row[3] = produit.getDirecteur().toString();
+						String[] row = new String[5];
+						row[0] = ""+produit.getId();
+						row[1] = ((Meuble)produit).getType();
+						row[2] = Double.toString(((Meuble)produit).getHauteurMax());
+						row[3] = Double.toString(((Meuble)produit).getPrix());
+						row[4] = produit.getDirecteur().toString();
 						result2[i++] = row;
 					}
 				}
@@ -179,19 +181,20 @@ public final class Repertoire {
 	 * @return l’entête du tableau de produits
 	 */
 	public static String[] produitEntete(String typeOfProduit) {
-		String[] result = new String[4];
+		String[] result = new String[5];
+		result[0]="Id";
 		switch(typeOfProduit) {
 		case "Aliment":
-			result[0]="Nom";
-			result[1]="Couleur";
-			result[2]="Poids";
-			result[3]="Ajouté par";
+			result[1]="Nom";
+			result[2]="Couleur";
+			result[3]="Poids";
+			result[4]="Ajouté par";
 			break;
 		case "Meuble":
-			result[0]="Type";
-			result[1]="Hauteur Maximale";
-			result[2]="Prix";
-			result[3]="Ajouté par";
+			result[1]="Type";
+			result[2]="Hauteur Maximale";
+			result[3]="Prix";
+			result[4]="Ajouté par";
 			break;
 	}
 		
@@ -280,6 +283,11 @@ public final class Repertoire {
 	 * @return
 	 */
 	public static boolean remove(Produit produit) {
+		if (produit instanceof Aliment) {
+			nbAlim--;
+		} else if(produit instanceof Meuble) {
+			nbMeuble--;
+		}
 		return produits.remove(produit);
 	}
 	
@@ -337,6 +345,22 @@ public final class Repertoire {
 		for(Personne personne : personnes) {
 			if (personne.getId() == id) {
 				return personne;
+			}	
+		}
+		return null;		
+	}
+	
+	/**
+	 * Retourne l’objet Produit dont l’identifiant est id
+	 * 
+	 * @param id identifiant du produit cherché
+	 * 
+	 * @return produit dont l’identifiant est id
+	 */
+	public static Produit searchByIdProd(int id) {
+		for(Produit produit : produits) {
+			if (produit.getId() == id) {
+				return produit;
 			}	
 		}
 		return null;		

@@ -59,7 +59,8 @@ public class FrmMain {
 	private static JButton btnRechercher;
 	private static JButton btnRetirerArgent;
 	private static JButton btnRetirerProdPref;
-	private static JComboBox<Object> comboBoxListeDir;
+	private static JButton btnRetirerProd;
+	private static JComboBox<Directeur> comboBoxListeDir;
 	private static JComboBox<Object> comboBoxRole;
 	private static JComboBox<Produit> comboBoxAjoutProdPref;
 	private static JComboBox<Produit> comboBoxProdPref;
@@ -115,9 +116,6 @@ public class FrmMain {
 		// On déselectionne les deux autres boutons radios
 		rdbtnEmploye.setSelected(false);
 		rdbtnDirecteur.setSelected(false);
-		
-		// On désactive le bouton détail
-		btnDetail.setEnabled(false);
 		panelDetail.setVisible(false);
 	}
 	
@@ -375,6 +373,8 @@ public class FrmMain {
 					rdbtnClient.setSelected(false);
 					rdbtnEmploye.setSelected(false);
 					rdbtnDirecteur.setSelected(true);
+					// On l'ajoute dans la liste des directeurs qui peuvent gérer les produits
+					comboBoxListeDir.setModel(new JComboBox<>(Repertoire.getListeDir()).getModel());
 					break;
 			}
 			
@@ -458,6 +458,9 @@ public class FrmMain {
 		
 		// On déselectionne l'autre bouton radio
 		rdbtnMeuble.setSelected(false);
+		
+		// On désactive le boutton retirer produit
+		btnRetirerProd.setEnabled(false);
 	}
 	
 	/**
@@ -468,17 +471,64 @@ public class FrmMain {
 		
 		// On déselectionne l'autre bouton radio
 		rdbtnAlim.setSelected(false);
+		
+		// On désactive le boutton retirer produit
+		btnRetirerProd.setEnabled(false);
+	}
+	
+	/**
+	 * Retire un produit de la liste
+	 */
+	private static void btnRetirerProd() {
+		
+		// On récupère le # de la ligne sélectionnée
+		int row = tableProduit.getSelectedRow();
+		
+		// Récupérer le directeur
+		directeur = (Directeur) comboBoxListeDir.getSelectedItem();
+		
+		
+		// On récupère le Id du produit
+		// Si aucune ligne est sélectionnée, row == -1
+		if (row >= 0) {
+			int id = Integer.parseInt((String) tableProduit.getValueAt(row, 0));
+			Produit produit = Repertoire.searchByIdProd(id);
+			
+			// On supprime le produit
+			directeur.delProduit(produit);
+			
+			// On affiche la liste de produit mise à jour
+			if(produit instanceof Aliment) {
+				rdbtnAlim();
+			} else if(produit instanceof Meuble) {
+				rdbtnMeuble();
+			}
+		}
+		
+		
 	}
 	
 	/**
 	 * Affiche la liste de produits selon leur catégorie
 	 * 
-	 * @param sorte
+	 * @param sorte de produit
 	 */
 	public static void afficheListeProduits(String sorte) {
 		String[][] data = Repertoire.produitData(sorte);
 		String[] entete = Repertoire.produitEntete(sorte);
 		tableProduit = new JTable(data, entete);
+		
+		// Activer le boutton retirer un produit
+		tableProduit.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent event) {
+				btnRetirerProd.setEnabled(true);
+			}
+			
+		});
+		
+		// Largeur des colonnes : colonne Identifiant
+		TableColumn col = tableProduit.getColumnModel().getColumn(0);
+        col.setPreferredWidth(0);
 		
         scrollPaneProduit.setViewportView(tableProduit);
 	}
@@ -620,11 +670,8 @@ public class FrmMain {
 				txtCouleur.setText("");
 				txtPoids.setText("");
 				
-				// Si on est en train d'afficher les aliments, mettre à jour la liste
-				if(rdbtnAlim.isSelected()) afficheListeProduits("Aliment");
-				
-				// Mettre à jour la liste des produits qui peuvent être ajouter par les clients
-				comboBoxAjoutProdPref.setModel(new JComboBox<>(Repertoire.getProduits()).getModel());
+				// Afficher  la liste des aliments mise à jour
+				rdbtnAlim();
 				
 				errorPanelProd.setVisible(false);
 			}
@@ -665,11 +712,13 @@ public class FrmMain {
 				txtPrix.setText("");
 				txtHauteur.setText("");
 				
-				// Si on est en train d'afficher les meubles, mettre à jour la liste
-				if(rdbtnMeuble.isSelected()) afficheListeProduits("Meuble");
+				// Afficher la liste des meubles mise à jour
+				rdbtnMeuble();
 				errorPanelProd.setVisible(false);
 			}
 		}
+		// Mettre à jour la liste des produits qui peuvent être ajouter par les clients
+		comboBoxAjoutProdPref.setModel(new JComboBox<>(Repertoire.getProduits()).getModel());
 	}
 	
 	
@@ -931,7 +980,7 @@ public class FrmMain {
 		
 		
 		rdbtnAlim = new JRadioButton("Aliments");
-		rdbtnAlim.setBounds(512, 9, 111, 23);
+		rdbtnAlim.setBounds(512, 34, 111, 23);
 		panelProduits.add(rdbtnAlim);
 		rdbtnAlim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -940,7 +989,7 @@ public class FrmMain {
 		});
 		
 		rdbtnMeuble = new JRadioButton("Meubles");
-		rdbtnMeuble.setBounds(512, 35, 111, 23);
+		rdbtnMeuble.setBounds(512, 55, 111, 23);
 		panelProduits.add(rdbtnMeuble);
 		rdbtnMeuble.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -948,18 +997,28 @@ public class FrmMain {
 			}
 		});
 		
+		btnRetirerProd = new JButton("Retirer le produit");
+		btnRetirerProd.setEnabled(false);
+		btnRetirerProd.setBounds(516, 85, 160, 23);
+		panelProduits.add(btnRetirerProd);
+		btnRetirerProd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnRetirerProd();
+			}
+		});
+		
 		JLabel lblAjoutProd = new JLabel("Ajouter un produit");
 		lblAjoutProd.setFont(new Font("Tahoma", Font.BOLD, 16));
-		lblAjoutProd.setBounds(516, 85, 171, 23);
+		lblAjoutProd.setBounds(516, 110, 171, 23);
 		panelProduits.add(lblAjoutProd);
 		
 		JLabel lblNomDir = new JLabel("Directeur :");
-		lblNomDir.setBounds(516, 119, 87, 14);
+		lblNomDir.setBounds(516, 13, 87, 14);
 		panelProduits.add(lblNomDir);
 		
 		listeDir = Repertoire.getListeDir();
-		comboBoxListeDir = new JComboBox<Object>(listeDir);
-		comboBoxListeDir.setBounds(613, 115, 121, 22);
+		comboBoxListeDir = new JComboBox<Directeur>(listeDir);
+		comboBoxListeDir.setBounds(591, 9, 121, 22);
 		panelProduits.add(comboBoxListeDir);
 		
 		

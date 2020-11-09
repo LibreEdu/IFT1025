@@ -59,7 +59,7 @@ public class FrmMain {
 	private static JButton btnDetail;
 	private static JPanel panelDetail;
 	private static JTextField textFieldId;
-	private static JComboBox<String> comboBoxRole;
+	private static JComboBox<Object> comboBoxRole;
 	private static JComboBox<Object> comboBoxListeDir;
 	private static JTextField textFieldPrenom;
 	private static JTextField textFieldNom;
@@ -596,7 +596,7 @@ public class FrmMain {
 		// https://baptiste-wicht.developpez.com/tutoriels/java/swing/debutant/?page=listes
 		// https://www.codejava.net/java-se/swing/jcombobox-basic-tutorial-and-examples
 		String[] Roles = new String[] {"Client", "Employe", "Directeur"};
-		comboBoxRole = new JComboBox<String>(Roles);
+		comboBoxRole = new JComboBox<Object>(Roles);
 		comboBoxRole.setBounds(364, 2, 109, 27);
 		panelDetail.add(comboBoxRole);
 		comboBoxRole.setVisible(false);

@@ -507,7 +507,6 @@ public class FrmMain {
 	 * @param controle Le controleur
 	 */
 	private void initialize() {
-		//this.controle = controle;
 		frame = new JFrame();
 		frame.setBounds(x, y, largeur, hauteur);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -621,7 +620,6 @@ public class FrmMain {
 		
 		textFieldPrenom = new JTextField();
 		textFieldPrenom.addFocusListener(new FocusAdapter() {
-			@Override
 			public void focusLost(FocusEvent e) {
 				textFieldNomPrenomFocusLost();
 			}
@@ -635,7 +633,6 @@ public class FrmMain {
 		
 		textFieldNom = new JTextField();
 		textFieldNom.addFocusListener(new FocusAdapter() {
-			@Override
 			public void focusLost(FocusEvent e) {
 				textFieldNomPrenomFocusLost();
 			}

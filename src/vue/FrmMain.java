@@ -2,6 +2,7 @@ package vue;
 
 import controleur.Main;
 import modele.Aliment;
+import modele.Client;
 import modele.Meuble;
 import modele.Produit;
 import modele.Data;
@@ -316,23 +317,76 @@ public class FrmMain {
 	 * Enregistre les données de la personne, pas l’ajout de solde
 	 */
 	private static void btnEnregistrerFiche() {
-		Personne personne = Repertoire.getPersonne(Integer.parseInt(textFieldId.getText()));
+		String id = textFieldId.getText();
 
-		personne.setNom(textFieldNom.getText());
-		personne.setPrenom(textFieldPrenom.getText());
-		personne.setCourriel(Personne.genererCourriel(textFieldPrenom.getText(), textFieldNom.getText()));
-		
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate ddn = LocalDate.parse(textFieldDdn.getText(), dtf);
-		personne.setDdn(ddn);
-		
-		// On rafraichi l’affichage de la liste
-		if (rdbtnClient.isSelected()) {
-			demandeListe("Client");
-		} else if (rdbtnEmploye.isSelected()) {
-			demandeListe("Employe");
-		} else {
-			demandeListe("Directeur");
+		if (id.isEmpty()) {	// C’est un ajout
+			String nom = textFieldNom.getText();
+			String prenom = textFieldPrenom.getText();
+			String ddn = textFieldDdn.getText();
+			String role = (String) comboBoxRole.getSelectedItem();
+			switch(role) {
+				case "Client":
+					new Client(prenom, nom, ddn);
+					// On rafraichi l’affichage de la liste
+					demandeListe("Client");
+					// Sélection du radio bouton
+					rdbtnClient.setSelected(true);
+					rdbtnEmploye.setSelected(false);
+					rdbtnDirecteur.setSelected(false);
+					break;
+				case "Employe":
+					new Employe(prenom, nom, ddn);
+					// On rafraichi l’affichage de la liste
+					demandeListe("Employe");
+					// Sélection du radio bouton
+					rdbtnClient.setSelected(false);
+					rdbtnEmploye.setSelected(true);
+					rdbtnDirecteur.setSelected(false);
+					break;
+				case "Directeur":
+					new Directeur(prenom, nom, ddn);
+					// On rafraichi l’affichage de la liste
+					demandeListe("Directeur");
+					// Sélection du radio bouton
+					rdbtnClient.setSelected(false);
+					rdbtnEmploye.setSelected(false);
+					rdbtnDirecteur.setSelected(true);
+					break;
+			}
+			int compteur = Personne.getCompteur();
+			System.out.println("compteur = " + compteur);
+			int row = 0;
+			for (int i = 0; i < tablePersonne.getRowCount(); i++) {
+				int id2 = Integer.parseInt((String) tablePersonne.getValueAt(row, 0));
+				System.out.println("id2 = " + id2);
+				if (id2 == compteur) {
+					break;
+				} else {
+					row++;
+				}
+			}
+			System.out.println(row);
+			
+		} else {		// C’est une modif
+			Personne personne = Repertoire.getPersonne(Integer.parseInt(id));
+			String nom = textFieldNom.getText();
+			String prenom = textFieldPrenom.getText();
+			personne.setNom(nom);
+			personne.setPrenom(prenom);
+			personne.setCourriel(Personne.genererCourriel(prenom, nom));
+			
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+			LocalDate ddn = LocalDate.parse(textFieldDdn.getText(), dtf);
+			personne.setDdn(ddn);
+			
+			// On rafraichi l’affichage de la liste
+			if (rdbtnClient.isSelected()) {
+				demandeListe("Client");
+			} else if (rdbtnEmploye.isSelected()) {
+				demandeListe("Employe");
+			} else {
+				demandeListe("Directeur");
+			}
 		}
 	}
 	

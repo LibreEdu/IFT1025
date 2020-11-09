@@ -18,7 +18,6 @@ public class Main {
 		String[][] data = Repertoire.personneData(Role);
 		String[] entete = Repertoire.personneEntete();	
 		FrmMain.afficheListe(data, entete);
-
 	}
 	
 	/*

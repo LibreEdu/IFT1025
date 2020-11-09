@@ -50,7 +50,7 @@ public abstract class Personne implements Comparable<Personne> {
 		// class epicerie.Client => Client
 		role = this.getClass().toString().replaceAll(".+\\.","");
 		
-		id = compteur++;
+		id = ++compteur;
 		
 		Repertoire.add(this);
 	}
@@ -156,6 +156,10 @@ public abstract class Personne implements Comparable<Personne> {
 		return id;
 	}
 	
+	public static int getCompteur() {
+		return compteur;
+	}
+
 	public void addProduitPref(Produit p) {
 		produitsPrefs.add(p);
 	}

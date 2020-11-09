@@ -634,6 +634,12 @@ public class FrmMain {
 		panelDetail.add(lblNom);
 		
 		textFieldNom = new JTextField();
+		textFieldNom.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				textFieldNomPrenomFocusLost();
+			}
+		});
 		textFieldNom.setBounds(282, 29, 191, 26);
 		panelDetail.add(textFieldNom);
 		

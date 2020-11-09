@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -194,6 +195,24 @@ public class FrmMain {
         scrollPanePersonne.setViewportView(tablePersonne);
 	}
 	
+	/**
+	 * Affiche les personnes dont le nom ou le prenom commence par la chaine entré
+	 */
+	
+	private static void btnRechercher() {
+		String query = textFieldRecherche.getText();
+		ArrayList<Personne> liste = Repertoire.searchByNameStartsWith(query);
+		
+		String[][] data = Repertoire.personneData(liste);
+		String[] entete = Repertoire.personneEntete();
+		
+		afficheListe(data,entete);
+		
+		// Déselectionner les boutons
+		rdbtnClient.setSelected(false);
+		rdbtnEmploye.setSelected(false);
+		rdbtnDirecteur.setSelected(false);
+	}
 
 	/**
 	 * Affiche le détail de la personne
@@ -389,6 +408,10 @@ public class FrmMain {
 				
 				// Si on est en train d'afficher les aliments, mettre à jour la liste
 				if(rdbtnAlim.isSelected()) afficheListeProduits("Aliment");
+				
+				// Mettre à jour la liste des produits qui peuvent être ajouter par les clients
+				comboBoxAjoutProdPref.setModel(new JComboBox<>(Repertoire.getProduits()).getModel());
+				
 				errorPanelProd.setVisible(false);
 			}
 			
@@ -492,6 +515,7 @@ public class FrmMain {
 		rdbtnClient.setSelected(true);
 		
 		textFieldRecherche = new JTextField();
+		textFieldRecherche.setToolTipText("Entrez le début d'un nom");
 		textFieldRecherche.setBounds(739, 2, 65, 26);
 		textFieldRecherche.setColumns(10);
 		panelPersonnes.add(textFieldRecherche);
@@ -500,6 +524,11 @@ public class FrmMain {
 		btnRechercher = new JButton("Rechercher");
 		btnRechercher.setBounds(804, 2, 117, 29);
 		panelPersonnes.add(btnRechercher);
+		btnRechercher.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnRechercher();
+			}
+		});
 		
 		btnDetail = new JButton("Détail");
 		btnDetail.setEnabled(false);
@@ -512,7 +541,7 @@ public class FrmMain {
 		panelPersonnes.add(btnDetail);
 		
 		JButton button = new JButton("Nouvelle personne");
-		button.setBounds(804, 55, 141, 29);
+		button.setBounds(804, 55, 164, 29);
 		panelPersonnes.add(button);
 		
 		panelDetail = new JPanel();

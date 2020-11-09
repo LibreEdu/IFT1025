@@ -289,6 +289,16 @@ public class FrmMain {
 	}
 	
 	/**
+	 * Ajoute un montant au solde
+	 */
+	private static void btnAjouterSolde() {
+		Personne personne = Repertoire.getPersonne(Integer.parseInt(textFieldId.getText()));
+		personne.addMoney(Float.parseFloat(textFieldSoldeAjout.getText()));
+		DecimalFormat sf = new DecimalFormat("#,##0.00");
+		textFieldSolde.setText(sf.format(personne.getSolde()));
+	}
+	
+	/**
 	 * Clic sur le bouton radio Aliments
 	 */
 	private void rdbtnAlim() {
@@ -542,7 +552,6 @@ public class FrmMain {
 		textFieldRecherche = new JTextField();
 		textFieldRecherche.setToolTipText("Entrez le début d'un nom");
 		textFieldRecherche.setBounds(739, 2, 65, 26);
-		textFieldRecherche.setColumns(10);
 		panelPersonnes.add(textFieldRecherche);
 		
 		
@@ -653,6 +662,11 @@ public class FrmMain {
 		
 		
 		btnAjouterSolde = new JButton("← Ajouter $");
+		btnAjouterSolde.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnAjouterSolde();
+			}
+		});
 		btnAjouterSolde.setBounds(205, 107, 109, 29);
 		panelDetail.add(btnAjouterSolde);
 		

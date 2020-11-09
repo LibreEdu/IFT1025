@@ -177,7 +177,7 @@ public abstract class Personne implements Comparable<Personne> {
 		return solde;
 	}
 
-	protected void addMoney(float solde) {
+	public void addMoney(float solde) {
 		this.solde += solde;
 	}
 	

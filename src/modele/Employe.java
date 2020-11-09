@@ -6,11 +6,15 @@ public class Employe extends Personne{
 		super(prenom, nom, date);
 	}
 
-	public String toString() {
-		return super.toString();
-	}
+//	public String toString() {
+//		return super.toString();
+//	}
 	
-	public void augmenterSolde(Client client, double montant) {
-		client.addMoney((float)montant);
+//	public void augmenterSolde(Client client, double montant) {
+//		client.addMoney((float)montant);
+//	}
+	
+	public void substractMoney(float solde) {
+		this.solde -= solde;
 	}
 }

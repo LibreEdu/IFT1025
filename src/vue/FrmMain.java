@@ -71,7 +71,7 @@ public class FrmMain {
 	private static JTextField textFieldDdn;
 	private static JTextField textFieldSolde;
 	private static JTextField textFieldSoldeAjout;
-	private static JButton btnAjouterSolde;
+	private static JButton btnAjouterArgent;
 	private static JButton btnEnregistrerFiche;
 	private static JTextField textFieldRecherche;
 	private static JButton btnRechercher;
@@ -291,11 +291,12 @@ public class FrmMain {
 	/**
 	 * Ajoute un montant au solde
 	 */
-	private static void btnAjouterSolde() {
+	private static void btnAjouterArgent() {
 		Personne personne = Repertoire.getPersonne(Integer.parseInt(textFieldId.getText()));
 		personne.addMoney(Float.parseFloat(textFieldSoldeAjout.getText()));
 		DecimalFormat sf = new DecimalFormat("#,##0.00");
 		textFieldSolde.setText(sf.format(personne.getSolde()));
+		textFieldSoldeAjout.setText("");
 	}
 	
 	/**
@@ -661,14 +662,14 @@ public class FrmMain {
 		panelDetail.add(textFieldSoldeAjout);
 		
 		
-		btnAjouterSolde = new JButton("← Ajouter $");
-		btnAjouterSolde.addActionListener(new ActionListener() {
+		btnAjouterArgent = new JButton("← Ajouter $");
+		btnAjouterArgent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnAjouterSolde();
+				btnAjouterArgent();
 			}
 		});
-		btnAjouterSolde.setBounds(205, 107, 109, 29);
-		panelDetail.add(btnAjouterSolde);
+		btnAjouterArgent.setBounds(205, 107, 109, 29);
+		panelDetail.add(btnAjouterArgent);
 		
 		btnEnregistrerFiche = new JButton("Enregistrer fiche");
 		btnEnregistrerFiche.addActionListener(new ActionListener() {
@@ -698,6 +699,10 @@ public class FrmMain {
 		btnAjoutProdPref = new JButton("Ajouter");
 		btnAjoutProdPref.setBounds(313, 212, 89, 23);
 		panelDetail.add(btnAjoutProdPref);
+		
+		JButton btnAjouterSolde_1 = new JButton("← Ajouter $");
+		btnAjouterSolde_1.setBounds(313, 107, 109, 29);
+		panelDetail.add(btnAjouterSolde_1);
 		btnAjoutProdPref.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnAjoutProdPref();

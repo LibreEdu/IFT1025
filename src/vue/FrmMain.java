@@ -572,6 +572,14 @@ public class FrmMain {
 			}
 		});
 		
+		JButton buttonNouvellePersonne = new JButton("Nouvelle personne");
+		buttonNouvellePersonne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		buttonNouvellePersonne.setBounds(804, 55, 164, 29);
+		panelPersonnes.add(buttonNouvellePersonne);
+		
 		btnDetail = new JButton("Détail");
 		btnDetail.setEnabled(false);
 		btnDetail.addActionListener(new ActionListener() {
@@ -581,10 +589,6 @@ public class FrmMain {
 		});
 		btnDetail.setBounds(804, 28, 117, 29);
 		panelPersonnes.add(btnDetail);
-		
-		JButton button = new JButton("Nouvelle personne");
-		button.setBounds(804, 55, 164, 29);
-		panelPersonnes.add(button);
 		
 		panelDetail = new JPanel();
 		panelDetail.setBounds(518, 96, 479, 598);

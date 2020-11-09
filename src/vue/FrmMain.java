@@ -58,8 +58,8 @@ public class FrmMain {
 	private static JRadioButton rdbtnClient;
 	private static JRadioButton rdbtnEmploye;
 	private static JRadioButton rdbtnDirecteur;
-	JRadioButton rdbtnAlim;
-	JRadioButton rdbtnMeuble;
+	private static JRadioButton rdbtnAlim;
+	private static JRadioButton rdbtnMeuble;
 	private static JButton btnDetail;
 	private static JPanel panelDetail;
 	private static JTextField textFieldId;
@@ -95,7 +95,7 @@ public class FrmMain {
 	private static JLabel lblAjoutProdPref;
 	private static JComboBox<Produit> comboBoxProdPref;
 	private static JComboBox<Produit> comboBoxAjoutProdPref;
-	private JButton btnAjoutProdPref;
+	private static JButton btnAjoutProdPref;
 
 	
 
@@ -302,7 +302,7 @@ public class FrmMain {
 	/**
 	 * Clic sur le bouton radio Aliments
 	 */
-	private void rdbtnAlim() {
+	private static void rdbtnAlim() {
 		afficheListeProduits("Aliment");
 		
 		// On déselectionne l'autre bouton radio
@@ -313,7 +313,7 @@ public class FrmMain {
 	/**
 	 * Clic sur le bouton radio Meubles
 	 */
-	private void rdbtnMeuble() {
+	private static void rdbtnMeuble() {
 		afficheListeProduits("Meuble");
 		
 		// On déselectionne l'autre bouton radio
@@ -332,7 +332,7 @@ public class FrmMain {
 	/**
 	 * Clic sur le bouton radio Aliment dans la section ajouter un produit
 	 */
-	private void rdbtnAddAlim() {
+	private static void rdbtnAddAlim() {
 		
 		// On déselectionne l'autre bouton radio
 		rdbtnAddMeuble.setSelected(false);
@@ -357,7 +357,7 @@ public class FrmMain {
 	/**
 	 * Clic sur le bouton radio Meuble dans la section ajouter un produit
 	 */
-	private void rdbtnAddMeuble() {
+	private static void rdbtnAddMeuble() {
 		
 		// On déselectionne l'autre bouton radio
 		rdbtnAddAlim.setSelected(false);
@@ -382,7 +382,7 @@ public class FrmMain {
 	/**
 	 * Clic sur le bouton ajouter (pour ajouter un produit préféré)
 	 */
-	private void btnAjoutProdPref() {
+	private static void btnAjoutProdPref() {
 		//On récupère le produit sélectionné
 		Produit produit = (Produit) comboBoxAjoutProdPref.getSelectedItem();
 		
@@ -407,7 +407,7 @@ public class FrmMain {
 	/**
 	 * Clic sur le bouton ajouter produit
 	 */
-	private void btnAjouterProd() {
+	private static void btnAjouterProd() {
 		
 		// Récupérer le directeur
 		directeur = (Directeur) comboBoxListeDir.getSelectedItem();
@@ -500,7 +500,7 @@ public class FrmMain {
 	 * Initialize the contents of the frame.
 	 * @param controle Le controleur
 	 */
-	private void initialize() {
+	private static void initialize() {
 		//this.controle = controle;
 		frame = new JFrame();
 		frame.setBounds(x, y, largeur, hauteur);

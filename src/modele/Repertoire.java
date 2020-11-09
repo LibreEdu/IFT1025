@@ -96,6 +96,22 @@ public final class Repertoire {
 	}
 	
 	/**
+	 * Renvoie l’objet Personne pour l’id donné
+	 * 
+	 * @param id Identifiant de la personne
+	 * 
+	 * @return Personne cprrespondant à l’identifiant
+	 */
+	public static Personne getPersonne(int id) {
+		for(Personne personne : personnes) {
+			if (personne.getId() == id) {
+				return personne;
+			}			
+		}
+		return null;
+	}
+	
+	/**
 	 * Renvoie un tableau d'aliments ou de meubles,
 	 * afin de remplir la liste dans la vue
 	 * 

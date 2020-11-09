@@ -37,7 +37,6 @@ public abstract class Personne implements Comparable<Personne> {
 	 * @param date     date de naissance au format aaaa-mm-jj
 	 */
 	public Personne(String prenom, String nom, String date) {
-		int nbCourriels;
 		
 		this.prenom = prenom;
 		this.nom = nom;
@@ -46,6 +45,18 @@ public abstract class Personne implements Comparable<Personne> {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 		ddn = LocalDate.parse(date, dtf);
 		
+		courriel = genererCourriel(prenom, nom);
+
+		// class epicerie.Client => Client
+		role = this.getClass().toString().replaceAll(".+\\.","");
+		
+		id = compteur++;
+		
+		Repertoire.add(this);
+	}
+	
+	public static String genererCourriel(String prenom, String nom) {
+		int nbCourriels;
 		
 		// On remplace 1 ou plusieurs espaces par rien
 		// https://stackoverflow.com/questions/5455794/removing-whitespace-from-strings-in-java
@@ -58,18 +69,10 @@ public abstract class Personne implements Comparable<Personne> {
 		nbCourriels = Repertoire.searchEmail(prenom + "." + nom);
 		
 		if (nbCourriels == 0) {
-			courriel = prenom + "." + nom + "@" + Magasin.getTld();
+			return prenom + "." + nom + "@" + Magasin.getTld();
 		} else {
-			courriel = prenom + "." + nom + nbCourriels + "@" + Magasin.getTld();
+			return prenom + "." + nom + nbCourriels + "@" + Magasin.getTld();
 		}
-		
-		// class epicerie.Client => Client
-		role = this.getClass().toString().replaceAll(".+\\.","");
-		
-		id = compteur++;
-		
-		Repertoire.add(this);
-		
 	}
 	
 	/**

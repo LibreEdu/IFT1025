@@ -37,6 +37,8 @@ import modele.Repertoire;
 //import java.awt.Font;
 import javax.swing.JTextPane;
 import java.awt.Panel;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 
 
@@ -151,7 +153,6 @@ public class FrmMain {
 	 */
 	private static void demandeListe(String Role) {
 		Main.demandeFrmMainListePersonnes(Role);
-		//afficheListe(Role);
 	}
 	
 	/**
@@ -160,9 +161,6 @@ public class FrmMain {
 	 * @param Role Nom de la classe à afficher : "Client", "Employe", "Directeur"
 	 */
 	public static void afficheListe(String[][] data, String[] entete) {
-	//public static void afficheListe(String Role) {
-		//String[][] data = Repertoire.personneData(Role);
-		//String[] entete = Repertoire.personneEntete();
 		tablePersonne = new JTable(data, entete);
 		
 		// Lorsque une personne de la liste est sélectionnée,
@@ -182,7 +180,8 @@ public class FrmMain {
 		
 		// Largeur des colonnes : colonne Identifiant
 		TableColumn col = tablePersonne.getColumnModel().getColumn(0);
-        col.setPreferredWidth(0); 
+        col.setPreferredWidth(0);
+        
 		// colonne Date de naissance
         col = tablePersonne.getColumnModel().getColumn(3);
         col.setPreferredWidth(30);
@@ -233,7 +232,32 @@ public class FrmMain {
 	 * Enregistre les données de la personne, pas l’ajout de solde
 	 */
 	private static void btnEnregistrerFiche() {
+		Personne personne = Repertoire.getPersonne(Integer.parseInt(textFieldId.getText()));
+		personne.setNom(textFieldNom.getText());
+		personne.setPrenom(textFieldPrenom.getText());
+		personne.setCourriel(Personne.genererCourriel(textFieldPrenom.getText(), textFieldNom.getText()));
 		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate ddn = LocalDate.parse(textFieldDdn.getText(), dtf);
+		personne.setDdn(ddn);
+		
+		// On rafraichi l’affichage de la liste
+		if (rdbtnClient.isSelected()) {
+			demandeListe("Client");
+		} else if (rdbtnEmploye.isSelected()) {
+			demandeListe("Employe");
+		} else {
+			demandeListe("Directeur");
+		}
+	}
+	
+	/**
+	 * Mise à jour du courriel lorsqu’on change le nom ou le prénom
+	 */
+	private static void textFieldNomPrenomFocusLost() {
+		String prenom = textFieldPrenom.getText();
+		String nom = textFieldNom.getText();
+		textFieldCourriel.setText(Personne.genererCourriel(prenom, nom));
 	}
 	
 	/**
@@ -512,6 +536,12 @@ public class FrmMain {
 		panelDetail.add(lblPrenom);
 		
 		textFieldPrenom = new JTextField();
+		textFieldPrenom.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				textFieldNomPrenomFocusLost();
+			}
+		});
 		textFieldPrenom.setBounds(77, 29, 156, 26);
 		panelDetail.add(textFieldPrenom);
 		

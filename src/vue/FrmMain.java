@@ -503,6 +503,22 @@ public class FrmMain {
 			} else if(produit instanceof Meuble) {
 				rdbtnMeuble();
 			}
+			
+			// On met à jour le comboBox de produits qui peuvent être mis dans les préférés
+			comboBoxAjoutProdPref.setModel(new JComboBox<>(Repertoire.getProduits()).getModel());
+			
+			// On retire le produit des produits préférés de chaque personne
+			for(Personne personne : Repertoire.getListePersonne()) {
+				personne.delProduitPref(produit);
+				
+			}
+			// On met à jour la liste de produits préférés de la personne sélectionné
+			int rowPers = tablePersonne.getSelectedRow();
+			if (rowPers >= 0) {
+				int idPers = Integer.parseInt((String) tablePersonne.getValueAt(row, 0));
+				Personne personne = Repertoire.searchById(idPers);
+				comboBoxProdPref.setModel(new JComboBox<>(personne.arrayProduitsPrefs()).getModel());
+			}
 		}
 		
 		

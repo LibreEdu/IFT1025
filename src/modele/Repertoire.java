@@ -60,6 +60,15 @@ public final class Repertoire {
 		return result;
 	}
 	
+	/**
+	 * Retourne la liste des personnes
+	 * 	 
+	 * @return ArrayList de personnes
+	 */
+	public static ArrayList<Personne> getListePersonne() {
+		return personnes;
+	}
+	
 	
 	/**
 	 * Renvoie un tableau de clients, d’employés ou de directeurs,

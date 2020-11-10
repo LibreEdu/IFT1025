@@ -60,7 +60,7 @@ public class FrmMain {
 	private static JButton btnRetirerArgent;
 	private static JButton btnRetirerProdPref;
 	private static JButton btnRetirerProd;
-	private static JComboBox<Directeur> comboBoxListeDir;
+	private static JComboBox<Object> comboBoxListeDir;
 	private static JComboBox<Object> comboBoxRole;
 	private static JComboBox<Produit> comboBoxAjoutProdPref;
 	private static JComboBox<Produit> comboBoxProdPref;
@@ -1033,7 +1033,7 @@ public class FrmMain {
 		panelProduits.add(lblNomDir);
 		
 		listeDir = Repertoire.getListeDir();
-		comboBoxListeDir = new JComboBox<Directeur>(listeDir);
+		comboBoxListeDir = new JComboBox<Object>(listeDir);
 		comboBoxListeDir.setBounds(591, 9, 121, 22);
 		panelProduits.add(comboBoxListeDir);
 		

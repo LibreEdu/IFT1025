@@ -281,6 +281,13 @@ public final class Repertoire {
 	 * @return
 	 */
 	public static boolean remove(Personne personne) {
+		if (personne instanceof Client) {
+			nbClient--;
+		} else if(personne instanceof Employe) {
+			nbEmploye--;
+		} else if(personne instanceof Directeur) {
+			nbDirecteur--;
+		}
 		return personnes.remove(personne);
 	}
 	

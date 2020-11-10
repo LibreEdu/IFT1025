@@ -918,7 +918,7 @@ public class FrmMain {
 		buttonNouvellePersonne.setBounds(804, 82, 164, 29);
 		panelPersonnes.add(buttonNouvellePersonne);
 		
-		btnDetail = new JButton("Détail");
+		btnDetail = new JButton("Détails");
 		btnDetail.setEnabled(false);
 		btnDetail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

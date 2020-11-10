@@ -9,8 +9,8 @@ import java.util.regex.Pattern;
 /**
  * Les personnes, classe abstraite
  * 
- * @author Alexandre Pachot
  * @author Jeanne Laflamme
+ * @author Alexandre Pachot
  */
 public abstract class Personne implements Comparable<Personne> {
 	

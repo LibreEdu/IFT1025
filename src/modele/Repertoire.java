@@ -6,8 +6,8 @@ import java.util.ArrayList;
 /**
  * Le répertoire qui contient la liste des personnes et la liste des produits
  * 
- * @author Alexandre Pachot
  * @author Jeanne Laflamme
+ * @author Alexandre Pachot
  */
 public final class Repertoire {
 	private static ArrayList<Personne> personnes = new ArrayList<Personne>();

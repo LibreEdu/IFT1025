@@ -3,8 +3,8 @@ package modele;
 /**
  * Les directeurs
  * 
- * @author Alexandre Pachot
  * @author Jeanne Laflamme
+ * @author Alexandre Pachot
  */
 public class Directeur extends Employe {
 

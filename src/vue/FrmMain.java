@@ -44,8 +44,8 @@ import javax.swing.table.TableColumn;
 /**
  * La frame principale
  * 
- * @author Alexandre Pachot
  * @author Jeanne Laflamme
+ * @author Alexandre Pachot
  */
 public class FrmMain {
 

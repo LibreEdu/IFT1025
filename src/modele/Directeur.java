@@ -1,5 +1,11 @@
 package modele;
 
+/**
+ * Les directeurs
+ * 
+ * @author Alexandre Pachot
+ * @author Jeanne Laflamme
+ */
 public class Directeur extends Employe {
 
 	public Directeur(String prenom, String nom, String date) {

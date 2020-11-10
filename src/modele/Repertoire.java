@@ -3,6 +3,12 @@ package modele;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Le répertoire qui contient la liste des personnes et la liste des produits
+ * 
+ * @author Alexandre Pachot
+ * @author Jeanne Laflamme
+ */
 public final class Repertoire {
 	private static ArrayList<Personne> personnes = new ArrayList<Personne>();
 	private static ArrayList<Produit> produits = new ArrayList<Produit>();
@@ -230,9 +236,9 @@ public final class Repertoire {
 	/**
 	 * Compte le nombre de courriel
 	 * 
-	 * @param debutCourriel <prenom.nom>
+	 * @param debutCourriel Le début de l’adresse courriel, le prenom.nom
 	 * 
-	 * @return le nombre de courriel qui commence par <prenom.nom>
+	 * @return le nombre de courriel qui commence par prenom.nom
 	 */
 	public static int searchEmail(String debutCourriel) {
 		int compteur = 0;
@@ -278,7 +284,7 @@ public final class Repertoire {
 	 * 
 	 * @param personne La personne à supprimer
 	 * 
-	 * @return
+	 * @return L’élément supprimé
 	 */
 	public static boolean remove(Personne personne) {
 		if (personne instanceof Client) {
@@ -296,7 +302,7 @@ public final class Repertoire {
 	 * 
 	 * @param produit produit à supprimer
 	 * 
-	 * @return
+	 * @return L’élément supprimé
 	 */
 	public static boolean remove(Produit produit) {
 		if (produit instanceof Aliment) {
@@ -329,7 +335,7 @@ public final class Repertoire {
 	 * Renvoie un tableau de clients, d’employés et de directeurs,
 	 * qui provient d'une liste
 	 * 
-	 * @param ArrayListe de Personnes
+	 * @param liste ArrayListe de Personnes
 	 * @return Tableau d'informations des personnes
 	 */
 	public static String[][] personneData(ArrayList<Personne> liste) {

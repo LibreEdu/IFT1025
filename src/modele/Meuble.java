@@ -1,5 +1,10 @@
 package modele;
 
+/**
+ * Les meubles
+ * 
+ * @author Jeanne Laflamme
+ */
 public class Meuble extends Produit {
 
 	private String type;

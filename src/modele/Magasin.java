@@ -1,5 +1,10 @@
 package modele;
 
+/**
+ * Le magasin
+ * 
+ * @author Alexandre Pachot
+ */
 public class Magasin {
 	private static String tld;
 

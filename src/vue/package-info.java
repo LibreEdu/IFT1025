@@ -1,0 +1,4 @@
+/**
+ * Les vues
+ */
+package vue;

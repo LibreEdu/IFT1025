@@ -1,5 +1,10 @@
 package modele;
 
+/**
+ * Les aliments
+ * 
+ * @author Jeanne Laflamme
+ */
 public class Aliment extends Produit {
 	private String couleur;
 	private String nom;

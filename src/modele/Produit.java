@@ -1,5 +1,10 @@
 package modele;
 
+/**
+ * Les produits, classe abstraite
+ * 
+ * @author Jeanne Laflamme
+ */
 public abstract class Produit {
 	
 	private Directeur directeur;

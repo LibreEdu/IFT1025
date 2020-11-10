@@ -1,5 +1,11 @@
 package modele;
 
+/**
+ * Les données : création de clients, produits...
+ * 
+ * @author Alexandre Pachot
+ * @author Jeanne Laflamme
+ */
 public final class Data {
 	public Magasin magasin = new Magasin("magasin.ca");
 	public Repertoire repertoire = new Repertoire();

@@ -40,10 +40,13 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumn;
-import java.awt.Component;
-import javax.swing.Box;
 
-
+/**
+ * La frame principale
+ * 
+ * @author Alexandre Pachot
+ * @author Jeanne Laflamme
+ */
 public class FrmMain {
 
 	private static int x = 0;
@@ -169,7 +172,8 @@ public class FrmMain {
 	/**
 	 * Affiche la liste des personnes selon leur roles
 	 * 
-	 * @param Role Nom de la classe à afficher : "Client", "Employe", "Directeur"
+	 * @param data Tableau contenant les informations à afficher
+	 * @param entete Tableau contenant les entêtes du tableau
 	 */
 	public static void afficheListe(String[][] data, String[] entete) {
 		tablePersonne = new JTable(data, entete);

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 /**
- * Classe abstraite qui représente une personne
+ * Les personnes, classe abstraite
  * 
  * @author Alexandre Pachot
  * @author Jeanne Laflamme

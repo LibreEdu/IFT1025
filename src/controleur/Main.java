@@ -3,6 +3,11 @@ package controleur;
 import modele.Repertoire;
 import vue.FrmMain;
 
+/**
+ * Le controleur
+ * 
+ * @author Alexandre Pachot
+ */
 public class Main {
 	
 	private FrmMain frmMain;

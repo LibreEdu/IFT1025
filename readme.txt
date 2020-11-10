@@ -19,7 +19,7 @@ Dans l'onglet des produits, on peut :
 – afficher la liste des produits par catégories : les aliments et les meubles ;
 - sélectionner le compte du directeur qui va gérer les produits ;
 - sélectionner un produit pour le retirer de la liste ;
-- ajouter un aliment ou un meuble à la liste ;
+- ajouter un aliment ou un meuble à la liste.
 
 Contrairement à ce que pourrait laisser croire l’arborescence, l’organisation
 utilisée n’est pas celle du MVC, à l’exception de la récupération de la liste

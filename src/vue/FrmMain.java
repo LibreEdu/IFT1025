@@ -40,6 +40,8 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumn;
+import java.awt.Component;
+import javax.swing.Box;
 
 
 public class FrmMain {
@@ -58,6 +60,7 @@ public class FrmMain {
 	private static JButton btnEnregistrerFiche;
 	private static JButton btnRechercher;
 	private static JButton btnRetirerArgent;
+	private static JButton btnRetirerPersonne;
 	private static JButton btnRetirerProdPref;
 	private static JButton btnRetirerProd;
 	private static JComboBox<Object> comboBoxListeDir;
@@ -116,7 +119,12 @@ public class FrmMain {
 		// On déselectionne les deux autres boutons radios
 		rdbtnEmploye.setSelected(false);
 		rdbtnDirecteur.setSelected(false);
+		
+		// On désactive le bouton détail
+		btnDetail.setEnabled(false);
+		btnRetirerPersonne.setEnabled(false);
 		panelDetail.setVisible(false);
+		btnRetirerArgent.setVisible(false);
 	}
 	
 	/**
@@ -131,6 +139,7 @@ public class FrmMain {
 		
 		// On désactive le bouton détail
 		btnDetail.setEnabled(false);
+		btnRetirerPersonne.setEnabled(false);
 		panelDetail.setVisible(false);
 	}
 	
@@ -146,6 +155,7 @@ public class FrmMain {
 		
 		// On désactive le bouton détail
 		btnDetail.setEnabled(false);
+		btnRetirerPersonne.setEnabled(false);
 		panelDetail.setVisible(false);
 	}
 	
@@ -170,6 +180,7 @@ public class FrmMain {
 		tablePersonne.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent event) {
 				btnDetail.setEnabled(true);
+				btnRetirerPersonne.setEnabled(true);
 				
 				// On rafraichit le Détail de la personne au besoin
 				if (panelDetail.isVisible()) {
@@ -235,6 +246,7 @@ public class FrmMain {
 		lblAjoutProdPref.setVisible(false);
 		comboBoxAjoutProdPref.setVisible(false);
 		btnAjoutProdPref.setVisible(false);
+		btnRetirerProdPref.setVisible(false);
 		
 		// Synchronisation entre le choix par défaut de la liste déroulante
 		// et le bouton radio actif
@@ -313,6 +325,49 @@ public class FrmMain {
 		lblAjoutProdPref.setVisible(true);
 		comboBoxAjoutProdPref.setVisible(true);
 		btnAjoutProdPref.setVisible(true);
+		btnRetirerProdPref.setVisible(true);
+		
+		textFieldSoldeAjout.setText("");
+	}
+	
+	/**
+	 * Supprime une personne
+	 */
+	private static void btnRetirerPersonne() {
+		
+		// On récupère le # de la ligne sélectionnée
+		int row = tablePersonne.getSelectedRow();
+		
+		// On récupère le Id de la personne
+		// Si aucune ligne est sélectionnée, row == -1
+		if (row >= 0) {
+			int id = Integer.parseInt((String) tablePersonne.getValueAt(row, 0));
+			Personne personne = Repertoire.searchById(id);
+			String msg = "Êtes-vous sûr de vouloir supprimer la personne #";
+			msg += personne.getId() + " (";
+			msg += personne.getPrenom() + " ";
+			msg += personne.getNom() + ")";
+			
+			int input = JOptionPane.showConfirmDialog(null, msg);
+			
+			if (input == 0) {
+				Repertoire.remove(personne);
+				
+				// On rafraichi l’affichage de la liste
+				if (rdbtnClient.isSelected()) {
+					demandeListe("Client");
+				} else if (rdbtnEmploye.isSelected()) {
+					demandeListe("Employe");
+				} else {
+					demandeListe("Directeur");
+				}
+				
+				// Désactivation des boutons
+				btnDetail.setEnabled(false);
+				btnRetirerPersonne.setEnabled(false);
+			}
+		}
+		
 	}
 	
 	/**
@@ -374,7 +429,7 @@ public class FrmMain {
 					rdbtnEmploye.setSelected(false);
 					rdbtnDirecteur.setSelected(true);
 					// On l'ajoute dans la liste des directeurs qui peuvent gérer les produits
-					comboBoxListeDir.setModel(new JComboBox<>(Repertoire.getListeDir()).getModel());
+					comboBoxListeDir.setModel(new JComboBox<Object>(Repertoire.getListeDir()).getModel());
 					break;
 			}
 			
@@ -432,22 +487,54 @@ public class FrmMain {
 	 * Ajoute un montant au solde
 	 */
 	private static void btnAjouterArgent() {
-		Personne personne = Repertoire.getPersonne(Integer.parseInt(textFieldId.getText()));
-		personne.addMoney(Float.parseFloat(textFieldSoldeAjout.getText()));
-		DecimalFormat sf = new DecimalFormat("#,##0.00");
-		textFieldSolde.setText(sf.format(personne.getSolde()));
-		textFieldSoldeAjout.setText("");
+		if (textFieldSoldeAjout.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Champs vide");
+			return;
+		}
+		float montant = 0;
+		try {
+			montant = Float.parseFloat(textFieldSoldeAjout.getText());
+		} catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Donnée invalide");
+			return;
+		}
+		
+		if (montant > 0) {
+			Personne personne = Repertoire.getPersonne(Integer.parseInt(textFieldId.getText()));
+			personne.addMoney(montant);
+			DecimalFormat sf = new DecimalFormat("#,##0.00");
+			textFieldSolde.setText(sf.format(personne.getSolde()));
+			textFieldSoldeAjout.setText("");
+		} else {
+			JOptionPane.showMessageDialog(null, "Montant incorrect");
+		}
 	}
 	
 	/**
 	 * Retire un montant au solde
 	 */
 	private static void btnRetirerArgent() {
-		Employe employe = (Employe) Repertoire.getPersonne(Integer.parseInt(textFieldId.getText()));
-		employe.substractMoney(Float.parseFloat(textFieldSoldeAjout.getText()));
-		DecimalFormat sf = new DecimalFormat("#,##0.00");
-		textFieldSolde.setText(sf.format(employe.getSolde()));
-		textFieldSoldeAjout.setText("");
+		if (textFieldSoldeAjout.getText().equals("")) {
+			JOptionPane.showMessageDialog(null, "Champs vide");
+			return;
+		}
+		float montant = 0;
+		try {
+			montant = Float.parseFloat(textFieldSoldeAjout.getText());
+		} catch(Exception e) {
+			JOptionPane.showMessageDialog(null, "Donnée invalide");
+			return;
+		}
+		
+		if (montant > 0) {
+			Employe employe = (Employe) Repertoire.getPersonne(Integer.parseInt(textFieldId.getText()));
+			employe.substractMoney(montant);
+			DecimalFormat sf = new DecimalFormat("#,##0.00");
+			textFieldSolde.setText(sf.format(employe.getSolde()));
+			textFieldSoldeAjout.setText("");
+		} else {
+			JOptionPane.showMessageDialog(null, "Montant incorrect");
+		}
 	}
 	
 	/**
@@ -806,13 +893,25 @@ public class FrmMain {
 			}
 		});
 		
+		
+		btnRetirerPersonne = new JButton("Supprimer");
+		btnRetirerPersonne.setEnabled(false);
+		btnRetirerPersonne.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnRetirerPersonne();
+			}
+		});
+		btnRetirerPersonne.setBounds(804, 55, 164, 29);
+		panelPersonnes.add(btnRetirerPersonne);
+
+		
 		JButton buttonNouvellePersonne = new JButton("Nouvelle personne");
 		buttonNouvellePersonne.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				buttonNouvellePersonne();
 			}
 		});
-		buttonNouvellePersonne.setBounds(804, 55, 164, 29);
+		buttonNouvellePersonne.setBounds(804, 82, 164, 29);
 		panelPersonnes.add(buttonNouvellePersonne);
 		
 		btnDetail = new JButton("Détail");
@@ -826,7 +925,7 @@ public class FrmMain {
 		panelPersonnes.add(btnDetail);
 		
 		panelDetail = new JPanel();
-		panelDetail.setBounds(518, 96, 479, 598);
+		panelDetail.setBounds(518, 112, 479, 598);
 		panelDetail.setVisible(false);
 		panelDetail.setLayout(null);
 		panelPersonnes.add(panelDetail);
@@ -979,8 +1078,6 @@ public class FrmMain {
 			}
 		});
 		
-		
-		
 		// Et on affiche les données correspondantes
 		rdbtnClient();
 		
@@ -1049,7 +1146,7 @@ public class FrmMain {
 		});
 		
 		rdbtnAddMeuble = new JRadioButton("Meuble");
-		rdbtnAddMeuble.setBounds(724, 140, 111, 23);
+		rdbtnAddMeuble.setBounds(720, 140, 111, 23);
 		panelProduits.add(rdbtnAddMeuble);
 		rdbtnAddMeuble.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1071,21 +1168,18 @@ public class FrmMain {
 		
 		txtNom = new JTextField();
 		txtNom.setEditable(false);
-		txtNom.setBounds(556, 170, 96, 20);
+		txtNom.setBounds(591, 167, 96, 20);
 		panelProduits.add(txtNom);
-		//txtNom.setColumns(10);
 		
 		txtPoids = new JTextField();
 		txtPoids.setEditable(false);
-		txtPoids.setBounds(568, 224, 96, 20);
+		txtPoids.setBounds(591, 224, 96, 20);
 		panelProduits.add(txtPoids);
-		//txtPoids.setColumns(10);
 		
 		txtCouleur = new JTextField();
 		txtCouleur.setEditable(false);
 		txtCouleur.setBounds(591, 194, 96, 20);
 		panelProduits.add(txtCouleur);
-		//txtCouleur.setColumns(10);
 		
 		JLabel lblType = new JLabel("Type :");
 		lblType.setBounds(724, 170, 49, 14);
@@ -1101,21 +1195,18 @@ public class FrmMain {
 		
 		txtType = new JTextField();
 		txtType.setEditable(false);
-		txtType.setBounds(772, 167, 96, 20);
+		txtType.setBounds(852, 167, 96, 20);
 		panelProduits.add(txtType);
-		txtType.setColumns(10);
 		
 		txtHauteur = new JTextField();
 		txtHauteur.setEditable(false);
-		txtHauteur.setBounds(842, 194, 96, 20);
+		txtHauteur.setBounds(852, 194, 96, 20);
 		panelProduits.add(txtHauteur);
-		txtHauteur.setColumns(10);
 		
 		txtPrix = new JTextField();
 		txtPrix.setEditable(false);
-		txtPrix.setBounds(762, 224, 96, 20);
+		txtPrix.setBounds(852, 224, 96, 20);
 		panelProduits.add(txtPrix);
-		txtPrix.setColumns(10);
 		
 		JButton btnAjouterProd = new JButton("Ajouter le produit");
 		btnAjouterProd.setBounds(643, 272, 157, 23);
@@ -1129,14 +1220,13 @@ public class FrmMain {
 		// Text Area qui affiche un message d'erreur si les attributs
 		// d'un produit sont mal entré
 		errorPanelProd = new Panel();
-		errorPanelProd.setBounds(574, 314, 294, 71);
+		errorPanelProd.setBounds(543, 314, 408, 73);
 		panelProduits.add(errorPanelProd);
 		errorPanelProd.setVisible(false);
 		
 		erreurProduit = new JTextArea();
 		erreurProduit.setForeground(Color.RED);
 		erreurProduit.setRows(2);
-		erreurProduit.setColumns(20);
 		errorPanelProd.add(erreurProduit);
 			
 		// Affichage des données 

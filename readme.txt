@@ -24,3 +24,5 @@ Dans l'onglet des produits, on peut :
 Contrairement à ce que pourrait laisser croire l’arborescence, l’organisation
 utilisée n’est pas celle du MVC, à l’exception de la récupération de la liste
 des personnes.
+
+La classe Main se trouve dans le package controleur.

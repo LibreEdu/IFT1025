@@ -224,6 +224,9 @@ public class FrmMain {
 		rdbtnDirecteur.setSelected(false);
 	}
 	
+	/**
+	 * Ajout d’une nouvelle personne
+	 */
 	private static void buttonNouvellePersonne() {
 		
 		// On affiche le panneau du détail de la personne

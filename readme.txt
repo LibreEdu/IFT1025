@@ -11,6 +11,7 @@ Dans l’onglet des personnes, on peut :
 – ajouter une nouvelle personne ;
 – ajouter un montant au solde ;
 – retirer un montant au solde pour les employés et les directeurs ;
+– consulter la liste des produits préférés ;
 – ajouter et retirer un produit de la liste préférée de la personne.
 
 Contrairement à ce que pourrait laisser croire l’arborescence, l’organisation
